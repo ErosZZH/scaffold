@@ -10,7 +10,7 @@
 	
 	<name>scaffold</name>
 	<url>http://www.rick.com</url>
-	<inceptionYear>2012-2015</inceptionYear>
+	<inceptionYear>2015-2020</inceptionYear>
 	
 	<!-- 项目属性 -->
 	<properties>
@@ -104,7 +104,7 @@
 		</dependency>
 		
 		<!-- jstl -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>javax.servlet.jsp.jstl</groupId>
 			<artifactId>jstl-api</artifactId>
 			<version>${jstl.version}</version>
@@ -113,7 +113,7 @@
 			<groupId>org.glassfish.web</groupId>
 			<artifactId>jstl-impl</artifactId>
 			<version>${jstl.version}</version>
-		</dependency>
+		</dependency> -->
 		
 		<!-- spring -->
 		<dependency>
@@ -160,7 +160,7 @@
 		</dependency>
 		
 		<!-- apache -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>commons-dbcp</groupId>
 			<artifactId>commons-dbcp</artifactId>
 			<version>1.4</version>
@@ -169,7 +169,7 @@
 			<groupId>commons-pool</groupId>
 			<artifactId>commons-pool</artifactId>
 			<version>1.6</version>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
