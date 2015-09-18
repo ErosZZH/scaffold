@@ -1,16 +1,16 @@
 package com.rick.scaffold.api.user;
 
-import org.junit.Test;
-import org.springframework.http.MediaType;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.rick.scaffold.api.generic.BaseTest;
+import org.junit.Test;
+import org.springframework.http.MediaType;
+
+import com.rick.scaffold.base.BaseApiTest;
 
 
-public class TestUser extends BaseTest {
+public class TestUser extends BaseApiTest {
 
 	@Test
 	public void testGetUserAPI() throws Exception {
