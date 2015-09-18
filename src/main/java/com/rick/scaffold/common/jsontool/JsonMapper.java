@@ -247,7 +247,7 @@ public class JsonMapper extends ObjectMapper {
 		
 		User user = new User();
 		user.setAvatar("123");
-		String json1 = JsonMapper.getInstance().toJson(user);
+		String json1 = JsonMapper.toJsonString(user);
 		System.out.println(json1);
 	}
 	
