@@ -31,7 +31,7 @@
 
 	<!-- Root Logger -->
 	<root>
-		<priority value="error" />
+		<priority value="warn" />
 		<appender-ref ref="SCAFFOLD" />
 		<appender-ref ref="CONSOLE" />
 	</root>

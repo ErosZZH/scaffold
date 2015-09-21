@@ -19,7 +19,7 @@ public abstract class DataEntity<T> extends BaseEntity<T> {
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	protected Date updateDate;	// 更新日期
 	
-	@JsonIgnore
+//	@JsonIgnore
 	protected Boolean delFlag = false; 	// 删除标记（false：正常；true：删除；）
 	
 	public DataEntity() {

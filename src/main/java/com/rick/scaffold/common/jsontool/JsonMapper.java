@@ -1,8 +1,6 @@
 package com.rick.scaffold.common.jsontool;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
 import java.util.TimeZone;
 
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -11,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser.Feature;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -21,10 +20,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.databind.ser.std.NonTypedScalarSerializerBase;
 import com.fasterxml.jackson.databind.util.JSONPObject;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.rick.scaffold.core.entity.user.User;
 
 /**
  * 简单封装Jackson，实现JSON String<->Java Object的Mapper.
@@ -38,13 +35,13 @@ public class JsonMapper extends ObjectMapper {
 	private static Logger logger = LoggerFactory.getLogger(JsonMapper.class);
 
 	private static JsonMapper mapper;
-
+	
 	private JsonMapper() {
-		//仍然要保留空的属性
-		this(Include.NON_EMPTY);
+		//spring 使用默认的处理器
+		this(Include.ALWAYS);
 	}
 
-	public JsonMapper(Include include) {
+	public JsonMapper(Include include, int type) {
 		// 设置输出时包含属性的风格
 		if (include != null) {
 			this.setSerializationInclusion(include);
@@ -74,11 +71,46 @@ public class JsonMapper extends ObjectMapper {
 		// 设置时区
 		this.setTimeZone(TimeZone.getDefault());//getTimeZone("GMT+8:00")
 	}
+	
+	/**
+	 * Added by Rick
+	 * @param include
+	 */
+	public JsonMapper(Include include) {
+		// 设置输出时包含属性的风格
+		if (include != null) {
+			this.setSerializationInclusion(include);
+		}
+		// 设置输入时忽略在JSON字符串中存在但Java对象实际没有的属性
+		this.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        // 空值处理为空串
+		this.getSerializerProvider().setNullValueSerializer(new JsonSerializer<Object>(){
+			@Override
+			public void serialize(Object value, JsonGenerator jgen,
+					SerializerProvider provider) throws IOException,
+					JsonProcessingException {
+				jgen.writeString("");
+			}
+        });
+		//boolean to string
+		this.registerModule(new SimpleModule().addSerializer(new NonTypedScalarSerializerBase<Boolean>(Boolean.class) {
+
+			@Override
+			public void serialize(Boolean value, JsonGenerator jgen,
+					SerializerProvider provider) throws IOException,
+					JsonGenerationException {
+
+				jgen.writeString(value.toString());
+			}
+			
+		}));
+		
+	}
 
 	/**
 	 * 创建只输出非Null且非Empty(如List.isEmpty)的属性到Json字符串的Mapper,建议在外部接口中使用.
 	 */
-	public static JsonMapper getInstance() {
+	public static JsonMapper getCommonInstance() {
 		if (mapper == null){
 			mapper = new JsonMapper().enableSimple();
 		}
@@ -90,7 +122,18 @@ public class JsonMapper extends ObjectMapper {
 	 */
 	public static JsonMapper nonDefaultMapper() {
 		if (mapper == null){
-			mapper = new JsonMapper(Include.NON_DEFAULT);
+			mapper = new JsonMapper(Include.NON_DEFAULT, 1);
+		}
+		return mapper;
+	}
+	
+	/**
+	 * 最常用的Mapper，null转“”， boolean转“”
+	 * @return
+	 */
+	public static JsonMapper getInstance() {
+		if(mapper == null) {
+			mapper = new JsonMapper(Include.ALWAYS);
 		}
 		return mapper;
 	}
@@ -223,32 +266,6 @@ public class JsonMapper extends ObjectMapper {
 	 */
 	public static Object fromJsonString(String jsonString, Class<?> clazz){
 		return JsonMapper.getInstance().fromJson(jsonString, clazz);
-	}
-	
-	/**
-	 * 测试
-	 */
-	public static void main(String[] args) {
-		List<Map<String, Object>> list = Lists.newArrayList();
-		Map<String, Object> map = Maps.newHashMap();
-		map.put("id", 1);
-		map.put("pId", -1);
-		map.put("name", "根节点");
-		map.put("aaa", null);
-		list.add(map);
-		map = Maps.newHashMap();
-		map.put("id", 2);
-		map.put("pId", 1);
-		map.put("name", "你好");
-		map.put("open", true);
-		list.add(map);
-		String json = JsonMapper.getInstance().toJson(list);
-		System.out.println(json);
-		
-		User user = new User();
-		user.setAvatar("123");
-		String json1 = JsonMapper.toJsonString(user);
-		System.out.println(json1);
 	}
 	
 }
