@@ -43,4 +43,15 @@
 		<typeAlias alias="User" type="com.rick.scaffold.core.entity.user.User" />
 	</typeAliases>
 	
+	<plugins>
+		<plugin interceptor="com.github.pagehelper.PageHelper">
+        	<property name="dialect" value="mysql"/>
+        	<property name="offsetAsPageNum" value="true"/>
+        	<property name="rowBoundsWithCount" value="true"/>
+        	<property name="pageSizeZero" value="true"/>
+        	<property name="reasonable" value="false"/>
+        	<property name="params" value="pageNum=start;pageSize=limit;"/>
+    	</plugin>
+    </plugins>
+	
 </configuration>

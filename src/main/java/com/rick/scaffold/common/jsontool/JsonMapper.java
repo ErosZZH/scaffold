@@ -1,9 +1,7 @@
 package com.rick.scaffold.common.jsontool;
 
 import java.io.IOException;
-import java.util.TimeZone;
 
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,37 +37,6 @@ public class JsonMapper extends ObjectMapper {
 	private JsonMapper() {
 		//spring 使用默认的处理器
 		this(Include.ALWAYS);
-	}
-
-	public JsonMapper(Include include, int type) {
-		// 设置输出时包含属性的风格
-		if (include != null) {
-			this.setSerializationInclusion(include);
-		}
-		// 允许单引号、允许不带引号的字段名称
-		this.enableSimple();
-		// 设置输入时忽略在JSON字符串中存在但Java对象实际没有的属性
-		this.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-        // 空值处理为空串
-		this.getSerializerProvider().setNullValueSerializer(new JsonSerializer<Object>(){
-			@Override
-			public void serialize(Object value, JsonGenerator jgen,
-					SerializerProvider provider) throws IOException,
-					JsonProcessingException {
-				jgen.writeString("");
-			}
-        });
-		// 进行HTML解码。
-		this.registerModule(new SimpleModule().addSerializer(String.class, new JsonSerializer<String>(){
-			@Override
-			public void serialize(String value, JsonGenerator jgen,
-					SerializerProvider provider) throws IOException,
-					JsonProcessingException {
-				jgen.writeString(StringEscapeUtils.unescapeHtml4(value));
-			}
-        }));
-		// 设置时区
-		this.setTimeZone(TimeZone.getDefault());//getTimeZone("GMT+8:00")
 	}
 	
 	/**
@@ -122,7 +89,7 @@ public class JsonMapper extends ObjectMapper {
 	 */
 	public static JsonMapper nonDefaultMapper() {
 		if (mapper == null){
-			mapper = new JsonMapper(Include.NON_DEFAULT, 1);
+			mapper = new JsonMapper(Include.NON_DEFAULT);
 		}
 		return mapper;
 	}

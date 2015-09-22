@@ -202,6 +202,11 @@
 			<artifactId>mybatis-spring</artifactId>
 			<version>${mybatis-spring.version}</version>
 		</dependency>
+		<dependency>
+    		<groupId>com.github.pagehelper</groupId>
+    		<artifactId>pagehelper</artifactId>
+    		<version>4.0.1</version>
+		</dependency>
 		
 		<!-- cache -->
 		<dependency>

@@ -21,6 +21,12 @@
     create_date, update_date, del_flag
   </sql>
   
+  <select id="findAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_user
+  </select>
+  
   <select id="findOne" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
