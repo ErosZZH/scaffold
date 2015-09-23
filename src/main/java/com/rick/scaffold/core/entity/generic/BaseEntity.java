@@ -37,16 +37,6 @@ public abstract class BaseEntity<T> implements Serializable {
 		this.id = id;
 	}
 	
-	/**
-	 * 插入之前执行方法，子类实现
-	 */
-	public abstract void preInsert();
-	
-	/**
-	 * 更新之前执行方法，子类实现
-	 */
-	public abstract void preUpdate();
-	
 	
     @Override
     public boolean equals(Object obj) {

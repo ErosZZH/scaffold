@@ -33,7 +33,6 @@ public abstract class DataEntity<T> extends BaseEntity<T> {
 	/**
 	 * 插入之前执行方法，需要手动调用
 	 */
-	@Override
 	public void preInsert(){
 		this.updateDate = new Date();
 		this.createDate = this.updateDate;
@@ -42,7 +41,6 @@ public abstract class DataEntity<T> extends BaseEntity<T> {
 	/**
 	 * 更新之前执行方法，需要手动调用
 	 */
-	@Override
 	public void preUpdate(){
 		this.updateDate = new Date();
 	}

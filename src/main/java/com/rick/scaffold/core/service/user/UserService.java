@@ -39,5 +39,9 @@ public class UserService extends CrudService<UserDao, User> {
 		map.put("page", p);
 		return map;
 	}
+	
+	public User findOne1() {
+		return userDao.findOne1(1, "zzh");
+	}
 }
 

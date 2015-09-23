@@ -34,6 +34,13 @@
     where id = #{id,jdbcType=BIGINT}
   </select>
   
+  <select id="findOne1" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_user
+    where id = #{id,jdbcType=BIGINT} and name = #{name}
+  </select>
+  
   <delete id="delete" parameterType="java.lang.Long">
     delete from sys_user
     where id = #{id,jdbcType=BIGINT}
