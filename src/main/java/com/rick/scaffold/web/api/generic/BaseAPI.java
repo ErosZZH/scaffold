@@ -16,8 +16,8 @@ import com.rick.scaffold.web.bean.generic.FailBean;
 import com.rick.scaffold.web.bean.generic.SuccessBean;
 
 public class BaseAPI {
-
-private static final Logger logger = LoggerFactory.getLogger(BaseAPI.class);
+	
+	private static final Logger logger = LoggerFactory.getLogger(BaseAPI.class);
 	
 	protected ResponseEntity<Object> enableCorsRequests(Object entity, int statusCode) {
 		HttpHeaders headers = new HttpHeaders();
