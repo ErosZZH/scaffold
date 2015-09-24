@@ -9,7 +9,7 @@
 	<classPathEntry
 		location="${mybatis.driver.path}" />
 		
-	<context id="my" targetRuntime="MyBatis3">
+	<context id="mybatisGenerator" targetRuntime="MyBatis3">
 		<commentGenerator>
 			<property name="suppressDate" value="false" />
 			<property name="suppressAllComments" value="true" />
@@ -20,24 +20,24 @@
 			userId="${db.user}"
 			password="${db.password}" />
 
-		<javaModelGenerator targetPackage="com.rick.scaffold.core.entity"
-			targetProject="D:/myspace/scaffold/src/main/java">
+		<javaModelGenerator targetPackage="${mybatis.model.package}"
+			targetProject="src/main/java">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
 		</javaModelGenerator>
 
-		<sqlMapGenerator targetPackage="mappings"
-			targetProject="D:/myspace/scaffold/src/main/resources">
+		<sqlMapGenerator targetPackage="${mybatis.mapper.package}"
+			targetProject="src/main/resources">
 			<property name="enableSubPackages" value="true" />
 		</sqlMapGenerator>
 
-		<javaClientGenerator targetPackage="com.rick.scaffold.core.dao"
-			targetProject="D:/myspace/scaffold/src/main/java"
+		<javaClientGenerator targetPackage="${mybatis.dao.package}"
+			targetProject="src/main/java"
 			type="XMLMAPPER">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 
-		<table tableName="sys_company" domainObjectName="Company"
+		<table tableName="sys_user" domainObjectName="User"
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false">
