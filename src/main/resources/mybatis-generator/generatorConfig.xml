@@ -4,36 +4,40 @@
          "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 
 <generatorConfiguration>
+	<properties resource="config/props/db.properties"/>
+	
 	<classPathEntry
-		location="C:/Users/Administrator/.m2/repository/mysql/mysql-connector-java/5.1.31/mysql-connector-java-5.1.31.jar" />
+		location="${mybatis.driver.path}" />
+		
 	<context id="my" targetRuntime="MyBatis3">
 		<commentGenerator>
 			<property name="suppressDate" value="false" />
 			<property name="suppressAllComments" value="true" />
 		</commentGenerator>
 
-		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql://localhost:3306/scaffold?useUnicode=true&amp;characterEncoding=UTF-8" userId="root"
-			password="eros" />
+		<jdbcConnection driverClass="${db.driver}"
+			connectionURL="${db.url}" 
+			userId="${db.user}"
+			password="${db.password}" />
 
 		<javaModelGenerator targetPackage="com.rick.scaffold.core.entity"
-			targetProject="D:/myworkspace/mybatis/scaffold/src/main/java">
+			targetProject="D:/myspace/scaffold/src/main/java">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
 		</javaModelGenerator>
 
 		<sqlMapGenerator targetPackage="mappings"
-			targetProject="D:/myworkspace/mybatis/scaffold/src/main/resources">
+			targetProject="D:/myspace/scaffold/src/main/resources">
 			<property name="enableSubPackages" value="true" />
 		</sqlMapGenerator>
 
 		<javaClientGenerator targetPackage="com.rick.scaffold.core.dao"
-			targetProject="D:/myworkspace/mybatis/scaffold/src/main/java"
+			targetProject="D:/myspace/scaffold/src/main/java"
 			type="XMLMAPPER">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 
-		<table tableName="sys_user" domainObjectName="User"
+		<table tableName="sys_company" domainObjectName="Company"
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false">
