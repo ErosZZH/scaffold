@@ -1,8 +1,5 @@
 package com.rick.scaffold.core.service.generic;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.rick.scaffold.core.dao.generic.CrudDao;
@@ -12,31 +9,7 @@ import com.rick.scaffold.core.entity.generic.DataEntity;
  * Service基类
  */
 @Transactional(readOnly = true)
-public abstract class CrudService<D extends CrudDao<T>, T extends DataEntity<T>> extends BaseService {
-	
-	/**
-	 * 持久层对象
-	 */
-	@Autowired
-	protected D dao;
-	
-	/**
-	 * 获取单条数据
-	 * @param id
-	 * @return
-	 */
-	public T findOne(Long id) {
-		return dao.findOne(id);
-	}
-	
-	/**
-	 * 查询列表数据
-	 * @param entity
-	 * @return
-	 */
-	public List<T> findAll() {
-		return dao.findAll();
-	}
+public abstract class CrudService<D extends CrudDao<T>, T extends DataEntity<T>> extends BaseService<D, T> {
 
 	/**
 	 * 保存数据（插入或更新）
@@ -57,14 +30,4 @@ public abstract class CrudService<D extends CrudDao<T>, T extends DataEntity<T>>
 		entity.preUpdate();
 		return dao.update(entity);
 	}
-	
-	/**
-	 * 删除数据
-	 * @param entity
-	 */
-	@Transactional(readOnly = false)
-	public int delete(Long id) {
-		return dao.delete(id);
-	}
-
 }

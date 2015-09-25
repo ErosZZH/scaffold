@@ -41,6 +41,7 @@
 	
 	<typeAliases>
 		<typeAlias alias="User" type="com.rick.scaffold.core.entity.user.User" />
+		<typeAlias alias="Company" type="com.rick.scaffold.core.entity.user.Company" />
 	</typeAliases>
 	
 	<plugins>

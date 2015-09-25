@@ -15,10 +15,11 @@
     <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
     <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
     <result column="del_flag" jdbcType="BIT" property="delFlag" />
+    <result column="company_id" property="companyId" jdbcType="BIGINT" />
   </resultMap>
   <sql id="Base_Column_List">
     id, login_name, password, name, email, phone, user_tag, avatar, login_ip, login_date, 
-    create_date, update_date, del_flag
+    create_date, update_date, del_flag, company_id
   </sql>
   
   <select id="findAll" resultMap="BaseResultMap">
@@ -51,12 +52,12 @@
       name, email, phone, 
       user_tag, avatar, login_ip, 
       login_date, create_date, update_date, 
-      del_flag)
+      del_flag, company_id)
     values (#{loginName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{name,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
       #{userTag,jdbcType=BIGINT}, #{avatar,jdbcType=VARCHAR}, #{loginIp,jdbcType=VARCHAR}, 
       #{loginDate,jdbcType=TIMESTAMP}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, 
-      #{delFlag,jdbcType=BIT})
+      #{delFlag,jdbcType=BIT}, #{companyId})
   </insert>
   
   <update id="update" parameterType="User">
@@ -97,6 +98,9 @@
       </if>
       <if test="delFlag != null">
         del_flag = #{delFlag,jdbcType=BIT},
+      </if>
+      <if test="companyId != null">
+        company_id = #{companyId},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}

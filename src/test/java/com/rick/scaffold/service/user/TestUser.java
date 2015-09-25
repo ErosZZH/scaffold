@@ -19,7 +19,7 @@ public class TestUser extends BaseTest{
 		user.setLoginName("Rick");
 		user.setPassword("password");
 		user.setName("zzh");
-		
+		user.setCompanyId(1l);
 		int res = us.save(user);
 		System.out.println(res);
 	}
