@@ -10,6 +10,12 @@
   <sql id="Base_Column_List" >
     id, url, size, user_id
   </sql>
+  <select id="findByUserId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_photo
+    where user_id = #{id,jdbcType=BIGINT}
+  </select>
   <select id="findOne" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
