@@ -1,5 +1,6 @@
 package com.rick.scaffold.web.api.user;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.rick.scaffold.core.entity.user.FullUser;
 import com.rick.scaffold.core.service.user.UserService;
 import com.rick.scaffold.exception.APIException;
 import com.rick.scaffold.web.api.generic.BaseAPI;
@@ -24,7 +26,8 @@ public class UserAPI extends BaseAPI{
 	@RequestMapping(value = "/{id}", method=RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<Object> getUser(@PathVariable("id") Long id) throws APIException {
-		Map<String, Object> users = userService.findAll1();
+//		Map<String, Object> users = userService.findAll1();
+		List<FullUser> users = userService.findLazy(1l);
 		return responseSuccess(users);
 	}
 }

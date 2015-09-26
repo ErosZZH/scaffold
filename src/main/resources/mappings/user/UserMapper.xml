@@ -17,10 +17,94 @@
     <result column="del_flag" jdbcType="BIT" property="delFlag" />
     <result column="company_id" property="companyId" jdbcType="BIGINT" />
   </resultMap>
+  
+  <resultMap id="CascadeResultMap" type="FullUser">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="login_name" jdbcType="VARCHAR" property="loginName" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="user_tag" jdbcType="BIGINT" property="userTag" />
+    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+    <result column="login_ip" jdbcType="VARCHAR" property="loginIp" />
+    <result column="login_date" jdbcType="TIMESTAMP" property="loginDate" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="del_flag" jdbcType="BIT" property="delFlag" />
+    <result column="company_id" property="companyId" jdbcType="BIGINT" />
+    <association property="company" javaType="Company">
+    	<id property="id" column="cid"/>
+    	<result column="cname" property="name" jdbcType="VARCHAR" />
+   		<result column="cphone" property="phone" jdbcType="VARCHAR" />
+  </association>
+  <collection property="photos" ofType="Photo">
+      	<id property="id" column="pid"/>
+      	<result column="url" property="url" jdbcType="VARCHAR" />
+    	<result column="size" property="size" jdbcType="INTEGER" />
+    	<result column="user_id" property="userId" jdbcType="BIGINT" />
+    </collection>
+  </resultMap>
+  
+  <resultMap id="LazyResultMap" type="FullUser">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="login_name" jdbcType="VARCHAR" property="loginName" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="user_tag" jdbcType="BIGINT" property="userTag" />
+    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+    <result column="login_ip" jdbcType="VARCHAR" property="loginIp" />
+    <result column="login_date" jdbcType="TIMESTAMP" property="loginDate" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="del_flag" jdbcType="BIT" property="delFlag" />
+    <result column="company_id" property="companyId" jdbcType="BIGINT" />
+    <association property="company" column="company_id" select="selectCompany"/>
+    <collection property="photos" column="id" select="selectPhoto"/>
+  </resultMap>
+  
   <sql id="Base_Column_List">
     id, login_name, password, name, email, phone, user_tag, avatar, login_ip, login_date, 
     create_date, update_date, del_flag, company_id
   </sql>
+  
+  <!-- 必须使用类型别名，因为存在列名，属性名都相同的情况 -->
+  <sql id="Cascade_Column_List">
+    a.id, a.login_name, a.password, a.name, a.email, a.phone, a.user_tag, a.avatar, a.login_ip, a.login_date, 
+    a.create_date, a.update_date, a.del_flag, a.company_id,
+    b.id as cid, b.name as cname, b.phone as cphone,
+    c.id as pid, c.url, c.size, c.user_id
+  </sql>
+  
+  <select id="selectPhoto" parameterType="Long" resultType="Photo">
+        SELECT
+            *
+        FROM sys_photo
+        WHERE user_id = #{id}
+    </select>
+    
+    <select id="selectCompany" parameterType="Long" resultType="Company">
+        SELECT
+            *
+        FROM sys_company
+        WHERE id = #{company}
+    </select>
+    
+    <select id="findLazy" parameterType="Long" resultMap="LazyResultMap">
+  	select  *
+  	from sys_user
+  	where id = #{id}
+  </select>
+  
+  <select id="findCascade" parameterType="Long" resultMap="CascadeResultMap">
+  	select <include refid="Cascade_Column_List"></include>
+  	from sys_user a
+  		left join sys_company b on a.company_id = b.id
+  		left join sys_photo c on a.id = c.user_id
+  	where a.id = #{id}
+  </select>
   
   <select id="findAll" resultMap="BaseResultMap">
     select 

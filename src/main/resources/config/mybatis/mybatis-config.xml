@@ -11,7 +11,7 @@
 		<setting name="lazyLoadingEnabled" value="true"/>
 		
 		<!-- 当启用时，有延迟加载属性的对象在被调用时将会完全加载任意属性。否则，每种属性将会按需要加载。 -->
-		<setting name="aggressiveLazyLoading" value="true"/>
+		<setting name="aggressiveLazyLoading" value="false"/>
 		
 		<!-- 是否允许单条sql 返回多个数据集  (取决于驱动的兼容性) default:true -->
 		<setting name="multipleResultSetsEnabled" value="true"/>
@@ -42,6 +42,8 @@
 	<typeAliases>
 		<typeAlias alias="User" type="com.rick.scaffold.core.entity.user.User" />
 		<typeAlias alias="Company" type="com.rick.scaffold.core.entity.user.Company" />
+		<typeAlias alias="Photo" type="com.rick.scaffold.core.entity.user.Photo" />
+		<typeAlias alias="FullUser" type="com.rick.scaffold.core.entity.user.FullUser" />
 	</typeAliases>
 	
 	<plugins>

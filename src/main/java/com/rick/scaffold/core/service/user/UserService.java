@@ -12,6 +12,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.google.common.collect.Maps;
 import com.rick.scaffold.core.dao.user.UserDao;
+import com.rick.scaffold.core.entity.user.FullUser;
 import com.rick.scaffold.core.entity.user.User;
 import com.rick.scaffold.core.service.generic.CrudService;
 import com.rick.scaffold.core.vo.Paginator;
@@ -20,13 +21,8 @@ import com.rick.scaffold.core.vo.Paginator;
 @Transactional(readOnly = true)
 public class UserService extends CrudService<UserDao, User> {
 	
-	private UserDao userDao;
-	
 	@Autowired
-	public void setUserDao(UserDao userDao) {
-		this.userDao = userDao;
-		super.dao = userDao;
-	}
+	private UserDao userDao;
 	
 	public Map<String, Object> findAll1() {
 		PageHelper.startPage(1, 10, "id desc");
@@ -42,6 +38,14 @@ public class UserService extends CrudService<UserDao, User> {
 	
 	public User findOne1() {
 		return userDao.findOne1(1, "zzh");
+	}
+	
+	public List<FullUser> findCascade(long id) {
+		return userDao.findCascade(id);
+	}
+	
+	public List<FullUser> findLazy(long id) {
+		return userDao.findLazy(id);
 	}
 }
 

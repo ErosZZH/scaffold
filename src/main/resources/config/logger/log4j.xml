@@ -26,6 +26,11 @@
 	
 	<!-- includes mybatis -->
 	<logger name="org.apache">
+		<level value="eros" />
+	</logger>
+	
+	<!-- c3p0 -->
+	<logger name="com.mchange">
 		<level value="error" />
 	</logger>
 
