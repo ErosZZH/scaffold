@@ -1,6 +1,7 @@
 package com.rick.scaffold.service.user;
 
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,10 @@ public class TestUser extends BaseTest{
 	@Test
 	public void testAddUser() {
 		User user = new User();
-		user.setLoginName("猪猪");
+		user.setLoginName("Rick");
 		user.setPassword("password");
 		user.setName("zzh1");
-		user.setCompanyId(1l);
+		user.setCompanyId("56077d096a8ad31ca69b9f3b");
 		int res = us.save(user);
 		System.out.println(res);
 	}
@@ -34,14 +35,20 @@ public class TestUser extends BaseTest{
 	}
 	
 	@Test
+	public void testFindAll1() {
+		Map<String, Object> users = us.findAll1();
+		System.out.println(JsonMapper.toJsonString(users));
+	}
+	
+	@Test
 	public void testFindCascade() {
-		List<FullUser> user = us.findCascade(1l);
+		List<FullUser> user = us.findCascade("56077e0d6a8ad31d5fe33a63");
 		System.out.println(JsonMapper.toJsonString(user));
 	}
 	
 	@Test
 	public void testLazy() {
-		List<FullUser> user = us.findLazy(1l);
+		List<FullUser> user = us.findLazy("56077e0d6a8ad31d5fe33a63");
 		System.out.println(JsonMapper.toJsonString(user));
 	}
 }

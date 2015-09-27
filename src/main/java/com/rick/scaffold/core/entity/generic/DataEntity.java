@@ -26,14 +26,16 @@ public abstract class DataEntity<T> extends BaseEntity<T> {
 		super();
 	}
 	
-	public DataEntity(Long id) {
+	public DataEntity(String id) {
 		super(id);
 	}
 	
 	/**
 	 * 插入之前执行方法，需要手动调用
 	 */
+	@Override
 	public void preInsert(){
+		super.preInsert();
 		this.updateDate = new Date();
 		this.createDate = this.updateDate;
 	}

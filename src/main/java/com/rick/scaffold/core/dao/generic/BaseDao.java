@@ -12,7 +12,7 @@ public interface BaseDao<T> {
 	 * @param id
 	 * @return
 	 */
-	public T findOne(Long id);
+	public T findOne(String id);
 	
 	/**
 	 * @param entity
@@ -40,5 +40,5 @@ public interface BaseDao<T> {
 	 * @see public int delete(T entity)
 	 * @return
 	 */
-	public int delete(Long id);
+	public int delete(String id);
 }

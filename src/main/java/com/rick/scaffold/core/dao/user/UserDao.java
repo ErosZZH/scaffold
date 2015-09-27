@@ -12,9 +12,9 @@ import com.rick.scaffold.core.entity.user.User;
 @MyBatisDao
 public interface UserDao extends CrudDao<User> {
 
-	User findOne1(@Param("id") long id, @Param("name") String name);
+	User findOne1(@Param("id") String id, @Param("name") String name);
 	
-	List<FullUser> findCascade(long id);
+	List<FullUser> findCascade(String id);
 	
-	List<FullUser> findLazy(long id);
+	List<FullUser> findLazy(String id);
 }

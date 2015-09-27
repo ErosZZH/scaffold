@@ -17,7 +17,7 @@ public class TestPhoto extends BaseTest{
 		Photo p = new Photo();
 		p.setSize(101);
 		p.setUrl("baidu.com");
-		p.setUserId(1l);
+		p.setUserId("56077e0d6a8ad31d5fe33a63");
 		ps.save(p);
 	}
 }

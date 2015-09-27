@@ -9,7 +9,7 @@ DROP TABLE IF EXISTS sys_user;
 
 CREATE TABLE sys_user
 (
-	id bigint(20) auto_increment,
+	id varchar(24) unique,
 	login_name varchar(100) NOT NULL unique,
 	password varchar(100) NOT NULL,
 	name varchar(100) NOT NULL,
@@ -22,17 +22,17 @@ CREATE TABLE sys_user
 	create_date datetime NOT NULL,
 	update_date datetime NOT NULL,
 	del_flag tinyint(1) DEFAULT 0 NOT NULL,
-	company_id bigint(20) not null,
+	company_id varchar(24) not null,
 	PRIMARY KEY (id)
 );
 
-CREATE INDEX sys_user_update_date ON sys_user (update_date ASC);
-CREATE INDEX sys_user_del_flag ON sys_user (del_flag ASC);
+CREATE INDEX idx_sys_user_update_date ON sys_user (update_date ASC);
+CREATE INDEX idx_sys_user_del_flag ON sys_user (del_flag ASC);
 
 drop table if exists sys_company;
 create table sys_company
 (
-	id bigint(20) auto_increment,
+	id varchar(24) unique,
 	name varchar(100) NOT NULL,
 	phone varchar(100) NOT NULL,
 	primary key (id)
@@ -41,10 +41,10 @@ create table sys_company
 drop table if exists sys_photo;
 create table sys_photo
 (
-	id bigint(20) auto_increment,
+	id varchar(24) unique,
 	url varchar(100) NOT NULL,
 	size int(11) NOT NULL,
-	user_id bigint(20),
+	user_id varchar(24),
 	primary key (id),
 	FOREIGN KEY (user_id) REFERENCES sys_user(id)
 );

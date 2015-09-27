@@ -2,27 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.rick.scaffold.core.dao.user.CompanyDao" >
   <resultMap id="BaseResultMap" type="Company" >
-    <id column="id" property="id" jdbcType="BIGINT" />
+    <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, name, phone
   </sql>
-  <select id="findOne" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  <select id="findOne" resultMap="BaseResultMap" parameterType="String" >
     select 
     <include refid="Base_Column_List" />
     from sys_company
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id}
   </select>
-  <delete id="delete" parameterType="java.lang.Long" >
+  <delete id="delete" parameterType="String" >
     delete from sys_company
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id}
   </delete>
-  <insert id="insert" parameterType="Company" useGeneratedKeys="true" keyProperty="id">
-    insert into sys_company (name, phone
+  <insert id="insert" parameterType="Company" >
+    insert into sys_company (id, name, phone
       )
-    values (#{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}
+    values (#{id}, #{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}
       )
   </insert>
   
@@ -36,6 +36,6 @@
         phone = #{phone,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id}
   </update>
 </mapper>

@@ -3,7 +3,7 @@
 <mapper namespace="com.rick.scaffold.core.dao.user.UserDao">
 
   <resultMap id="BaseResultMap" type="User">
-    <id column="id" jdbcType="BIGINT" property="id" />
+    <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="login_name" jdbcType="VARCHAR" property="loginName" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="name" jdbcType="VARCHAR" property="name" />
@@ -20,7 +20,7 @@
   </resultMap>
   
   <resultMap id="CascadeResultMap" type="FullUser">
-    <id column="id" jdbcType="BIGINT" property="id" />
+    <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="login_name" jdbcType="VARCHAR" property="loginName" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="name" jdbcType="VARCHAR" property="name" />
@@ -33,7 +33,7 @@
     <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
     <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
     <result column="del_flag" jdbcType="BIT" property="delFlag" />
-    <result column="company_id" property="companyId" jdbcType="BIGINT" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
     <association property="company" javaType="Company">
     	<id property="id" column="cid"/>
     	<result column="cname" property="name" jdbcType="VARCHAR" />
@@ -43,12 +43,12 @@
       	<id property="id" column="pid"/>
       	<result column="url" property="url" jdbcType="VARCHAR" />
     	<result column="size" property="size" jdbcType="INTEGER" />
-    	<result column="user_id" property="userId" jdbcType="BIGINT" />
+    	<result column="user_id" property="userId" jdbcType="VARCHAR" />
     </collection>
   </resultMap>
   
   <resultMap id="LazyResultMap" type="FullUser">
-    <id column="id" jdbcType="BIGINT" property="id" />
+    <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="login_name" jdbcType="VARCHAR" property="loginName" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="name" jdbcType="VARCHAR" property="name" />
@@ -79,13 +79,13 @@
     c.id as pid, c.url, c.size, c.user_id
   </sql>
     
-    <select id="findLazy" parameterType="Long" resultMap="LazyResultMap">
+    <select id="findLazy" parameterType="String" resultMap="LazyResultMap">
   	select  *
   	from sys_user
   	where id = #{id}
   	</select>
   
-  <select id="findCascade" parameterType="Long" resultMap="CascadeResultMap">
+  <select id="findCascade" parameterType="String" resultMap="CascadeResultMap">
   	select <include refid="Cascade_Column_List"></include>
   	from sys_user a
   		left join sys_company b on a.company_id = b.id
@@ -99,32 +99,32 @@
     from sys_user
   </select>
   
-  <select id="findOne" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <select id="findOne" parameterType="String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from sys_user
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id}
   </select>
   
   <select id="findOne1" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from sys_user
-    where id = #{id,jdbcType=BIGINT} and name = #{name}
+    where id = #{id} and name = #{name}
   </select>
   
-  <delete id="delete" parameterType="java.lang.Long">
+  <delete id="delete" parameterType="String">
     delete from sys_user
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id}
   </delete>
   
-  <insert id="insert" parameterType="User" useGeneratedKeys="true" keyProperty="id">
-    insert into sys_user (login_name, password, 
+  <insert id="insert" parameterType="User">
+    insert into sys_user (id, login_name, password, 
       name, email, phone, 
       user_tag, avatar, login_ip, 
       login_date, create_date, update_date, 
       del_flag, company_id)
-    values (#{loginName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+    values (#{id}, #{loginName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{name,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
       #{userTag,jdbcType=BIGINT}, #{avatar,jdbcType=VARCHAR}, #{loginIp,jdbcType=VARCHAR}, 
       #{loginDate,jdbcType=TIMESTAMP}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, 
@@ -161,9 +161,6 @@
       <if test="loginDate != null">
         login_date = #{loginDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="createDate != null">
-        create_date = #{createDate,jdbcType=TIMESTAMP},
-      </if>
       <if test="updateDate != null">
         update_date = #{updateDate,jdbcType=TIMESTAMP},
       </if>
@@ -174,7 +171,7 @@
         company_id = #{companyId},
       </if>
     </set>
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id}
   </update>
   
 </mapper>

@@ -2,34 +2,34 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.rick.scaffold.core.dao.user.PhotoDao" >
   <resultMap id="BaseResultMap" type="Photo" >
-    <id column="id" property="id" jdbcType="BIGINT" />
+    <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="url" property="url" jdbcType="VARCHAR" />
     <result column="size" property="size" jdbcType="INTEGER" />
-    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, url, size, user_id
   </sql>
-  <select id="findByUserId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  <select id="findByUserId" resultMap="BaseResultMap" parameterType="String" >
     select 
     <include refid="Base_Column_List" />
     from sys_photo
-    where user_id = #{id,jdbcType=BIGINT}
+    where user_id = #{id}
   </select>
-  <select id="findOne" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  <select id="findOne" resultMap="BaseResultMap" parameterType="String" >
     select 
     <include refid="Base_Column_List" />
     from sys_photo
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id}
   </select>
-  <delete id="delete" parameterType="java.lang.Long" >
+  <delete id="delete" parameterType="String" >
     delete from sys_photo
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id}
   </delete>
-  <insert id="insert" parameterType="Photo"  useGeneratedKeys="true" keyProperty="id">
-    insert into sys_photo (url, size, 
+  <insert id="insert" parameterType="Photo" >
+    insert into sys_photo (id, url, size, 
       user_id)
-    values (#{url,jdbcType=VARCHAR}, #{size,jdbcType=INTEGER}, 
+    values (#{id}, #{url,jdbcType=VARCHAR}, #{size,jdbcType=INTEGER}, 
       #{userId,jdbcType=BIGINT})
   </insert>
   
@@ -46,6 +46,6 @@
         user_id = #{userId,jdbcType=BIGINT},
       </if>
     </set>
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id}
   </update>
 </mapper>

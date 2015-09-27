@@ -25,7 +25,7 @@ public abstract class BaseService<D extends BaseDao<T>, T extends BaseEntity<T>>
 	 * @param id
 	 * @return
 	 */
-	public T findOne(Long id) {
+	public T findOne(String id) {
 		return dao.findOne(id);
 	}
 	
@@ -44,6 +44,7 @@ public abstract class BaseService<D extends BaseDao<T>, T extends BaseEntity<T>>
 	 */
 	@Transactional(readOnly = false)
 	public int save(T entity) {
+		entity.preInsert();
 		return dao.insert(entity);
 	}
 	
@@ -61,7 +62,7 @@ public abstract class BaseService<D extends BaseDao<T>, T extends BaseEntity<T>>
 	 * @param entity
 	 */
 	@Transactional(readOnly = false)
-	public int delete(Long id) {
+	public int delete(String id) {
 		return dao.delete(id);
 	}
 }
