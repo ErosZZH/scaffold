@@ -33,6 +33,7 @@ public class JedisUtils {
 	 * @return 值
 	 */
 	public static String get(String key) {
+		key = KEY_PREFIX + ":" + key;
 		String value = null;
 		Jedis jedis = null;
 		try {
@@ -56,6 +57,7 @@ public class JedisUtils {
 	 * @return 值
 	 */
 	public static Object getObject(String key) {
+		key = KEY_PREFIX + ":" + key;
 		Object value = null;
 		Jedis jedis = null;
 		try {
@@ -79,14 +81,15 @@ public class JedisUtils {
 	 * @param cacheSeconds 超时时间，0为不超时
 	 * @return
 	 */
-	public static String set(String key, String value, int cacheSeconds) {
+	public static String set(String key, String value, int expireSeconds) {
+		key = KEY_PREFIX + ":" + key;
 		String result = null;
 		Jedis jedis = null;
 		try {
 			jedis = getResource();
 			result = jedis.set(key, value);
-			if (cacheSeconds != 0) {
-				jedis.expire(key, cacheSeconds);
+			if (expireSeconds != 0) {
+				jedis.expire(key, expireSeconds);
 			}
 			logger.debug("set {} = {}", key, value);
 		} catch (Exception e) {
@@ -104,14 +107,15 @@ public class JedisUtils {
 	 * @param cacheSeconds 超时时间，0为不超时
 	 * @return
 	 */
-	public static String setObject(String key, Object value, int cacheSeconds) {
+	public static String setObject(String key, Object value, int expireSeconds) {
+		key = KEY_PREFIX + ":" + key;
 		String result = null;
 		Jedis jedis = null;
 		try {
 			jedis = getResource();
 			result = jedis.set(getBytesKey(key), toBytes(value));
-			if (cacheSeconds != 0) {
-				jedis.expire(key, cacheSeconds);
+			if (expireSeconds != 0) {
+				jedis.expire(key, expireSeconds);
 			}
 			logger.debug("setObject {} = {}", key, value);
 		} catch (Exception e) {
@@ -128,6 +132,7 @@ public class JedisUtils {
 	 * @return 值
 	 */
 	public static List<String> getList(String key) {
+		key = KEY_PREFIX + ":" + key;
 		List<String> value = null;
 		Jedis jedis = null;
 		try {
@@ -150,6 +155,7 @@ public class JedisUtils {
 	 * @return 值
 	 */
 	public static List<Object> getObjectList(String key) {
+		key = KEY_PREFIX + ":" + key;
 		List<Object> value = null;
 		Jedis jedis = null;
 		try {
@@ -177,7 +183,8 @@ public class JedisUtils {
 	 * @param cacheSeconds 超时时间，0为不超时
 	 * @return
 	 */
-	public static long setList(String key, List<String> value, int cacheSeconds) {
+	public static long setList(String key, List<String> value, int expireSeconds) {
+		key = KEY_PREFIX + ":" + key;
 		long result = 0;
 		Jedis jedis = null;
 		try {
@@ -186,8 +193,8 @@ public class JedisUtils {
 				jedis.del(key);
 			}
 			result = jedis.rpush(key, (String[])value.toArray());
-			if (cacheSeconds != 0) {
-				jedis.expire(key, cacheSeconds);
+			if (expireSeconds != 0) {
+				jedis.expire(key, expireSeconds);
 			}
 			logger.debug("setList {} = {}", key, value);
 		} catch (Exception e) {
@@ -205,7 +212,8 @@ public class JedisUtils {
 	 * @param cacheSeconds 超时时间，0为不超时
 	 * @return
 	 */
-	public static long setObjectList(String key, List<Object> value, int cacheSeconds) {
+	public static long setObjectList(String key, List<Object> value, int expireSeconds) {
+		key = KEY_PREFIX + ":" + key;
 		long result = 0;
 		Jedis jedis = null;
 		try {
@@ -218,8 +226,8 @@ public class JedisUtils {
 				list.add(toBytes(o));
 			}
 			result = jedis.rpush(getBytesKey(key), (byte[][])list.toArray());
-			if (cacheSeconds != 0) {
-				jedis.expire(key, cacheSeconds);
+			if (expireSeconds != 0) {
+				jedis.expire(key, expireSeconds);
 			}
 			logger.debug("setObjectList {} = {}", key, value);
 		} catch (Exception e) {
@@ -237,6 +245,7 @@ public class JedisUtils {
 	 * @return
 	 */
 	public static long listAdd(String key, String... value) {
+		key = KEY_PREFIX + ":" + key;
 		long result = 0;
 		Jedis jedis = null;
 		try {
@@ -258,6 +267,7 @@ public class JedisUtils {
 	 * @return
 	 */
 	public static long listObjectAdd(String key, Object... value) {
+		key = KEY_PREFIX + ":" + key;
 		long result = 0;
 		Jedis jedis = null;
 		try {
@@ -282,6 +292,7 @@ public class JedisUtils {
 	 * @return 值
 	 */
 	public static Set<String> getSet(String key) {
+		key = KEY_PREFIX + ":" + key;
 		Set<String> value = null;
 		Jedis jedis = null;
 		try {
@@ -304,6 +315,7 @@ public class JedisUtils {
 	 * @return 值
 	 */
 	public static Set<Object> getObjectSet(String key) {
+		key = KEY_PREFIX + ":" + key;
 		Set<Object> value = null;
 		Jedis jedis = null;
 		try {
@@ -331,7 +343,8 @@ public class JedisUtils {
 	 * @param cacheSeconds 超时时间，0为不超时
 	 * @return
 	 */
-	public static long setSet(String key, Set<String> value, int cacheSeconds) {
+	public static long setSet(String key, Set<String> value, int expireSeconds) {
+		key = KEY_PREFIX + ":" + key;
 		long result = 0;
 		Jedis jedis = null;
 		try {
@@ -340,8 +353,8 @@ public class JedisUtils {
 				jedis.del(key);
 			}
 			result = jedis.sadd(key, (String[])value.toArray());
-			if (cacheSeconds != 0) {
-				jedis.expire(key, cacheSeconds);
+			if (expireSeconds != 0) {
+				jedis.expire(key, expireSeconds);
 			}
 			logger.debug("setSet {} = {}", key, value);
 		} catch (Exception e) {
@@ -359,7 +372,8 @@ public class JedisUtils {
 	 * @param cacheSeconds 超时时间，0为不超时
 	 * @return
 	 */
-	public static long setObjectSet(String key, Set<Object> value, int cacheSeconds) {
+	public static long setObjectSet(String key, Set<Object> value, int expireSeconds) {
+		key = KEY_PREFIX + ":" + key;
 		long result = 0;
 		Jedis jedis = null;
 		try {
@@ -372,8 +386,8 @@ public class JedisUtils {
 				set.add(toBytes(o));
 			}
 			result = jedis.sadd(getBytesKey(key), (byte[][])set.toArray());
-			if (cacheSeconds != 0) {
-				jedis.expire(key, cacheSeconds);
+			if (expireSeconds != 0) {
+				jedis.expire(key, expireSeconds);
 			}
 			logger.debug("setObjectSet {} = {}", key, value);
 		} catch (Exception e) {
@@ -391,6 +405,7 @@ public class JedisUtils {
 	 * @return
 	 */
 	public static long setSetAdd(String key, String... value) {
+		key = KEY_PREFIX + ":" + key;
 		long result = 0;
 		Jedis jedis = null;
 		try {
@@ -412,6 +427,7 @@ public class JedisUtils {
 	 * @return
 	 */
 	public static long setSetObjectAdd(String key, Object... value) {
+		key = KEY_PREFIX + ":" + key;
 		long result = 0;
 		Jedis jedis = null;
 		try {
@@ -436,6 +452,7 @@ public class JedisUtils {
 	 * @return 值
 	 */
 	public static Map<String, String> getMap(String key) {
+		key = KEY_PREFIX + ":" + key;
 		Map<String, String> value = null;
 		Jedis jedis = null;
 		try {
@@ -458,6 +475,7 @@ public class JedisUtils {
 	 * @return 值
 	 */
 	public static Map<String, Object> getObjectMap(String key) {
+		key = KEY_PREFIX + ":" + key;
 		Map<String, Object> value = null;
 		Jedis jedis = null;
 		try {
@@ -485,7 +503,8 @@ public class JedisUtils {
 	 * @param cacheSeconds 超时时间，0为不超时
 	 * @return
 	 */
-	public static String setMap(String key, Map<String, String> value, int cacheSeconds) {
+	public static String setMap(String key, Map<String, String> value, int expireSeconds) {
+		key = KEY_PREFIX + ":" + key;
 		String result = null;
 		Jedis jedis = null;
 		try {
@@ -494,8 +513,8 @@ public class JedisUtils {
 				jedis.del(key);
 			}
 			result = jedis.hmset(key, value);
-			if (cacheSeconds != 0) {
-				jedis.expire(key, cacheSeconds);
+			if (expireSeconds != 0) {
+				jedis.expire(key, expireSeconds);
 			}
 			logger.debug("setMap {} = {}", key, value);
 		} catch (Exception e) {
@@ -513,7 +532,8 @@ public class JedisUtils {
 	 * @param cacheSeconds 超时时间，0为不超时
 	 * @return
 	 */
-	public static String setObjectMap(String key, Map<String, Object> value, int cacheSeconds) {
+	public static String setObjectMap(String key, Map<String, Object> value, int expireSeconds) {
+		key = KEY_PREFIX + ":" + key;
 		String result = null;
 		Jedis jedis = null;
 		try {
@@ -526,8 +546,8 @@ public class JedisUtils {
 				map.put(getBytesKey(e.getKey()), toBytes(e.getValue()));
 			}
 			result = jedis.hmset(getBytesKey(key), (Map<byte[], byte[]>)map);
-			if (cacheSeconds != 0) {
-				jedis.expire(key, cacheSeconds);
+			if (expireSeconds != 0) {
+				jedis.expire(key, expireSeconds);
 			}
 			logger.debug("setObjectMap {} = {}", key, value);
 		} catch (Exception e) {
@@ -545,6 +565,7 @@ public class JedisUtils {
 	 * @return
 	 */
 	public static String mapPut(String key, Map<String, String> value) {
+		key = KEY_PREFIX + ":" + key;
 		String result = null;
 		Jedis jedis = null;
 		try {
@@ -566,6 +587,7 @@ public class JedisUtils {
 	 * @return
 	 */
 	public static String mapObjectPut(String key, Map<String, Object> value) {
+		key = KEY_PREFIX + ":" + key;
 		String result = null;
 		Jedis jedis = null;
 		try {
@@ -591,6 +613,7 @@ public class JedisUtils {
 	 * @return
 	 */
 	public static long mapRemove(String key, String mapKey) {
+		key = KEY_PREFIX + ":" + key;
 		long result = 0;
 		Jedis jedis = null;
 		try {
@@ -612,6 +635,7 @@ public class JedisUtils {
 	 * @return
 	 */
 	public static long mapObjectRemove(String key, String mapKey) {
+		key = KEY_PREFIX + ":" + key;
 		long result = 0;
 		Jedis jedis = null;
 		try {
@@ -633,6 +657,7 @@ public class JedisUtils {
 	 * @return
 	 */
 	public static boolean mapExists(String key, String mapKey) {
+		key = KEY_PREFIX + ":" + key;
 		boolean result = false;
 		Jedis jedis = null;
 		try {
@@ -654,6 +679,7 @@ public class JedisUtils {
 	 * @return
 	 */
 	public static boolean mapObjectExists(String key, String mapKey) {
+		key = KEY_PREFIX + ":" + key;
 		boolean result = false;
 		Jedis jedis = null;
 		try {
@@ -674,6 +700,7 @@ public class JedisUtils {
 	 * @return
 	 */
 	public static long del(String key) {
+		key = KEY_PREFIX + ":" + key;
 		long result = 0;
 		Jedis jedis = null;
 		try {
@@ -698,6 +725,7 @@ public class JedisUtils {
 	 * @return
 	 */
 	public static long delObject(String key) {
+		key = KEY_PREFIX + ":" + key;
 		long result = 0;
 		Jedis jedis = null;
 		try {
@@ -722,6 +750,7 @@ public class JedisUtils {
 	 * @return
 	 */
 	public static boolean exists(String key) {
+		key = KEY_PREFIX + ":" + key;
 		boolean result = false;
 		Jedis jedis = null;
 		try {
@@ -742,6 +771,7 @@ public class JedisUtils {
 	 * @return
 	 */
 	public static boolean existsObject(String key) {
+		key = KEY_PREFIX + ":" + key;
 		boolean result = false;
 		Jedis jedis = null;
 		try {
@@ -767,6 +797,7 @@ public class JedisUtils {
 			jedis = jedisPool.getResource();
 //			logger.debug("getResource.", jedis);
 		} catch (JedisException e) {
+			e.printStackTrace();
 			logger.warn("getResource.", e);
 			returnBrokenResource(jedis);
 			throw e;

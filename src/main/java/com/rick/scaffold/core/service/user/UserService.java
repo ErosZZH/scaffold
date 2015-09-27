@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,6 +38,18 @@ public class UserService extends CrudService<UserDao, User> {
 		return map;
 	}
 	
+	@Override
+	public User findOne(String id) {
+		return userDao.findOne(id);
+	}
+	
+	
+	@Override
+	@Transactional(readOnly = false)
+	public int save(User entity) {
+		return super.save(entity);
+	}
+
 	public User findOne1() {
 		return userDao.findOne1("56077e0d6a8ad31d5fe33a63", "zzh1");
 	}

@@ -5,7 +5,7 @@
 	<!-- 全局参数 -->
 	<settings>
 		<!-- 使全局的映射器启用或禁用缓存。 -->
-		<setting name="cacheEnabled" value="true"/>
+		<setting name="cacheEnabled" value="false"/>
 		
 		<!-- 全局启用或禁用延迟加载。当禁用时，所有关联对象都会即时加载。 -->
 		<setting name="lazyLoadingEnabled" value="true"/>
