@@ -46,15 +46,17 @@ public abstract class BaseService<D extends BaseDao<T>, T extends BaseEntity<T>>
 	@Transactional(readOnly = false)
 	public int saveAndCache(T entity, int cacheExpireTime) {
 		entity.preInsert();
+		int res = dao.insert(entity);
 		JedisUtils.setObject(entity.getId(), entity, cacheExpireTime);
-		return dao.insert(entity);
+		return res;
 	}
 	
 	@Transactional(readOnly = false)
 	public int saveAndCache(T entity) {
 		entity.preInsert();
+		int res = dao.insert(entity);
 		JedisUtils.setObject(entity.getId(), entity, 0);
-		return dao.insert(entity);
+		return res;
 	}
 	
 	@Transactional(readOnly = false)
@@ -69,14 +71,16 @@ public abstract class BaseService<D extends BaseDao<T>, T extends BaseEntity<T>>
 	 */
 	@Transactional(readOnly = false)
 	public int updateAndCache(T entity, int cacheExpireTime) {
+		int res = dao.update(entity);
 		JedisUtils.setObject(entity.getId(), entity, cacheExpireTime);
-		return dao.update(entity);
+		return res;
 	}
 	
 	@Transactional(readOnly = false)
 	public int updateAndCache(T entity) {
+		int res = dao.update(entity);
 		JedisUtils.setObject(entity.getId(), entity, 0);
-		return dao.update(entity);
+		return res;
 	}
 	
 	@Transactional(readOnly = false)

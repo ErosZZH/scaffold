@@ -795,7 +795,6 @@ public class JedisUtils {
 		Jedis jedis = null;
 		try {
 			jedis = jedisPool.getResource();
-//			logger.debug("getResource.", jedis);
 		} catch (JedisException e) {
 			e.printStackTrace();
 			logger.warn("getResource.", e);

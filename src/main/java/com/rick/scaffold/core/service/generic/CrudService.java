@@ -27,16 +27,18 @@ public abstract class CrudService<D extends CrudDao<T>, T extends DataEntity<T>>
 	@Transactional(readOnly = false)
 	public int saveAndCache(T entity) {
 		entity.preInsert();
+		int res = dao.insert(entity);
 		JedisUtils.setObject(entity.getId(), entity, 0);
-		return dao.insert(entity);
+		return res;
 	}
 	
 	@Override
 	@Transactional(readOnly = false)
 	public int saveAndCache(T entity, int cacheExpireTime) {
 		entity.preInsert();
+		int res = dao.insert(entity);
 		JedisUtils.setObject(entity.getId(), entity, cacheExpireTime);
-		return dao.insert(entity);
+		return res;
 	}
 	
 	/**
@@ -54,15 +56,17 @@ public abstract class CrudService<D extends CrudDao<T>, T extends DataEntity<T>>
 	@Transactional(readOnly = false)
 	public int updateAndCache(T entity, int cacheExpireTime) {
 		entity.preUpdate();
+		int res = dao.update(entity);
 		JedisUtils.setObject(entity.getId(), entity, cacheExpireTime);
-		return dao.update(entity);
+		return res;
 	}
 	
 	@Override
 	@Transactional(readOnly = false)
 	public int updateAndCache(T entity) {
 		entity.preUpdate();
+		int res = dao.update(entity);
 		JedisUtils.setObject(entity.getId(), entity, 0);
-		return dao.update(entity);
+		return res;
 	}
 }
