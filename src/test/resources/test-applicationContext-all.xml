@@ -117,4 +117,7 @@
 		<constructor-arg index="2" value="${redis.port}" type="int" />
 	</bean>
 	
+	<!-- ES -->
+	<import resource="classpath:test-spring-search.xml" />
+	
 </beans>
