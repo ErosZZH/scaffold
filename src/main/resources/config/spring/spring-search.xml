@@ -82,9 +82,15 @@
 		</property>
 	</bean>
 
-	<!--<bean id="getWorkflow" class="com.shopizer.search.services.workflow.SearchWorkflow"> -->
 	<bean id="getWorkflow"
 		class="com.rick.scaffold.common.search.services.workflow.GetWorkflow">
+		<property name="searchClient">
+			<ref bean="searchClient" />
+		</property>
+	</bean>
+	
+	<bean id="importWorkflow"
+		class="com.rick.scaffold.common.search.services.workflow.ImportWorkflow">
 		<property name="searchClient">
 			<ref bean="searchClient" />
 		</property>

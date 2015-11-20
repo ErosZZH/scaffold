@@ -8,6 +8,7 @@ import com.rick.scaffold.common.search.services.worker.KeywordIndexerImpl;
 import com.rick.scaffold.common.search.services.worker.ObjectIndexerImpl;
 import com.rick.scaffold.common.search.services.workflow.DeleteObjectWorkflow;
 import com.rick.scaffold.common.search.services.workflow.GetWorkflow;
+import com.rick.scaffold.common.search.services.workflow.ImportWorkflow;
 import com.rick.scaffold.common.search.services.workflow.IndexWorkflow;
 import com.rick.scaffold.common.search.services.workflow.SearchWorkflow;
 import com.rick.scaffold.common.search.utils.SearchClient;
@@ -40,9 +41,14 @@ public class RZSearchService {
 
 	@Autowired
 	private KeywordIndexerImpl keyword;
+	
+	@Autowired
+	private ImportWorkflow importWorkflow;
 
 	@Autowired
 	private SearchClient searchClient;
+	
+	
 
 	public void initService() {
 		log.debug("Initializing search service");
@@ -76,5 +82,9 @@ public class RZSearchService {
 
 	public RZSearchResponse search(RZSearchRequest request) throws Exception {
 		return searchWorkflow.search(request);
+	}
+	
+	public void importFromMysql(String sql, String index, String type) throws Exception {
+		importWorkflow.importFromDB(sql, index, type);
 	}
 }

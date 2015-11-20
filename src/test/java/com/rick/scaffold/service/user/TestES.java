@@ -11,6 +11,7 @@ import com.rick.scaffold.common.search.biz.SearchKeywords;
 import com.rick.scaffold.common.search.biz.SearchResult;
 import com.rick.scaffold.common.search.biz.user.IndexUser;
 import com.rick.scaffold.common.search.biz.user.UserSearch;
+import com.rick.scaffold.common.search.services.RZSearchService;
 import com.rick.scaffold.common.search.services.delegate.SearchDelegate;
 import com.rick.scaffold.core.entity.user.User;
 
@@ -21,6 +22,9 @@ public class TestES extends BaseTest {
 	
 	@Autowired
 	private SearchDelegate sd;
+	
+	@Autowired
+	private RZSearchService searchService;
 	
 	@Test
 	public void testCreateIndex() {
@@ -58,6 +62,11 @@ public class TestES extends BaseTest {
 			IndexUser user = se.getIndexUser();
 			System.out.println(user.getLoginName());
 		}
+	}
+	
+	@Test
+	public void testImport() throws Exception {
+		searchService.importFromMysql("select * from sys_user", "scaffold", "import_user");
 	}
 	
 	@Test
