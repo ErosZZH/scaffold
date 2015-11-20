@@ -1,4 +1,4 @@
-package com.rick.scaffold.common.search;
+package com.rick.scaffold.common.search.biz.user;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,11 +14,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.rick.scaffold.common.search.model.IndexUser;
-import com.rick.scaffold.common.search.model.SearchEntry;
-import com.rick.scaffold.common.search.model.SearchFacet;
-import com.rick.scaffold.common.search.model.SearchKeywords;
-import com.rick.scaffold.common.search.model.SearchResult;
+import com.rick.scaffold.common.search.SearchConstants;
+import com.rick.scaffold.common.search.biz.SearchEntry;
+import com.rick.scaffold.common.search.biz.SearchFacet;
+import com.rick.scaffold.common.search.biz.SearchKeywords;
+import com.rick.scaffold.common.search.biz.SearchResult;
 import com.rick.scaffold.common.search.services.RZEntry;
 import com.rick.scaffold.common.search.services.RZFacet;
 import com.rick.scaffold.common.search.services.RZSearchHit;
@@ -28,10 +28,10 @@ import com.rick.scaffold.common.search.services.RZSearchService;
 import com.rick.scaffold.core.entity.user.User;
 
 @Service("userSearchService")
-public class SearchServiceImpl implements SearchService {
+public class UserSearchImpl implements UserSearch {
 
 	private static final Logger LOGGER = LoggerFactory
-			.getLogger(SearchServiceImpl.class);
+			.getLogger(UserSearchImpl.class);
 
 	private final static String TYPE = "user";
 

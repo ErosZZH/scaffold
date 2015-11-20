@@ -1,10 +1,10 @@
-package com.rick.scaffold.common.search;
+package com.rick.scaffold.common.search.biz.user;
 
-import com.rick.scaffold.common.search.model.SearchResult;
-import com.rick.scaffold.common.search.model.SearchKeywords;
+import com.rick.scaffold.common.search.biz.SearchKeywords;
+import com.rick.scaffold.common.search.biz.SearchResult;
 import com.rick.scaffold.core.entity.user.User;
 
-public interface SearchService {
+public interface UserSearch {
 
 	void createIndex(User user);
 

@@ -1,4 +1,4 @@
-package com.rick.scaffold.common.search.model;
+package com.rick.scaffold.common.search.biz;
 
 import java.util.List;
 

@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.rick.scaffold.common.jsontool.JsonMapper;
-import com.rick.scaffold.common.search.model.IndexObject;
+import com.rick.scaffold.common.search.biz.IndexObject;
 import com.rick.scaffold.common.search.services.worker.IndexWorker;
 import com.rick.scaffold.common.utils.StringUtils;
 

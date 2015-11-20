@@ -35,6 +35,7 @@ public class DeleteKeywordsImpl implements DeleteObjectWorker {
 					.append("\" }}}").toString();
 			RZSearchRequest sr = new RZSearchRequest();
 			sr.setIndex(index);
+			sr.setType("keyword");
 			sr.setJson(query);
 			RZSearchResponse r = searchDelegate.search(sr);
 			if (r != null) {

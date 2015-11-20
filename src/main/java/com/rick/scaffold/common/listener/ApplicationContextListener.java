@@ -5,7 +5,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
-import com.rick.scaffold.common.search.SearchService;
+import com.rick.scaffold.common.search.biz.user.UserSearch;
 
 @Component
 public class ApplicationContextListener implements
@@ -15,7 +15,7 @@ public class ApplicationContextListener implements
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 		ApplicationContext applicationContext = event.getApplicationContext();
 		//init search service after applicationContext being loaded
-		SearchService searchService = (SearchService) applicationContext
+		UserSearch searchService = (UserSearch) applicationContext
 				.getBean("userSearchService");
 		searchService.initService();
 

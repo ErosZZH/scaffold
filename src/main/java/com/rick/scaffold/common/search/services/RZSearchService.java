@@ -3,7 +3,7 @@ package com.rick.scaffold.common.search.services;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.rick.scaffold.common.search.model.IndexObject;
+import com.rick.scaffold.common.search.biz.IndexObject;
 import com.rick.scaffold.common.search.services.worker.KeywordIndexerImpl;
 import com.rick.scaffold.common.search.services.worker.ObjectIndexerImpl;
 import com.rick.scaffold.common.search.services.workflow.DeleteObjectWorkflow;

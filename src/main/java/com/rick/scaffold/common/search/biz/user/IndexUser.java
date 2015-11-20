@@ -1,4 +1,6 @@
-package com.rick.scaffold.common.search.model;
+package com.rick.scaffold.common.search.biz.user;
+
+import com.rick.scaffold.common.search.biz.IndexObject;
 
 
 public class IndexUser extends IndexObject {
