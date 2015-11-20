@@ -6,6 +6,6 @@ import com.rick.scaffold.common.search.utils.SearchClient;
 
 public interface SearchWorker {
 	
-	RZSearchResponse execute(SearchClient client, RZSearchRequest request, ExecutionContext context) throws Exception;
+	RZSearchResponse execute(SearchClient client, RZSearchRequest request) throws Exception;
 
 }

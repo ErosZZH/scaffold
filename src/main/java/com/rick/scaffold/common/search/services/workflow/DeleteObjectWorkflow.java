@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.rick.scaffold.common.search.services.worker.DeleteObjectWorker;
-import com.rick.scaffold.common.search.services.worker.ExecutionContext;
 
 public class DeleteObjectWorkflow extends Workflow{
 	

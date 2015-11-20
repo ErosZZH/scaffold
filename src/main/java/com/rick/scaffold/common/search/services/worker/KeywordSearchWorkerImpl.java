@@ -13,8 +13,9 @@ public class KeywordSearchWorkerImpl implements KeywordSearchWorker {
 	@Autowired
 	private SearchDelegate searchDelegate;
 
+	@Override
 	public RZSearchResponse execute(SearchClient client, String index,
-			String json, int size, ExecutionContext context) throws Exception {
+			String json, int size) throws Exception {
 
 		Collection<String> hits = searchDelegate.searchAutoComplete(index,
 				json, size);

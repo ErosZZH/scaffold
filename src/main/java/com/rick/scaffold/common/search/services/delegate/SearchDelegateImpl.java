@@ -131,7 +131,7 @@ public class SearchDelegateImpl implements SearchDelegate {
 			Client client = searchClient.getClient();
 			BulkRequestBuilder bulkRequest = client.prepareBulk();
 			for (RZIndexKeywordRequest key : bulks) {
-				XContentBuilder b = jsonBuilder().startObject()//.field("id", id)
+				XContentBuilder b = jsonBuilder().startObject()
 						.field("keyword", key.getKey())
 						.field("_id_", key.getId());
 				Collection<RZField> fields = key.getFilters();
@@ -195,7 +195,9 @@ public class SearchDelegateImpl implements SearchDelegate {
 		try {
 			SearchRequestBuilder builder = searchClient.getClient()
 					.prepareSearch(request.getIndex())
-					.setExtraSource(request.getJson()).setExplain(false);
+					.setSource(request.getJson())
+					.setTypes(request.getType())
+					.setExplain(false);
 			builder.setFrom(request.getStart());
 			
 			if (request.getSize() > -1) {
@@ -309,7 +311,7 @@ public class SearchDelegateImpl implements SearchDelegate {
 		try {
 			SearchRequestBuilder builder = searchClient.getClient()
 					.prepareSearch(index)
-					.setQuery(json).setExplain(true);
+					.setQuery(json).setExplain(false);
 			if (size > -1) {
 				builder.setFrom(0).setSize(size);
 			}

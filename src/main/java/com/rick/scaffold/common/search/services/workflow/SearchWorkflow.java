@@ -33,8 +33,7 @@ public class SearchWorkflow extends Workflow {
 		RZSearchResponse response = null;
 		if (searchKeywordWorkflow != null) {
 			for (KeywordSearchWorker sw : searchKeywordWorkflow) {
-				response = sw.execute(super.getSearchClient(), index,
-						json, size, null);
+				response = sw.execute(super.getSearchClient(), index, json, size);
 			}
 		}
 		return response;
@@ -44,7 +43,7 @@ public class SearchWorkflow extends Workflow {
 		RZSearchResponse response = null;
 		if (searchFlow != null) {
 			for (SearchWorker sw : searchFlow) {
-				response = sw.execute(super.getSearchClient(), request, null);
+				response = sw.execute(super.getSearchClient(), request);
 			}
 		}
 		return response;

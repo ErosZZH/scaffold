@@ -1,11 +1,16 @@
 package com.rick.scaffold.service.user;
 
+import org.elasticsearch.index.query.QueryBuilders;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.rick.scaffold.base.BaseTest;
 import com.rick.scaffold.common.jsontool.JsonMapper;
 import com.rick.scaffold.common.search.SearchService;
+import com.rick.scaffold.common.search.model.IndexUser;
+import com.rick.scaffold.common.search.model.SearchEntry;
+import com.rick.scaffold.common.search.model.SearchKeywords;
+import com.rick.scaffold.common.search.model.SearchResult;
 import com.rick.scaffold.common.search.services.delegate.SearchDelegate;
 import com.rick.scaffold.core.entity.user.User;
 
@@ -31,6 +36,28 @@ public class TestES extends BaseTest {
 	@Test
 	public void testDeleteIndex() {
 		ss.deleteIndex("abc");
+	}
+	
+	@Test
+	public void testSearchKeyWords() {
+		String index = "scaffold";
+		String query = QueryBuilders.matchQuery("keyword", "中华").toString();
+		System.out.println(query);
+		SearchKeywords sk = ss.searchForKeywords(index, query, -1);
+		System.out.println(sk.getKeywords().size());
+		for(String s: sk.getKeywords()) {
+			System.out.print(s + ",");
+		}
+	}
+	
+	@Test
+	public void testSearch() {
+		String query = "{\"query\":{\"field\":{\"name\":\"中华\"}}}";
+		SearchResult sr = ss.search(query, -1, 0);
+		for(SearchEntry se: sr.getEntries()) {
+			IndexUser user = se.getIndexUser();
+			System.out.println(user.getLoginName());
+		}
 	}
 	
 	@Test

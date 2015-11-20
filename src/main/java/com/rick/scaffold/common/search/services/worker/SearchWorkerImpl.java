@@ -12,16 +12,9 @@ public class SearchWorkerImpl implements SearchWorker {
 	@Autowired
 	private SearchDelegate searchDelegate;
 
-	public RZSearchResponse execute(SearchClient client,
-			RZSearchRequest request, ExecutionContext context) throws Exception {
-
+	public RZSearchResponse execute(SearchClient client, RZSearchRequest request) throws Exception {
 		RZSearchResponse response = searchDelegate.search(request);
-
 		response.setInputSearchJson(request.getJson());
-		if (context == null) {
-			context = new ExecutionContext();
-		}
-		context.setObject("response", response);
 		return response;
 
 	}

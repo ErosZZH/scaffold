@@ -98,6 +98,7 @@ public class SearchServiceImpl implements SearchService {
 			request.setIndex(collectionName);
 			request.setSize(entriesCount);
 			request.setStart(startIndex);
+			request.setType("user");
 			request.setJson(jsonString);
 
 			RZSearchResponse response = searchService.search(request);
