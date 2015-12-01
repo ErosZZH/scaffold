@@ -152,5 +152,7 @@
 		<property name="fieldName" value="name" />
 		<property name="fieldType" value="String" />
 	</bean>
+	
+	<bean id="userSearchService" class="com.rick.scaffold.common.search.biz.user.UserSearchImpl"></bean>
 
 </beans>

@@ -19,7 +19,6 @@ import com.rick.scaffold.common.search.utils.SearchClient;
  * @author Carl Samson
  * 
  */
-
 public class RZSearchService {
 
 	private static Logger log = Logger.getLogger(RZSearchService.class);

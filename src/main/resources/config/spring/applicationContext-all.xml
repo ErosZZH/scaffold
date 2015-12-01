@@ -16,8 +16,8 @@
 
 	<!-- 加载应用属性实例，可通过  @Value("#{APP_PROP['jdbc.driver']}") String jdbcDriver 方式引用 -->
     <util:properties id="APP_PROP" location="classpath:config/props/*.properties" local-override="true"/>
-
-	<context:component-scan base-package="com.rick.scaffold">
+    
+    <context:component-scan base-package="com.rick.scaffold">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
 	
@@ -31,6 +31,6 @@
 	<import resource="classpath:config/spring/spring-jedis.xml" />
 	
 	<!-- ES -->
-	<import resource="classpath:config/spring/spring-search.xml" />
-
+	<import resource="classpath:config/spring/spring-search.xml" /> 
+	
 </beans>
