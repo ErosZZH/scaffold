@@ -14,7 +14,7 @@
 				/www/** = anon
 				/admin/login = authc
 				/admin/logout = logout
-				/admin/** = admin
+				/admin/** = user
 			</value>
 		</constructor-arg>
 	</bean>
