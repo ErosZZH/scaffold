@@ -21,7 +21,6 @@ public class BaseAPI {
 	
 	protected ResponseEntity<Object> enableCorsRequests(Object entity, int statusCode) {
 		HttpHeaders headers = new HttpHeaders();
-		headers.set("Access-Control-Allow-Origin", "*");
 		headers.set("X-FRAME-OPTIONS", "DENY");
 		return new ResponseEntity<Object>(entity, headers, HttpStatus.valueOf(statusCode));
 	}
