@@ -3,13 +3,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	
-	<groupId>com.rick</groupId>
-	<artifactId>scaffold</artifactId>
+	<groupId>com.yzlpie</groupId>
+	<artifactId>zjsy</artifactId>
 	<version>1.0.0</version>
 	<packaging>war</packaging>
 	
-	<name>scaffold</name>
-	<url>http://www.rick.com</url>
+	<name>zjsy</name>
+	<url>http://www.yzlpie.com</url>
 	<inceptionYear>2015-2020</inceptionYear>
 	
 	<!-- 项目属性 -->
@@ -28,7 +28,7 @@
 		<jackson.version>2.4.0</jackson.version>
 		
 		<!-- jdbc driver setting -->
-		<mysql.driver.version>5.1.30</mysql.driver.version>
+		<mysql.driver.version>5.1.31</mysql.driver.version>
 	    
 		<!-- environment setting -->
 		<jdk.version>1.7</jdk.version>
@@ -102,6 +102,11 @@
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
 			<artifactId>shiro-web</artifactId>
+			<version>${shiro.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-ehcache</artifactId>
 			<version>${shiro.version}</version>
 		</dependency>
 		<!-- SECURITY end -->
@@ -351,33 +356,6 @@
 					</systemProperties>
 				</configuration>
 			</plugin>
-      		
-      		<!-- mybatis generator -->
-      		<!-- <plugin>
-      			<groupId>org.mybatis.generator</groupId>
-     			<artifactId>mybatis-generator-maven-plugin</artifactId>
-      			<version>1.3.2</version>
-      			<configuration>
-          			<configurationFile>src/main/resources/mybatis-generator/generatorConfig.xml</configurationFile>
-          			<verbose>true</verbose>
-          			<overwrite>true</overwrite>
-      			</configuration>
-     			<executions>
-         			<execution>
-             			<id>Generate MyBatis Artifacts</id>
-             			<goals>
-                 			<goal>generate</goal>
-             			</goals>
-         			</execution>
-     			</executions>
-     			<dependencies>
-         			<dependency>
-             			<groupId>org.mybatis.generator</groupId>
-             			<artifactId>mybatis-generator-core</artifactId>
-             			<version>1.3.2</version>
-        			 </dependency>
-     			</dependencies>
- 			</plugin>-->
 
 		</plugins>
 	</build>
