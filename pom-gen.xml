@@ -3,13 +3,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	
-	<groupId>com.yzlpie</groupId>
-	<artifactId>zjsy</artifactId>
+	<groupId>com.rick</groupId>
+	<artifactId>scaffold</artifactId>
 	<version>1.0.0</version>
 	<packaging>war</packaging>
 	
-	<name>zjsy</name>
-	<url>http://www.yzlpie.com</url>
+	<name>scaffold</name>
+	<url>http://www.rick.com</url>
 	<inceptionYear>2015-2020</inceptionYear>
 	
 	<build>
