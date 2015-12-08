@@ -1,36 +1,22 @@
-/**
- * Copyright &copy; 2012-2014 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
- */
 package com.rick.scaffold.common.security;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.util.WebUtils;
-import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import com.rick.scaffold.common.utils.StringUtils;
-
-/**
- * 表单验证（包含验证码）过滤类
- * @author ThinkGem
- * @version 2014-5-19
- */
-@Service
-public class FormAuthenticationFilter extends org.apache.shiro.web.filter.authc.FormAuthenticationFilter {
-
-	public static final String DEFAULT_CAPTCHA_PARAM = "validateCode";
-	public static final String DEFAULT_MOBILE_PARAM = "mobileLogin";
-	public static final String DEFAULT_MESSAGE_PARAM = "message";
-
-	private String captchaParam = DEFAULT_CAPTCHA_PARAM;
-	private String mobileLoginParam = DEFAULT_MOBILE_PARAM;
-	private String messageParam = DEFAULT_MESSAGE_PARAM;
+public class AuthenticationFilter extends FormAuthenticationFilter {
+	
+	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	protected AuthenticationToken createToken(ServletRequest request, ServletResponse response) {
 		String username = getUsername(request);
@@ -38,33 +24,9 @@ public class FormAuthenticationFilter extends org.apache.shiro.web.filter.authc.
 		if (password==null){
 			password = "";
 		}
-		boolean rememberMe = isRememberMe(request);
-		String host = StringUtils.getRemoteAddr((HttpServletRequest)request);
-		String captcha = getCaptcha(request);
-		boolean mobile = isMobileLogin(request);
-		return new UsernamePasswordToken(username, password.toCharArray(), rememberMe, host, captcha, mobile);
+		return new UsernamePasswordToken(username, password);
 	}
 
-	public String getCaptchaParam() {
-		return captchaParam;
-	}
-
-	protected String getCaptcha(ServletRequest request) {
-		return WebUtils.getCleanParam(request, getCaptchaParam());
-	}
-
-	public String getMobileLoginParam() {
-		return mobileLoginParam;
-	}
-	
-	protected boolean isMobileLogin(ServletRequest request) {
-        return WebUtils.isTrue(request, getMobileLoginParam());
-    }
-	
-	public String getMessageParam() {
-		return messageParam;
-	}
-	
 	/**
 	 * 登录成功之后跳转URL
 	 */
@@ -102,7 +64,6 @@ public class FormAuthenticationFilter extends org.apache.shiro.web.filter.authc.
 			e.printStackTrace(); // 输出到控制台
 		}
         request.setAttribute(getFailureKeyAttribute(), className);
-        request.setAttribute(getMessageParam(), message);
         return true;
 	}
 	

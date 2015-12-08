@@ -1,15 +1,18 @@
-/**
- * Copyright &copy; 2012-2014 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
- */
 package com.rick.scaffold.common.security;
 
 import java.io.Serializable;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
 import java.util.List;
+
+import javax.annotation.PostConstruct;
 
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.Permission;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -17,17 +20,10 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 
 import com.rick.scaffold.core.entity.user.User;
 
-/**
- * 系统安全认证实现类
- * @author ThinkGem
- * @version 2014-7-5
- */
-@Service
-public class SystemAuthorizingRealm extends AuthorizingRealm {
+public class AuthenticationRealm extends AuthorizingRealm {
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
@@ -38,13 +34,38 @@ public class SystemAuthorizingRealm extends AuthorizingRealm {
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) {
 		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
-
 		String loginname = token.getUsername();
-		logger.error("login name is: " + loginname);
+		logger.debug("login name is: " + loginname);
 		User user = new User();
-		user.setId("1");
 		user.setName(loginname);
-		return new SimpleAuthenticationInfo(new Principal(user), user.getPassword().substring(16), getName());
+		user.setId("1");
+		String s = "";
+		try {
+			MessageDigest digest = MessageDigest.getInstance("SHA-1");
+			digest.update("admin".getBytes());
+			byte messageDigest[] = digest.digest();
+			StringBuilder hexString = new StringBuilder();
+			for(int i = 0; i < messageDigest.length; i++) {
+				String shaHex = Integer.toHexString(messageDigest[i] & 0xFF);
+				if(shaHex.length() < 2) {
+					hexString.append(0);
+				}
+				hexString.append(shaHex);
+			}
+			s = hexString.toString();
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		user.setPassword(s);
+		return new SimpleAuthenticationInfo(new Principal(user), user.getPassword(), getName());
+	}
+	
+	@PostConstruct
+	public void initCredentialsMatcher() {
+		HashedCredentialsMatcher matcher = new HashedCredentialsMatcher("SHA-1");
+		setCredentialsMatcher(matcher);
 	}
 
 	/**

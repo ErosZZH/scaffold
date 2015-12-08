@@ -11,7 +11,6 @@
 	<bean name="shiroFilterChainDefinitions" class="java.lang.String">
 		<constructor-arg>
 			<value>
-				/www/** = anon
 				/admin/login = authc
 				/admin/logout = logout
 				/admin/** = user
@@ -23,10 +22,10 @@
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
 		<property name="loginUrl" value="/admin/login" />
-		<property name="successUrl" value="/admin/home" />
+		<property name="successUrl" value="/admin" />
 		<property name="filters">
             <map>
-                <entry key="authc" value-ref="formAuthenticationFilter"/>
+                <entry key="authc" value-ref="authenticationFilter"/>
             </map>
         </property>
 		<property name="filterChainDefinitions">
@@ -36,18 +35,16 @@
 	
 	<!-- 定义Shiro安全管理配置 -->
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
-		<property name="realm" ref="systemAuthorizingRealm" />
+		<property name="realm" ref="authenticationRealm" />
+		<!-- <property name="cacheManager" ref="shiroCacheManager" /> -->
 	</bean>
 	
-	<!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
-	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+	<!-- <bean id="shiroCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+		<property name="cacheManager" ref="cacheManager"/>
+	</bean> -->
 	
-	<!-- AOP式方法级权限检查  -->
-	<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor">
-		<property name="proxyTargetClass" value="true" />
-	</bean>
-	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
-    	<property name="securityManager" ref="securityManager"/>
-	</bean>
+	<bean id="authenticationFilter" class="com.rick.scaffold.common.security.AuthenticationFilter" />
+	
+	<bean id="authenticationRealm" class="com.rick.scaffold.common.security.AuthenticationRealm" />
 	
 </beans>
