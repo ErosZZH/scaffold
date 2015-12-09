@@ -35,14 +35,16 @@
 			<label id="loginError" class="error">${message}</label>
 		</div>
 	</div>
-	<h1 class="form-signin-heading">${productName}</h1>
+	<h1 class="form-signin-heading">请登录 ${productName}</h1>
 	<form id="loginForm" class="form-signin" action="login" method="post">
 		<label class="input-label" for="username">登录名</label>
 		<input type="text" id="username" name="username" class="input-block-level required" value="${username}">
 		<label class="input-label" for="password">密码</label>
 		<input type="password" id="password" name="password" class="input-block-level required">
-		<input class="btn btn-large btn-primary" type="submit" value="登 录"/>&nbsp;&nbsp;
 		<label for="rememberMe" title="下次不需要再登录"><input type="checkbox" id="rememberMe" name="rememberMe" ${rememberMe ? 'checked' : ''}/> 记住我（公共场所慎用）</label>
+		<br>
+		<br>
+		<input class="btn btn-large btn-primary" type="submit" value="登 录"/>
 	</form>
 	<div class="footer">
 		Copyright &copy; 2012-2020 ${productName}</a> - Powered By <a href="http://www.yzlpie.com" target="_blank">苏州云周率信息技术有限公司</a> ${version} 
