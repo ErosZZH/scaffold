@@ -44,6 +44,8 @@
 		<typeAlias alias="Company" type="com.rick.scaffold.core.entity.user.Company" />
 		<typeAlias alias="Photo" type="com.rick.scaffold.core.entity.user.Photo" />
 		<typeAlias alias="FullUser" type="com.rick.scaffold.core.entity.user.FullUser" />
+		
+		<typeAlias alias="Product" type="com.rick.scaffold.core.entity.product.Product" />
 	</typeAliases>
 	
 	<plugins>

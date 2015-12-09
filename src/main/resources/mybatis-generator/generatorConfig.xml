@@ -37,7 +37,7 @@
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 
-		<table tableName="sys_photo" domainObjectName="Photo"
+		<table tableName="sys_product" domainObjectName="Product"
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false">
