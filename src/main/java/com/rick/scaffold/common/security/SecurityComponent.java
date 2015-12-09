@@ -6,11 +6,16 @@ import java.util.Random;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.UnavailableSecurityManagerException;
+import org.apache.shiro.session.InvalidSessionException;
+import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.rick.scaffold.common.Constants;
+import com.rick.scaffold.common.security.AuthenticationRealm.Principal;
 
 @Component
 public class SecurityComponent {
@@ -94,5 +99,20 @@ public class SecurityComponent {
 	
 	private byte charToByte(char c) {   
 	    return (byte) "0123456789ABCDEF".indexOf(c);   
+	}
+	
+	public Principal getPrincipal(){
+		try{
+			Subject subject = SecurityUtils.getSubject();
+			Principal principal = (Principal)subject.getPrincipal();
+			if (principal != null){
+				return principal;
+			}
+		}catch (UnavailableSecurityManagerException e) {
+			
+		}catch (InvalidSessionException e){
+			
+		}
+		return null;
 	}
 }

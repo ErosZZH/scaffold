@@ -22,16 +22,14 @@
         	-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;-webkit-box-shadow:0 1px 2px rgba(0,0,0,.05);-moz-box-shadow:0 1px 2px rgba(0,0,0,.05);box-shadow:0 1px 2px rgba(0,0,0,.05);}
       .form-signin .checkbox{margin-bottom:10px;color:#0663a2;} .form-signin .input-label{font-size:16px;line-height:23px;color:#999;}
       .form-signin .input-block-level{font-size:16px;height:auto;margin-bottom:15px;padding:7px;*width:283px;*padding-bottom:0;_padding:7px 7px 9px 7px;}
-      .form-signin .btn.btn-large{font-size:16px;} .form-signin #themeSwitch{position:absolute;right:15px;bottom:10px;}
-      .form-signin div.validateCode {padding-bottom:15px;} .mid{vertical-align:middle;}
+      .form-signin .btn.btn-large{font-size:16px;}
       .header{height:80px;padding-top:20px;} .alert{position:relative;width:300px;margin:0 auto;*padding-bottom:0px;}
-      label.error{background:none;width:270px;font-weight:normal;color:inherit;margin:0;}
     </style>
 </head>
 <body>
 	<!--[if lte IE 6]><br/><div class='alert alert-block' style="text-align:left;padding-bottom:10px;"><a class="close" data-dismiss="alert">x</a><h4>温馨提示：</h4><p>你使用的浏览器版本过低。为了获得更好的浏览体验，我们强烈建议您 <a href="http://browsehappy.com" target="_blank">升级</a> 到最新版本的IE浏览器，或者使用较新版本的 Chrome、Firefox、Safari 等。</p></div><![endif]-->
 	<div class="header">
-		<div id="messageBox" class="alert alert-error ${empty message ? 'hide' : ''}"><button data-dismiss="alert" class="close">×</button>
+		<div id="messageBox" class="alert alert-danger ${empty message ? 'hide' : ''}"><button data-dismiss="alert" class="close">×</button>
 			<label id="loginError" class="error">${message}</label>
 		</div>
 	</div>
@@ -47,10 +45,23 @@
 		<input class="btn btn-large btn-primary" type="submit" value="登 录"/>
 	</form>
 	<div class="footer">
-		Copyright &copy; 2012-2020 ${productName}</a> - Powered By <a href="http://www.yzlpie.com" target="_blank">苏州云周率信息技术有限公司</a> ${version} 
+		Copyright &copy; 2012-2020 ${productName} - Powered By <a href="http://www.yzlpie.com" target="_blank">苏州云周率信息技术有限公司</a> ${version} 
 	</div>
 	<script src="${staticDomain}/js/jquery.js" type="text/javascript"></script>
 	<script src="${staticDomain}/js/bootstrap.min.js" type="text/javascript"></script>
 	<script src="${staticDomain}/js/jquery.validate.min.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#loginForm").validate({
+				messages: {
+					username: {required: "请填写用户名."},password: {required: "请填写密码."}
+				},
+				errorLabelContainer: "#messageBox",
+				errorPlacement: function(error, element) {
+					error.appendTo($("#loginError").parent());
+				} 
+			});
+		});
+	</script>
 </body>
 </html>

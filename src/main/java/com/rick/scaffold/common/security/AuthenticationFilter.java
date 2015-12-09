@@ -24,7 +24,8 @@ public class AuthenticationFilter extends FormAuthenticationFilter {
 		if (password==null){
 			password = "";
 		}
-		return new UsernamePasswordToken(username, password);
+		boolean rememberMe = isRememberMe(request);
+		return new UsernamePasswordToken(username, password, rememberMe);
 	}
 
 	/**
@@ -51,7 +52,8 @@ public class AuthenticationFilter extends FormAuthenticationFilter {
 	@Override
 	protected boolean onLoginFailure(AuthenticationToken token,
 			AuthenticationException e, ServletRequest request, ServletResponse response) {
-		String className = e.getClass().getName(), message = "";
+		String className = e.getClass().getName();
+		String message = "";
 		if (IncorrectCredentialsException.class.getName().equals(className)
 				|| UnknownAccountException.class.getName().equals(className)){
 			message = "用户或密码错误, 请重试.";
@@ -64,6 +66,7 @@ public class AuthenticationFilter extends FormAuthenticationFilter {
 			e.printStackTrace(); // 输出到控制台
 		}
         request.setAttribute(getFailureKeyAttribute(), className);
+        request.setAttribute("message", message);
         return true;
 	}
 	

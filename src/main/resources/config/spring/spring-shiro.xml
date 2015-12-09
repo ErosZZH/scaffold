@@ -23,6 +23,7 @@
 		<property name="securityManager" ref="securityManager" />
 		<property name="loginUrl" value="/admin/login" />
 		<property name="successUrl" value="/admin" />
+		<property name="unauthorizedUrl" value="/admin/login"/> 
 		<property name="filters">
             <map>
                 <entry key="authc" value-ref="authenticationFilter"/>
