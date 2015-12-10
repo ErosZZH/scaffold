@@ -17,4 +17,6 @@ public interface UserDao extends CrudDao<User> {
 	List<FullUser> findCascade(String id);
 	
 	List<FullUser> findLazy(String id);
+	
+	User findByName(String name);
 }

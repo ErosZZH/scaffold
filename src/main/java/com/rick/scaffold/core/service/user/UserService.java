@@ -61,5 +61,9 @@ public class UserService extends CrudService<UserDao, User> {
 	public List<FullUser> findLazy(String id) {
 		return userDao.findLazy(id);
 	}
+	
+	public User findByName(String name) {
+		return userDao.findByName(name);
+	}
 }
 

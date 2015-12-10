@@ -43,7 +43,7 @@
       #{delflag,jdbcType=BIT})
   </insert>
   
-  <update id="update" parameterType="com.rick.scaffold.core.entity.Product" >
+  <update id="update" parameterType="Product" >
     update sys_product
     <set >
       <if test="modifyDate != null" >

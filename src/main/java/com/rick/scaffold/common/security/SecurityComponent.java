@@ -1,5 +1,7 @@
 package com.rick.scaffold.common.security;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -114,5 +116,26 @@ public class SecurityComponent {
 			
 		}
 		return null;
+	}
+	
+	public String sha1Hash(String origin) {
+		String s = "";
+		try {
+			MessageDigest digest = MessageDigest.getInstance("SHA-1");
+			digest.update(origin.getBytes());
+			byte messageDigest[] = digest.digest();
+			StringBuilder hexString = new StringBuilder();
+			for(int i = 0; i < messageDigest.length; i++) {
+				String shaHex = Integer.toHexString(messageDigest[i] & 0xFF);
+				if(shaHex.length() < 2) {
+					hexString.append(0);
+				}
+				hexString.append(shaHex);
+			}
+			s = hexString.toString();
+		} catch (NoSuchAlgorithmException e) {
+			logger.error("Sha1 string error.", e);
+		}
+		return s;
 	}
 }

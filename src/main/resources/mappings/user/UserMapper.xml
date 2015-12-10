@@ -113,6 +113,13 @@
     where id = #{id} and name = #{name}
   </select>
   
+  <select id="findByName" parameterType="String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_user
+    where login_name = #{name}
+  </select>
+  
   <delete id="delete" parameterType="String">
     delete from sys_user
     where id = #{id}

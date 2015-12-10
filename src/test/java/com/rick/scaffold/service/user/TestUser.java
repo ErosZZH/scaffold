@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.google.common.base.Optional;
 import com.rick.scaffold.base.BaseTest;
 import com.rick.scaffold.common.jsontool.JsonMapper;
+import com.rick.scaffold.common.security.SecurityComponent;
 import com.rick.scaffold.common.utils.JedisUtils;
 import com.rick.scaffold.core.entity.user.FullUser;
-import com.rick.scaffold.core.entity.user.Photo;
 import com.rick.scaffold.core.entity.user.User;
 import com.rick.scaffold.core.service.user.PhotoService;
 import com.rick.scaffold.core.service.user.UserService;
@@ -24,6 +24,9 @@ public class TestUser extends BaseTest{
 	@Autowired
 	private PhotoService ps;
 	
+	@Autowired
+	private SecurityComponent sc;
+	
 	@Test
 	public void testAddUser() {
 		User user = new User();
@@ -32,6 +35,17 @@ public class TestUser extends BaseTest{
 		user.setName("zzh4");
 		user.setCompanyId("56077d096a8ad31ca69b9f3b");
 		int res = us.saveAndCache(user);
+		System.out.println(res);
+	}
+	
+	@Test
+	public void testAddUserWithPassword() {
+		User user = new User();
+		user.setLoginName("zzh");
+		user.setPassword(sc.sha1Hash("password"));
+		user.setName("zzh");
+		user.setCompanyId("56077d096a8ad31ca69b9f3b");
+		int res = us.save(user);
 		System.out.println(res);
 	}
 	

@@ -1,8 +1,6 @@
 package com.rick.scaffold.common.security;
 
 import java.io.Serializable;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
 import java.util.List;
 
@@ -20,13 +18,17 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.rick.scaffold.core.entity.user.User;
+import com.rick.scaffold.core.service.user.UserService;
 
 public class AuthenticationRealm extends AuthorizingRealm {
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
+	@Autowired
+	private UserService userService;
 
 	/**
 	 * 认证回调函数, 登录时调用
@@ -36,29 +38,7 @@ public class AuthenticationRealm extends AuthorizingRealm {
 		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
 		String loginname = token.getUsername();
 		logger.debug("login name is: " + loginname);
-		User user = new User();
-		user.setName(loginname);
-		user.setId("1");
-		String s = "";
-		try {
-			MessageDigest digest = MessageDigest.getInstance("SHA-1");
-			digest.update("admin".getBytes());
-			byte messageDigest[] = digest.digest();
-			StringBuilder hexString = new StringBuilder();
-			for(int i = 0; i < messageDigest.length; i++) {
-				String shaHex = Integer.toHexString(messageDigest[i] & 0xFF);
-				if(shaHex.length() < 2) {
-					hexString.append(0);
-				}
-				hexString.append(shaHex);
-			}
-			s = hexString.toString();
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		user.setPassword(s);
+		User user = userService.findByName(loginname);
 		return new SimpleAuthenticationInfo(new Principal(user), user.getPassword(), getName());
 	}
 	
