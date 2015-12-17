@@ -2,14 +2,14 @@
 .checkstyle
 .classpath
 .project
-.class
+*.class
 .war
 .zip
 .rar
 .idea
 *.iml
 .ext*
-.settings/*
+*/.settings/*
 /indexes/*
 /target/*
 /src/main/webapp/WEB-INF/classes/*
