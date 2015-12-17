@@ -49,15 +49,4 @@
 		</plugins>
 	</build>
 	
-	<!-- 开发者信息 -->
-	<developers>  
-		<developer>
-			<id>com.yzlpie</id>
-			<name>Rick</name>
-			<email>rickatyzlpie.com</email>
-			<roles><role>Code Farmer</role></roles>
-			<timezone>+8</timezone>
-		</developer>
-	</developers>
-	
 </project>

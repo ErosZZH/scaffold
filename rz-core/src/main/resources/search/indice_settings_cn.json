@@ -1,0 +1,12 @@
+{
+	"index": {
+            "analysis": {
+                "analyzer": {
+                    "cn_analyzer": {
+                    	"type" : "custom",
+                        "tokenizer" : "ik"
+                    }
+                }
+            }
+     }
+ }
