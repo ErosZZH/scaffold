@@ -120,4 +120,6 @@
 	<!-- ES -->
 	<import resource="classpath:test-spring-search.xml" />
 	
+	<bean id="userSearchService" class="com.rick.scaffold.common.search.user.UserSearchImpl"></bean>
+	
 </beans>

@@ -6,7 +6,7 @@
 	default-lazy-init="true">
 
 	<!-- can have different search client for indexing & searching -->
-	<bean id="searchClient" class="com.rick.scaffold.common.search.utils.SearchClient">
+	<bean id="searchClient" class="com.rick.scaffold.search.utils.SearchClient">
 		<property name="serverConfiguration">
 			<ref bean="serverConfiguration" />
 		</property>
@@ -14,7 +14,7 @@
 
 	<!-- Server configuration -->
 	<bean id="serverConfiguration"
-		class="com.rick.scaffold.common.search.utils.ServerConfiguration">
+		class="com.rick.scaffold.search.utils.ServerConfiguration">
 		<property name="clusterName" value="${es.clusterName}" />
 		<!-- local (embedded version, will create new indexes in the working directory) 
 			or remote (requires existing server) -->
@@ -25,7 +25,7 @@
 	</bean>
 
 	<bean id="searchDelegate"
-		class="com.rick.scaffold.common.search.services.delegate.SearchDelegateImpl">
+		class="com.rick.scaffold.search.services.delegate.SearchDelegateImpl">
 		<property name="searchClient">
 			<ref bean="searchClient" />
 		</property>
@@ -34,20 +34,20 @@
 
 	<!-- This file contains flow definitions for indexing and searching -->
 	<bean id="searchService"
-		class="com.rick.scaffold.common.search.services.RZSearchService" />
+		class="com.rick.scaffold.search.services.RZSearchService" />
 
 	<bean id="searchWorkflow"
-		class="com.rick.scaffold.common.search.services.workflow.SearchWorkflow">
+		class="com.rick.scaffold.search.services.workflow.SearchWorkflow">
 		<property name="searchFlow">
 			<list>
 				<bean id="search"
-					class="com.rick.scaffold.common.search.services.worker.SearchWorkerImpl" />
+					class="com.rick.scaffold.search.services.worker.SearchWorkerImpl" />
 			</list>
 		</property>
 		<property name="searchKeywordWorkflow">
 			<list>
 				<bean id="searchKeyword"
-					class="com.rick.scaffold.common.search.services.worker.KeywordSearchWorkerImpl" />
+					class="com.rick.scaffold.search.services.worker.KeywordSearchWorkerImpl" />
 			</list>
 		</property>
 		<property name="searchClient">
@@ -56,7 +56,7 @@
 	</bean>
 
 	<bean id="indexWorkflow"
-		class="com.rick.scaffold.common.search.services.workflow.IndexWorkflow">
+		class="com.rick.scaffold.search.services.workflow.IndexWorkflow">
 		<property name="indexWorkflow">
 			<list>
 				<ref bean="index" />
@@ -69,11 +69,11 @@
 	</bean>
 
 	<bean id="deleteWorkflow"
-		class="com.rick.scaffold.common.search.services.workflow.DeleteObjectWorkflow">
+		class="com.rick.scaffold.search.services.workflow.DeleteObjectWorkflow">
 		<property name="deleteObjectWorkflow">
 			<list>
 				<bean id="deleteObject"
-					class="com.rick.scaffold.common.search.services.worker.DeleteObjectImpl" />
+					class="com.rick.scaffold.search.services.worker.DeleteObjectImpl" />
 				<ref bean="deleteKeywords" />
 			</list>
 		</property>
@@ -83,21 +83,21 @@
 	</bean>
 
 	<bean id="getWorkflow"
-		class="com.rick.scaffold.common.search.services.workflow.GetWorkflow">
+		class="com.rick.scaffold.search.services.workflow.GetWorkflow">
 		<property name="searchClient">
 			<ref bean="searchClient" />
 		</property>
 	</bean>
 	
 	<bean id="importWorkflow"
-		class="com.rick.scaffold.common.search.services.workflow.ImportWorkflow">
+		class="com.rick.scaffold.search.services.workflow.ImportWorkflow">
 		<property name="searchClient">
 			<ref bean="searchClient" />
 		</property>
 	</bean>
 
 	<bean id="deleteKeywords"
-		class="com.rick.scaffold.common.search.services.worker.DeleteKeywordsImpl">
+		class="com.rick.scaffold.search.services.worker.DeleteKeywordsImpl">
 		<property name="indexConfigurations">
 			<list>
 				<ref bean="user_keywordindex" />
@@ -107,7 +107,7 @@
 
 	<!-- create indice  -->
 	<bean id="index"
-		class="com.rick.scaffold.common.search.services.worker.ObjectIndexerImpl">
+		class="com.rick.scaffold.search.services.worker.ObjectIndexerImpl">
 		<property name="indexConfigurations">
 			<list>
 				<ref bean="user_indexConfig" />
@@ -117,7 +117,7 @@
 
 	<!-- load index configuration -->
 	<bean id="user_indexConfig"
-		class="com.rick.scaffold.common.search.utils.IndexConfiguration">
+		class="com.rick.scaffold.search.utils.IndexConfiguration">
 		<property name="indiceName" value="scaffold" />
 		<property name="typeName" value="user" />
 		<property name="mappingFileName" value="search/indice_mappings_user.json" />
@@ -126,7 +126,7 @@
 
 	<!-- create keyword indice  -->
 	<bean id="keyword"
-		class="com.rick.scaffold.common.search.services.worker.KeywordIndexerImpl">
+		class="com.rick.scaffold.search.services.worker.KeywordIndexerImpl">
 		<property name="indexConfigurations">
 			<list>
 				<ref bean="user_keywordindex" />
@@ -135,7 +135,7 @@
 	</bean>
 
 	<bean id="user_keywordindex"
-		class="com.rick.scaffold.common.search.utils.CustomIndexConfiguration">
+		class="com.rick.scaffold.search.utils.CustomIndexConfiguration">
 		<property name="typeName" value="keyword_user" />
 		<property name="onType" value="user" />
 		<property name="fields">
@@ -148,11 +148,9 @@
 
 	<!-- supported field types List, Integer, Double, Boolean, String -->
 	<bean id="field1"
-		class="com.rick.scaffold.common.search.utils.CustomIndexFieldConfiguration">
+		class="com.rick.scaffold.search.utils.CustomIndexFieldConfiguration">
 		<property name="fieldName" value="name" />
 		<property name="fieldType" value="String" />
 	</bean>
-	
-	<bean id="userSearchService" class="com.rick.scaffold.common.search.biz.user.UserSearchImpl"></bean>
 
 </beans>
