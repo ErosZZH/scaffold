@@ -18,4 +18,4 @@
 /target/
 /data/
 /bin/
-deploy.sh*
+*.sh~
