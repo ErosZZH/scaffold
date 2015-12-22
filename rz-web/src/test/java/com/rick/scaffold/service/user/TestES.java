@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.rick.scaffold.base.BaseTest;
 import com.rick.scaffold.common.jsontool.JsonMapper;
-import com.rick.scaffold.common.search.biz.SearchEntry;
-import com.rick.scaffold.common.search.biz.SearchKeywords;
-import com.rick.scaffold.common.search.biz.SearchResult;
-import com.rick.scaffold.common.search.biz.user.IndexUser;
-import com.rick.scaffold.common.search.biz.user.UserSearch;
-import com.rick.scaffold.common.search.services.RZSearchService;
-import com.rick.scaffold.common.search.services.delegate.SearchDelegate;
+import com.rick.scaffold.common.search.SearchEntry;
+import com.rick.scaffold.common.search.SearchKeywords;
+import com.rick.scaffold.common.search.SearchResult;
+import com.rick.scaffold.common.search.user.IndexUser;
+import com.rick.scaffold.common.search.user.UserSearch;
 import com.rick.scaffold.core.entity.user.User;
+import com.rick.scaffold.search.services.RZSearchService;
+import com.rick.scaffold.search.services.delegate.SearchDelegate;
 
 public class TestES extends BaseTest {
 

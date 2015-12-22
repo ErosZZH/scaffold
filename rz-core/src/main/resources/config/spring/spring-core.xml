@@ -30,7 +30,4 @@
 	<!-- redis -->
 	<import resource="classpath:config/spring/spring-jedis.xml" />
 	
-	<!-- ES -->
-	<import resource="classpath:config/spring/spring-search.xml" /> 
-	
 </beans>

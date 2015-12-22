@@ -38,7 +38,9 @@
 
 
 	<modules>
+		<module>rz-common</module>
 		<module>rz-core</module>
+		<module>rz-search</module>
 		<module>rz-web</module>
 	</modules>
 

@@ -1,9 +1,15 @@
 package com.rick.scaffold.common.utils;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -484,7 +490,7 @@ public class JedisUtils {
 				value = Maps.newHashMap();
 				Map<byte[], byte[]> map = jedis.hgetAll(getBytesKey(key));
 				for (Map.Entry<byte[], byte[]> e : map.entrySet()){
-					value.put(StringUtils.toString(e.getKey()), toObject(e.getValue()));
+					value.put(new String(e.getKey(), "UTF-8"), toObject(e.getValue()));
 				}
 				logger.debug("getObjectMap {} = {}", key, value);
 			}
@@ -833,9 +839,13 @@ public class JedisUtils {
 	 */
 	public static byte[] getBytesKey(Object object){
 		if(object instanceof String){
-    		return StringUtils.getBytes((String)object);
+    		try {
+				return ((String)object).getBytes("UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				return serialize(object);
+			}
     	}else{
-    		return ObjectUtils.serialize(object);
+    		return serialize(object);
     	}
 	}
 	
@@ -845,7 +855,7 @@ public class JedisUtils {
 	 * @return
 	 */
 	public static byte[] toBytes(Object object){
-    	return ObjectUtils.serialize(object);
+    	return serialize(object);
 	}
 
 	/**
@@ -854,7 +864,47 @@ public class JedisUtils {
 	 * @return
 	 */
 	public static Object toObject(byte[] bytes){
-		return ObjectUtils.unserialize(bytes);
+		return unserialize(bytes);
+	}
+	
+	/**
+	 * 序列化对象
+	 * @param object
+	 * @return
+	 */
+	public static byte[] serialize(Object object) {
+		ObjectOutputStream oos = null;
+		ByteArrayOutputStream baos = null;
+		try {
+			if (object != null){
+				baos = new ByteArrayOutputStream();
+				oos = new ObjectOutputStream(baos);
+				oos.writeObject(object);
+				return baos.toByteArray();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	/**
+	 * 反序列化对象
+	 * @param bytes
+	 * @return
+	 */
+	public static Object unserialize(byte[] bytes) {
+		ByteArrayInputStream bais = null;
+		try {
+			if (bytes != null && bytes.length > 0){
+				bais = new ByteArrayInputStream(bytes);
+				ObjectInputStream ois = new ObjectInputStream(bais);
+				return ois.readObject();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

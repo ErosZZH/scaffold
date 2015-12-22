@@ -5,12 +5,13 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextStartedEvent;
 import org.springframework.stereotype.Component;
 
-import com.rick.scaffold.common.search.biz.user.UserSearch;
+import com.rick.scaffold.common.search.user.UserSearch;
 
 @Component
 public class ApplicationContextListener implements
 		ApplicationListener<ContextStartedEvent> {
 	//ContextRefreshedEvent for test
+	//ContextStartedEvent for deploy
 
 	@Override
 	public void onApplicationEvent(ContextStartedEvent event) {
