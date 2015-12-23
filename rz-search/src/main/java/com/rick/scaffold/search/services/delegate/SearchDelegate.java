@@ -11,6 +11,8 @@ import com.rick.scaffold.search.services.RZSearchResponse;
 public interface SearchDelegate {
 
 	boolean indexExist(String indexName) throws Exception;
+	
+	boolean typeExist(String index, String type) throws Exception;
 
 	void createIndice(String mappingJson, String settingsJson, String indice, String type) throws Exception;
 

@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
 import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsRequestBuilder;
 import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsResponse;
+import org.elasticsearch.action.admin.indices.exists.types.TypesExistsResponse;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.delete.DeleteRequest;
@@ -51,6 +52,8 @@ import com.rick.scaffold.search.services.field.RZStringField;
 import com.rick.scaffold.search.utils.SearchClient;
 
 public class SearchDelegateImpl implements SearchDelegate {
+	
+	private static Logger log = Logger.getLogger(SearchDelegateImpl.class);
 
 	private SearchClient searchClient = null;
 
@@ -62,17 +65,23 @@ public class SearchDelegateImpl implements SearchDelegate {
 		this.searchClient = searchClient;
 	}
 
-	private static Logger log = Logger.getLogger(SearchDelegateImpl.class);
-
 	@Override
-	public boolean indexExist(String indexName) throws Exception {
+	public boolean indexExist(String index) throws Exception {
 		Client client = searchClient.getClient();
 		IndicesExistsRequestBuilder indiceRequestBuilder = client.admin()
-				.indices().prepareExists(indexName);
+				.indices().prepareExists(index);
 		IndicesExistsResponse indiceResponse = indiceRequestBuilder.execute()
 				.actionGet();
 		return indiceResponse.isExists();
 
+	}
+	
+	@Override
+	public boolean typeExist(String index, String type) throws Exception {
+		Client client = searchClient.getClient();
+		TypesExistsResponse typeExistsResponse = client.admin().indices().prepareTypesExists(index)
+				.setTypes(type).execute().actionGet();
+		return typeExistsResponse.isExists();
 	}
 
 	@Override

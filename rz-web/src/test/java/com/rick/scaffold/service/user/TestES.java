@@ -79,5 +79,11 @@ public class TestES extends BaseTest {
 		user.setPhone("13140998809");
 		sd.index(JsonMapper.toJsonString(user), "scaffold", "user", "abc");
 	}
+	
+	@Test
+	public void testTypeExist() throws Exception {
+		boolean res = sd.typeExist("scaffold", "user");
+		System.out.println(res);
+	}
 
 }

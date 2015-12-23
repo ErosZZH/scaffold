@@ -1,5 +1,7 @@
 package com.rick.scaffold.common.search.user;
 
+import javax.annotation.PostConstruct;
+
 import com.rick.scaffold.common.search.SearchKeywords;
 import com.rick.scaffold.common.search.SearchResult;
 import com.rick.scaffold.core.entity.user.User;
@@ -35,6 +37,7 @@ public interface UserSearch {
 	/**
 	 * Initializes search service in order to avoid lazy initialization
 	 */
+	@PostConstruct
 	void initService();
 
 }

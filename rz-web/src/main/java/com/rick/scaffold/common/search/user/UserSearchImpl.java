@@ -12,6 +12,7 @@ import org.elasticsearch.search.highlight.HighlightField;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.rick.scaffold.common.search.SearchEntry;
 import com.rick.scaffold.common.search.SearchFacet;
@@ -26,6 +27,7 @@ import com.rick.scaffold.search.services.RZSearchRequest;
 import com.rick.scaffold.search.services.RZSearchResponse;
 import com.rick.scaffold.search.services.RZSearchService;
 
+@Service("userSearchService")
 public class UserSearchImpl implements UserSearch {
 
 	private static final Logger LOGGER = LoggerFactory

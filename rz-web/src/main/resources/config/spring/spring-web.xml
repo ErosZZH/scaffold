@@ -13,6 +13,6 @@
 	<!-- ES -->
 	<import resource="classpath:config/spring/spring-search.xml" /> 
 	
-	<bean id="userSearchService" class="com.rick.scaffold.common.search.user.UserSearchImpl"></bean>
+	<!-- <bean id="userSearchService" class="com.rick.scaffold.common.search.user.UserSearchImpl"></bean> -->
 	
 </beans>

@@ -2,6 +2,8 @@ package com.rick.scaffold.search.utils;
 
 import static org.elasticsearch.node.NodeBuilder.nodeBuilder;
 
+import javax.annotation.PreDestroy;
+
 import org.apache.log4j.Logger;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
@@ -43,13 +45,11 @@ public class SearchClient {
 		return client;
 	}
 
+	@PreDestroy
 	public void stopClient() {
 		if (client != null) {
 			client.close();
 		}
-	}
-	
-	public void stopNode() {
 		if (node != null) {
 			node.close();
 		}
