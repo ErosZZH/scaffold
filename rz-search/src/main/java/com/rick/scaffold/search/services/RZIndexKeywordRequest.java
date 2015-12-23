@@ -12,6 +12,7 @@ public class RZIndexKeywordRequest implements Serializable {
 	
 	private String id;
 	private String key;
+	
 	private Collection<RZField> filters = new ArrayList<RZField>();
 
 	public Collection<RZField> getFilters() {

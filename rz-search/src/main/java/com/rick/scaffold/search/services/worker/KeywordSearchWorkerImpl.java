@@ -15,10 +15,10 @@ public class KeywordSearchWorkerImpl implements KeywordSearchWorker {
 
 	@Override
 	public RZSearchResponse execute(SearchClient client, String index,
-			String json, int size) throws Exception {
+			String json, String type, int size) throws Exception {
 
 		Collection<String> hits = searchDelegate.searchAutoComplete(index,
-				json, size);
+				json, type, size);
 		RZSearchResponse resp = new RZSearchResponse();
 
 		String[] array = (String[]) hits.toArray(new String[hits.size()]);

@@ -6,6 +6,6 @@ import com.rick.scaffold.search.utils.SearchClient;
 
 public interface KeywordSearchWorker {
 	
-	RZSearchResponse execute(SearchClient client,String index,String json,int size) throws Exception;
+	RZSearchResponse execute(SearchClient client,String index,String json, String type, int size) throws Exception;
 
 }

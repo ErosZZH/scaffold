@@ -74,9 +74,9 @@ public class RZSearchService {
 		indexWorkflow.index(jsonObj, index, type);
 	}
 
-	public RZSearchResponse searchAutoComplete(String index, String json,
+	public RZSearchResponse searchAutoComplete(String index, String json, String type,
 			int size) throws Exception {
-		return searchWorkflow.searchAutoComplete(index, json, size);
+		return searchWorkflow.searchAutoComplete(index, json, type, size);
 	}
 
 	public RZSearchResponse search(RZSearchRequest request) throws Exception {

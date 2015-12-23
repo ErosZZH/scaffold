@@ -21,7 +21,7 @@ public interface UserSearch {
 	 * @return
 	 * @throws ServiceException
 	 */
-	SearchKeywords searchForKeywords(String collectionName, String jsonString, int entriesCount);
+	SearchKeywords searchForKeywords(String index, String type, String jsonString, int entriesCount);
 
 	/**
 	 * Search products based on user entry

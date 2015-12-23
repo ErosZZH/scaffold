@@ -45,9 +45,10 @@ public class TestES extends BaseTest {
 	@Test
 	public void testSearchKeyWords() {
 		String index = "scaffold";
+		String type = "keyword_user";
 		String query = QueryBuilders.matchQuery("keyword", "中华").toString();
 		System.out.println(query);
-		SearchKeywords sk = ss.searchForKeywords(index, query, -1);
+		SearchKeywords sk = ss.searchForKeywords(index, type, query, -1);
 		System.out.println(sk.getKeywords().size());
 		for(String s: sk.getKeywords()) {
 			System.out.print(s + ",");

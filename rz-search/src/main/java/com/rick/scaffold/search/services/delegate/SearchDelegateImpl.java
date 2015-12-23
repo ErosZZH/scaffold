@@ -139,11 +139,11 @@ public class SearchDelegateImpl implements SearchDelegate {
 		try {
 			Client client = searchClient.getClient();
 			BulkRequestBuilder bulkRequest = client.prepareBulk();
-			for (RZIndexKeywordRequest key : bulks) {
+			for (RZIndexKeywordRequest bulk : bulks) {
 				XContentBuilder b = jsonBuilder().startObject()
-						.field("keyword", key.getKey())
-						.field("_id_", key.getId());
-				Collection<RZField> fields = key.getFilters();
+						.field("keyword", bulk.getKey())
+						.field("_id_", bulk.getId());
+				Collection<RZField> fields = bulk.getFilters();
 				if (fields.size() > 0) {
 					for (RZField field : fields) {
 						if (field instanceof RZBooleanField) {
@@ -314,12 +314,12 @@ public class SearchDelegateImpl implements SearchDelegate {
 	}
 
 	@Override
-	public Set<String> searchAutoComplete(String index, String json,
+	public Set<String> searchAutoComplete(String index, String json, String type,
 			int size) throws Exception {
 		Set<String> returnList = new HashSet<String>();
 		try {
 			SearchRequestBuilder builder = searchClient.getClient()
-					.prepareSearch(index)
+					.prepareSearch(index).setTypes(type)
 					.setQuery(json).setExplain(false);
 			if (size > -1) {
 				builder.setFrom(0).setSize(size);

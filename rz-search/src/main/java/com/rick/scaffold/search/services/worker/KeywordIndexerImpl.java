@@ -49,6 +49,13 @@ public class KeywordIndexerImpl implements IndexWorker {
 	}
 
 	private static Map<String, CustomIndexConfiguration> indexConfigurationsMap = null;
+	
+	@Override
+	public void init(SearchClient client) {
+		if (!init) {
+			init();
+		}
+	}
 
 	private synchronized void init() {
 		try {
@@ -59,7 +66,7 @@ public class KeywordIndexerImpl implements IndexWorker {
 						indexConfigurationsMap = new HashMap<String, CustomIndexConfiguration>();
 					}
 					if (StringUtils.isBlank(key)) {
-						log.error("Require property createOnIndexName in keyword indexer");
+						log.debug("Require property createOnIndexName in keyword indexer");
 						continue;
 					}
 					indexConfigurationsMap.put(key, ic);
@@ -85,7 +92,7 @@ public class KeywordIndexerImpl implements IndexWorker {
 				// get fields to index
 				List<CustomIndexFieldConfiguration> fields = conf.getFields();
 				if (fields != null) {
-					List<String> k = new ArrayList<String>();
+					List<String> attrs = new ArrayList<String>();
 					for (CustomIndexFieldConfiguration cifc : fields) {
 						String fieldName = cifc.getFieldName();
 						if (fieldName.trim().toLowerCase().equals("id")) {
@@ -97,32 +104,32 @@ public class KeywordIndexerImpl implements IndexWorker {
 								try {
 									List<String> keyWords = (List<String>) indexData.get(fieldName);
 									if (keyWords != null) {
-										k.addAll(keyWords);
+										attrs.addAll(keyWords);
 									}
 								} catch (Exception e) {// might have one instead
 									String keyword = (String) indexData.get(fieldName);
 									if (keyword != null) {
-										k.add(keyword);
+										attrs.add(keyword);
 									}
 								}
 							} else {// String
 								String keyword = (String) indexData.get(fieldName);
 								if (keyword != null) {
-									k.add(keyword);
+									attrs.add(keyword);
 								}
 							}
 						}// end field type
 					}// end for
-					if (k != null && k.size() > 0) {
+					if (attrs != null && attrs.size() > 0) {
 						Collection<RZIndexKeywordRequest> bulks = new ArrayList<RZIndexKeywordRequest>();
-						for (String value : k) {
+						String _id = (String) indexData.get("id");
+						for (String attr : attrs) {
 							RZIndexKeywordRequest kr = new RZIndexKeywordRequest();
-							if (StringUtils.isBlank(value)) {
+							if (StringUtils.isBlank(attr)) {
 								continue;
 							}
-							String _id = (String) indexData.get("id");
 							kr.setId(_id);
-							kr.setKey(value);
+							kr.setKey(attr);
 							if (conf.getFilters() != null && conf.getFilters().size() > 0) {
 								for (CustomIndexFieldConfiguration filter : conf.getFilters()) {
 									String fieldName = filter.getFieldName();
@@ -177,22 +184,14 @@ public class KeywordIndexerImpl implements IndexWorker {
 							bulks.add(kr);
 						}
 						// delete previous keywords for the same id
-						deleteKeywordsImpl.deleteObject(client, index, "keyword", id);
-						searchDelegate.bulkIndexKeywords(bulks, index, "keyword");
+						deleteKeywordsImpl.deleteObject(client, index, conf.getTypeName(), id);
+						searchDelegate.bulkIndexKeywords(bulks, index, conf.getTypeName());
 					}
 				}
 			}
 		} catch (Exception e) {
 			log.error("Cannot index keywords, maybe a timing ussue for no shards available", e);
 		}
-	}
-
-	@Override
-	public void init(SearchClient client) {
-		if (!init) {
-			init();
-		}
-
 	}
 
 }

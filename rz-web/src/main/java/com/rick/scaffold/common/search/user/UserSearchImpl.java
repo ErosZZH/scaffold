@@ -74,11 +74,11 @@ public class UserSearchImpl implements UserSearch {
 	}
 
 	@Override
-	public SearchKeywords searchForKeywords(String collectionName,
+	public SearchKeywords searchForKeywords(String index, String type,
 			String jsonString, int entriesCount) {
 		try {
 			RZSearchResponse response = searchService.searchAutoComplete(
-					collectionName, jsonString, entriesCount);
+					index, jsonString, type, entriesCount);
 			SearchKeywords keywords = new SearchKeywords();
 			keywords.setKeywords(Arrays.asList(response.getInlineSearchList()));
 			return keywords;

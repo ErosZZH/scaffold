@@ -120,8 +120,8 @@
 		class="com.rick.scaffold.search.utils.IndexConfiguration">
 		<property name="indiceName" value="scaffold" />
 		<property name="typeName" value="user" />
-		<property name="mappingFileName" value="search/indice_mappings_user.json" />
-		<property name="settingsFileName" value="search/indice_settings_cn.json" />
+		<property name="mappingFileName" value="config/search/indice_mappings_user.json" />
+		<property name="settingsFileName" value="config/search/indice_settings_cn.json" />
 	</bean>
 
 	<!-- create keyword indice  -->

@@ -6,8 +6,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.rick.scaffold.common.utils.FileUtils;
 import com.rick.scaffold.search.services.delegate.SearchDelegate;
-import com.rick.scaffold.search.utils.FileUtil;
 import com.rick.scaffold.search.utils.IndexConfiguration;
 import com.rick.scaffold.search.utils.SearchClient;
 
@@ -36,33 +36,26 @@ public class ObjectIndexerImpl implements IndexWorker {
 			return;
 		}
 		init = true;
-		if (getIndexConfigurations() != null
-				&& getIndexConfigurations().size() > 0) {
-
+		if (getIndexConfigurations() != null && getIndexConfigurations().size() > 0) {
 			for (IndexConfiguration config : indexConfigurations) {
-
 				String mappingFile = null;
 				String settingsFile = null;
-				
 				if (!StringUtils.isBlank(config.getMappingFileName())) {
 					mappingFile = config.getMappingFileName();
 				}
 				if (!StringUtils.isBlank(config.getSettingsFileName())) {
 					settingsFile = config.getSettingsFileName();
 				}
-
 				if (mappingFile != null || settingsFile != null) {
 					String metadata = null;
 					String settingsdata = null;
 					try {
 						if (mappingFile != null) {
-							metadata = FileUtil.readFileAsString(mappingFile);
+							metadata = FileUtils.readFileAsString(mappingFile);
 						}
-
 						if (settingsFile != null) {
-							settingsdata = FileUtil.readFileAsString(settingsFile);
+							settingsdata = FileUtils.readFileAsString(settingsFile);
 						}
-
 						if (!StringUtils.isBlank(config.getTypeName())) {
 							if (!searchDelegate.indexExist(config.getIndiceName())) {
 								searchDelegate.createIndice(metadata, settingsdata, config.getIndiceName(), config.getTypeName());

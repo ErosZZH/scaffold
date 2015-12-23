@@ -28,12 +28,12 @@ public class SearchWorkflow extends Workflow {
 		this.searchFlow = searchFlow;
 	}
 
-	public RZSearchResponse searchAutoComplete(String index, String json,
+	public RZSearchResponse searchAutoComplete(String index, String json, String type,
 			int size) throws Exception {
 		RZSearchResponse response = null;
 		if (searchKeywordWorkflow != null) {
 			for (KeywordSearchWorker sw : searchKeywordWorkflow) {
-				response = sw.execute(super.getSearchClient(), index, json, size);
+				response = sw.execute(super.getSearchClient(), index, json, type, size);
 			}
 		}
 		return response;

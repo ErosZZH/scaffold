@@ -28,6 +28,6 @@ public interface SearchDelegate {
 
 	RZSearchResponse search(RZSearchRequest request) throws Exception;
 
-	Set<String> searchAutoComplete(String index, String json, int size) throws Exception;
+	Set<String> searchAutoComplete(String index, String json, String type, int size) throws Exception;
 
 }
