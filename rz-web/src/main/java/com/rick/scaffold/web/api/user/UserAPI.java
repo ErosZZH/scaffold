@@ -16,8 +16,8 @@ import com.rick.scaffold.core.service.user.UserService;
 import com.rick.scaffold.exception.APIException;
 import com.rick.scaffold.web.api.generic.BaseAPI;
 
-@Controller
-@RequestMapping(value="/api/user",produces={"application/json;charset=UTF-8"})
+@Controller("userApiV1")
+@RequestMapping(value="/api/v1/user",produces={"application/json;charset=UTF-8"})
 public class UserAPI extends BaseAPI{
 	
 	@Autowired

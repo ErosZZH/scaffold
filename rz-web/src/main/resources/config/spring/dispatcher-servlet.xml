@@ -66,6 +66,6 @@
         	<!-- <mvc:exclude-mapping path="/api/v1/member/*"/> -->
         	<bean class="com.rick.scaffold.common.security.AuthenticationInterceptor" />
     	</mvc:interceptor>
-	</mvc:interceptors>
+	</mvc:interceptors>  
 
 </beans>
