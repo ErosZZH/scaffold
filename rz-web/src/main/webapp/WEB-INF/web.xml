@@ -8,6 +8,11 @@
 
 	<!-- ServletContext Configuration -->
 	<context-param>
+		<param-name>webAppRootKey</param-name>
+		<param-value>app.root</param-value>
+	</context-param>
+
+	<context-param>
 		<param-name>log4jConfigLocation</param-name>
 		<param-value>classpath:config/logger/log4j.xml</param-value>
 	</context-param>

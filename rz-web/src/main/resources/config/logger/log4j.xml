@@ -11,7 +11,7 @@
 	</appender>
 
 	<appender name="SCAFFOLD" class="org.apache.log4j.DailyRollingFileAppender">     
-		<param name="File" value="${catalina.home}/logs/scaffold/scaffold.log" />     
+		<param name="File" value="${app.root}/../../logs/scaffold/scaffold.log" />     
 		<param name="DatePattern" value="'daily.'yyyy-MM-dd'.log'" />     
         <layout class="org.apache.log4j.PatternLayout">     
 			<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss\} %-5p] [%t] (%c:%L) - %m%n" />     
