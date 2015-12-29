@@ -1,10 +1,12 @@
-package com.rick.scaffold.common.search;
+package com.rick.scaffold.soa.search;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-public class SearchResult {
+public class SearchResult implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	private int totalCount = 0;//total number of entries
 	private int entryCount = 0;//number of entries asked
 	

@@ -1,4 +1,4 @@
-package com.rick.scaffold.common.search.user;
+package com.rick.scaffold.search.module.user;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,11 +14,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.rick.scaffold.common.search.SearchEntry;
-import com.rick.scaffold.common.search.SearchFacet;
-import com.rick.scaffold.common.search.SearchKeywords;
-import com.rick.scaffold.common.search.SearchResult;
-import com.rick.scaffold.core.entity.user.User;
 import com.rick.scaffold.search.SearchConstants;
 import com.rick.scaffold.search.services.RZEntry;
 import com.rick.scaffold.search.services.RZFacet;
@@ -26,6 +21,12 @@ import com.rick.scaffold.search.services.RZSearchHit;
 import com.rick.scaffold.search.services.RZSearchRequest;
 import com.rick.scaffold.search.services.RZSearchResponse;
 import com.rick.scaffold.search.services.RZSearchService;
+import com.rick.scaffold.soa.search.SearchEntry;
+import com.rick.scaffold.soa.search.SearchFacet;
+import com.rick.scaffold.soa.search.SearchKeywords;
+import com.rick.scaffold.soa.search.SearchResult;
+import com.rick.scaffold.soa.search.model.IndexUser;
+import com.rick.scaffold.soa.search.service.UserSearch;
 
 @Service("userSearchService")
 public class UserSearchImpl implements UserSearch {
@@ -44,20 +45,12 @@ public class UserSearchImpl implements UserSearch {
 	}
 
 	@Override
-	public void createIndex(User user) {
+	public void createIndex(IndexUser user) {
 
 		String indice = SearchConstants.indice;
 
-		IndexUser indexObj = new IndexUser();
-
-		indexObj.setId(user.getId());
-		indexObj.setEmail(user.getEmail());
-		indexObj.setLoginName(user.getLoginName());
-		indexObj.setName(user.getName());
-		indexObj.setPhone(user.getPhone());
-
 		try {
-			searchService.index(indexObj, indice, TYPE);
+			searchService.index(user, indice, TYPE);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -1,6 +1,6 @@
-package com.rick.scaffold.common.search.user;
+package com.rick.scaffold.soa.search.model;
 
-import com.rick.scaffold.search.IndexObject;
+import com.rick.scaffold.soa.search.IndexObject;
 
 
 public class IndexUser extends IndexObject {
@@ -53,5 +53,4 @@ public class IndexUser extends IndexObject {
 		this.phone = phone;
 	}
 
-	
 }

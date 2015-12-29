@@ -29,18 +29,19 @@ public class DeleteKeywordsImpl implements DeleteObjectWorker {
 
 	@Override
 	public void deleteObject(SearchClient client, String index, String type, String id) throws Exception {
+		String keywordType = "keyword_" + type;
 		if (searchDelegate.indexExist(index)) {
 			String query = new StringBuilder()
 					.append("{\"query\":{\"term\" : {\"_id_\" : \"").append(id)
 					.append("\" }}}").toString();
 			RZSearchRequest sr = new RZSearchRequest();
 			sr.setIndex(index);
-			sr.setType(type);
+			sr.setType(keywordType);
 			sr.setJson(query);
 			RZSearchResponse r = searchDelegate.search(sr);
 			if (r != null) {
 				Collection<String> ids = r.getIds();
-				searchDelegate.bulkDeleteIndex(ids, index);
+				searchDelegate.bulkDeleteIndex(ids, keywordType, index);
 			}
 		}
 	}

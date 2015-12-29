@@ -3,7 +3,6 @@ package com.rick.scaffold.search.services;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.rick.scaffold.search.IndexObject;
 import com.rick.scaffold.search.services.worker.KeywordIndexerImpl;
 import com.rick.scaffold.search.services.worker.ObjectIndexerImpl;
 import com.rick.scaffold.search.services.workflow.DeleteObjectWorkflow;
@@ -12,6 +11,7 @@ import com.rick.scaffold.search.services.workflow.ImportWorkflow;
 import com.rick.scaffold.search.services.workflow.IndexWorkflow;
 import com.rick.scaffold.search.services.workflow.SearchWorkflow;
 import com.rick.scaffold.search.utils.SearchClient;
+import com.rick.scaffold.soa.search.IndexObject;
 
 /**
  * This is the main class for indexing and searching services

@@ -20,7 +20,7 @@ public interface SearchDelegate {
 
 	void delete(String index, String type, String id) throws Exception;
 
-	void bulkDeleteIndex(Collection<String> ids, String index) throws Exception;
+	void bulkDeleteIndex(Collection<String> ids, String type, String index) throws Exception;
 
 	void bulkIndexKeywords(Collection<RZIndexKeywordRequest> bulks, String index, String type) throws Exception;
 

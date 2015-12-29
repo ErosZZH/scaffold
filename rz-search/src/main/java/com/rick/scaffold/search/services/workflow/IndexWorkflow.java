@@ -6,8 +6,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.rick.scaffold.common.jsontool.JsonMapper;
-import com.rick.scaffold.search.IndexObject;
 import com.rick.scaffold.search.services.worker.IndexWorker;
+import com.rick.scaffold.soa.search.IndexObject;
 
 
 public class IndexWorkflow extends Workflow {

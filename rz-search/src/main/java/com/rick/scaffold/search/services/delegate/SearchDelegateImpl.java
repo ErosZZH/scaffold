@@ -114,7 +114,7 @@ public class SearchDelegateImpl implements SearchDelegate {
 	}
 
 	@Override
-	public void bulkDeleteIndex(Collection<String> ids, String index)
+	public void bulkDeleteIndex(Collection<String> ids, String type, String index)
 			throws Exception {
 		if (this.indexExist(index)) {
 			Client client = searchClient.getClient();
@@ -122,7 +122,7 @@ public class SearchDelegateImpl implements SearchDelegate {
 				BulkRequestBuilder bulkRequest = client.prepareBulk();
 				for (String s : ids) {
 					DeleteRequest dr = new DeleteRequest();
-					dr.type("keyword").index(index).id(s);
+					dr.type(type).index(index).id(s);
 					bulkRequest.add(dr);
 				}
 				BulkResponse bulkResponse = bulkRequest.execute().actionGet();
