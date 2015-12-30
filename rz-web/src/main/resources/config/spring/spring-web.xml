@@ -15,7 +15,8 @@
     <dubbo:registry address="zookeeper://127.0.0.1:2181" client="zkclient"/>  
     
     <!-- 生成远程服务代理，可以和本地bean一样使用demoService -->  
-    <dubbo:reference id="searchService" interface="com.rick.scaffold.soa.search.service.UserSearch" />  
+    <dubbo:reference id="userSearch" interface="com.rick.scaffold.soa.search.service.UserSearch" />  
+    <dubbo:reference id="productSearch" interface="com.rick.scaffold.soa.search.service.ProductSearch" />  
 	
 	<!-- spring-core -->
 	<import resource="classpath:config/spring/spring-core.xml" />

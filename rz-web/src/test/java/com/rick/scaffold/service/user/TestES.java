@@ -9,12 +9,16 @@ import com.rick.scaffold.soa.search.SearchEntry;
 import com.rick.scaffold.soa.search.SearchKeywords;
 import com.rick.scaffold.soa.search.SearchResult;
 import com.rick.scaffold.soa.search.model.IndexUser;
+import com.rick.scaffold.soa.search.service.ProductSearch;
 import com.rick.scaffold.soa.search.service.UserSearch;
 
 public class TestES extends BaseTest {
 
 	@Autowired
 	private UserSearch ss;
+	
+	@Autowired
+	private ProductSearch ps;
 	
 //	@Autowired
 //	private SearchDelegate sd;
@@ -55,6 +59,19 @@ public class TestES extends BaseTest {
 		String query = "{\"match\" : {\"keyword\" : {\"query\" :\"国歌\",\"type\" : \"boolean\"}}}";
 		System.out.println(query);
 		SearchKeywords sk = ss.searchForKeywords(index, type, query, -1);
+		System.out.println(sk.getKeywords().size());
+		for(String s: sk.getKeywords()) {
+			System.out.print(s + ",");
+		}
+	}
+	
+	@Test
+	public void testSearchProduct() {
+		String index = "scaffold";
+		String type = "product";
+		String query = "{\"match\" : {\"keyword\" : {\"query\" :\"妙洁\",\"type\" : \"boolean\"}}}";
+		System.out.println(query);
+		SearchKeywords sk = ps.searchForKeywords(index, type, query, 20);
 		System.out.println(sk.getKeywords().size());
 		for(String s: sk.getKeywords()) {
 			System.out.print(s + ",");

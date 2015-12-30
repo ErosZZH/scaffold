@@ -17,7 +17,7 @@ public class TestProduct extends BaseTest{
 
 	@Test
 	public void testImportProduct () throws Exception {
-		ps.importFromDB("select id, name, sn, introduction from yzl_product"); 
+		ps.importFromDB("select id, name as keyword, sn, introduction from yzl_product"); 
 	}
 	
 	@Test
