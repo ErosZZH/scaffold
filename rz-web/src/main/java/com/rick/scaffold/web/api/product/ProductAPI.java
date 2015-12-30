@@ -34,26 +34,6 @@ public class ProductAPI extends BaseAPI{
 		System.out.println(query);
 		SearchKeywords sk = ps.searchForKeywords(index, type, query, 20);
 		System.out.println(sk.getKeywords().size());
-		List<TypeAhead> list = new ArrayList<TypeAhead>();
-		for(String s: sk.getKeywords()) {
-			TypeAhead t = new TypeAhead();
-			t.setName(s);
-			list.add(t);
-		}
-		return responseSuccess(list);
-	}
-	
-	private class TypeAhead {
-		
-		private String name;
-
-		public String getName() {
-			return name;
-		}
-
-		public void setName(String name) {
-			this.name = name;
-		}
-		
+		return responseSuccess(sk.getKeywords());
 	}
 }

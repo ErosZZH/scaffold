@@ -10,7 +10,7 @@
   <body ng-app="scaffoldApp" ng-controller="MainCtrl">
     <input type="text" class="form-control" style="width: 260px; display: inline-block; margin-left: 10px;"
                                placeholder="填写商品名" ng-model="productName"
-                                typeahead="item.name for item in getProduct($viewValue)"
+                                typeahead="item for item in getProduct($viewValue)"
                                 typeahead-loading="loadingProduct" typeahead-no-results="noResults">
                         <i ng-show="loadingProduct" class="glyphicon glyphicon-refresh"></i>
                         <div ng-show="noResults">
