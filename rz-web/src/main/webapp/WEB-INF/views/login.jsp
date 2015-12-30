@@ -47,7 +47,7 @@
 	<div class="footer">
 		Copyright &copy; 2012-2020 ${productName} - Powered By <a href="http://www.yzlpie.com" target="_blank">苏州云周率信息技术有限公司</a> ${version} 
 	</div>
-	<script src="${staticDomain}/js/jquery.js" type="text/javascript"></script>
+	<script src="${staticDomain}/js/jquery.min.js" type="text/javascript"></script>
 	<script src="${staticDomain}/js/bootstrap.min.js" type="text/javascript"></script>
 	<script src="${staticDomain}/js/jquery.validate.min.js" type="text/javascript"></script>
 	<script type="text/javascript">
