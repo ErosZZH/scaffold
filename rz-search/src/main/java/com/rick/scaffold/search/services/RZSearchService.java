@@ -83,7 +83,7 @@ public class RZSearchService {
 		return searchWorkflow.search(request);
 	}
 	
-	public void importFromMysql(String sql, String index, String type) throws Exception {
-		importWorkflow.importFromDB(sql, index, type);
+	public void importFromMysql(String sql, String index, String type, String river) throws Exception {
+		importWorkflow.importFromDB(sql, index, type, river);
 	}
 }

@@ -26,8 +26,8 @@ public class ImportWorkflow extends Workflow {
 	@Autowired
 	private HttpService httpService;
 	
-	public void importFromDB(String sql, String index, String type) throws Exception {
-		String url = "http://" + esHost + ":9200/_river/my_jdbc_river/_meta";
+	public void importFromDB(String sql, String index, String type, String river) throws Exception {
+		String url = "http://" + esHost + ":9200/_river/"+river+"/_meta";
 		Map<String, String> jdbcMap = new HashMap<String, String>();
 		jdbcMap.put("url", dbUrl);
 		jdbcMap.put("user", dbUser);
