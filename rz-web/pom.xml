@@ -77,12 +77,13 @@
 			<scope>provided</scope>
 		</dependency>
 		
+		<!--  Distribute session use redis
 		<dependency>
 			<groupId>com.rick</groupId>
 			<artifactId>redis-tomcat</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<scope>provided</scope>
-		</dependency>
+		</dependency> -->
 
 		<!-- jstl -->
 		<dependency>
