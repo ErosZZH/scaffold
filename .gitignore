@@ -20,3 +20,4 @@
 /bin/
 *.sh~
 zookeeper.out
+dump.rdb
