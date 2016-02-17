@@ -104,7 +104,7 @@ public class AuthenticationRealm extends AuthorizingRealm {
 
 		private static final long serialVersionUID = 1L;
 		
-		private String id; // 编号
+		private Long id; // 编号
 		private String name; // 姓名
 		
 		public Principal(User user) {
@@ -112,7 +112,7 @@ public class AuthenticationRealm extends AuthorizingRealm {
 			this.name = user.getName();
 		}
 
-		public String getId() {
+		public Long getId() {
 			return id;
 		}
 

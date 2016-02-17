@@ -29,7 +29,7 @@ public class TestES extends BaseTest {
 	@Test
 	public void testCreateIndex() {
 		User user = new User();
-		user.setId("abc");
+		user.setId(123L);
 		user.setEmail("a@b.com");
 		user.setName("中华人民共和国国歌");
 		user.setLoginName("eroszzh");
@@ -48,7 +48,7 @@ public class TestES extends BaseTest {
 	
 	@Test
 	public void testDeleteIndex() {
-		ss.deleteIndex("abc");
+		ss.deleteIndex("123L");
 	}
 	
 	@Test

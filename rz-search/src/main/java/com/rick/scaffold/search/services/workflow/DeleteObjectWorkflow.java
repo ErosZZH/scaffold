@@ -18,7 +18,7 @@ public class DeleteObjectWorkflow extends Workflow{
 	}
 
 
-	public void deleteObject(String index, String type, String id) throws Exception {	
+	public void deleteObject(String index, String type, Long id) throws Exception {	
 		if(deleteObjectWorkflow!=null) {
 			for(DeleteObjectWorker iw : deleteObjectWorkflow) {
 				iw.deleteObject(super.getSearchClient(), index, type, id);

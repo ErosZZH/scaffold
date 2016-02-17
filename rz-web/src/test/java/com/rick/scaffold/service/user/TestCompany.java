@@ -15,8 +15,8 @@ public class TestCompany extends BaseTest{
 	@Test
 	public void testAddCompany() {
 		Company c = new Company();
-		c.setName("yzl1");
-		c.setPhone("12347");
+		c.setName("yzl");
+		c.setPhone("12345");
 		cs.save(c);
 	}
 }

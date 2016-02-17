@@ -80,7 +80,7 @@ public class KeywordIndexerImpl implements IndexWorker {
 
 	@Override
 	public void execute(SearchClient client, String json, String index,
-			String type, String id)
+			String type, Long id)
 			throws Exception {
 		if (!init) {
 			init();

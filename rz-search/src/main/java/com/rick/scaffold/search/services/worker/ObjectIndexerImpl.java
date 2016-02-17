@@ -71,7 +71,8 @@ public class ObjectIndexerImpl implements IndexWorker {
 	}
 
 	//insert object into es
-	public void execute(SearchClient client, String json, String index, String type, String id)
+	@Override
+	public void execute(SearchClient client, String json, String index, String type, Long id)
 			throws Exception {
 		try {
 			if (!init) {

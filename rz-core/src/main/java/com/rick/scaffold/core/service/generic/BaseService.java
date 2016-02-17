@@ -26,7 +26,7 @@ public abstract class BaseService<D extends BaseDao<T>, T extends BaseEntity<T>>
 	 * @param id
 	 * @return
 	 */
-	public T findOne(String id) {
+	public T findOne(Long id) {
 		return dao.findOne(id);
 	}
 	
@@ -47,7 +47,7 @@ public abstract class BaseService<D extends BaseDao<T>, T extends BaseEntity<T>>
 	public int saveAndCache(T entity, int cacheExpireTime) {
 		entity.preInsert();
 		int res = dao.insert(entity);
-		JedisUtils.setObject(entity.getId(), entity, cacheExpireTime);
+		JedisUtils.setObject(entity.getId().toString(), entity, cacheExpireTime);
 		return res;
 	}
 	
@@ -55,7 +55,7 @@ public abstract class BaseService<D extends BaseDao<T>, T extends BaseEntity<T>>
 	public int saveAndCache(T entity) {
 		entity.preInsert();
 		int res = dao.insert(entity);
-		JedisUtils.setObject(entity.getId(), entity, 0);
+		JedisUtils.setObject(entity.getId().toString(), entity, 0);
 		return res;
 	}
 	
@@ -72,14 +72,14 @@ public abstract class BaseService<D extends BaseDao<T>, T extends BaseEntity<T>>
 	@Transactional(readOnly = false)
 	public int updateAndCache(T entity, int cacheExpireTime) {
 		int res = dao.update(entity);
-		JedisUtils.setObject(entity.getId(), entity, cacheExpireTime);
+		JedisUtils.setObject(entity.getId().toString(), entity, cacheExpireTime);
 		return res;
 	}
 	
 	@Transactional(readOnly = false)
 	public int updateAndCache(T entity) {
 		int res = dao.update(entity);
-		JedisUtils.setObject(entity.getId(), entity, 0);
+		JedisUtils.setObject(entity.getId().toString(), entity, 0);
 		return res;
 	}
 	
@@ -93,13 +93,13 @@ public abstract class BaseService<D extends BaseDao<T>, T extends BaseEntity<T>>
 	 * @param entity
 	 */
 	@Transactional(readOnly = false)
-	public int delete(String id) {
+	public int delete(Long id) {
 		return dao.delete(id);
 	}
 	
 	@Transactional(readOnly = false)
-	public int deleteAndCache(String id) {
-		JedisUtils.delObject(id);
+	public int deleteAndCache(Long id) {
+		JedisUtils.delObject(id.toString());
 		return dao.delete(id);
 	}
 }

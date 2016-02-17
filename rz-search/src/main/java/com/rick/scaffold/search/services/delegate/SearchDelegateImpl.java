@@ -99,17 +99,17 @@ public class SearchDelegateImpl implements SearchDelegate {
 	}
 
 	@Override
-	public void index(String json, String index, String type, String id) {
+	public void index(String json, String index, String type, Long id) {
 		Client client = searchClient.getClient();
-		client.prepareIndex(index, type, id).setSource(json).execute().actionGet();
+		client.prepareIndex(index, type, id.toString()).setSource(json).execute().actionGet();
 	}
 
 	@Override
-	public void delete(String index, String type, String id)
+	public void delete(String index, String type, Long id)
 			throws Exception {
 		if (this.indexExist(index)) {
 			Client client = searchClient.getClient();
-			client.prepareDelete(index, type, id).execute().actionGet();
+			client.prepareDelete(index, type, id.toString()).execute().actionGet();
 		}
 	}
 

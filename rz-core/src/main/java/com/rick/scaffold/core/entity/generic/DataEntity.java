@@ -26,7 +26,7 @@ public abstract class DataEntity<T> extends BaseEntity<T> {
 		super();
 	}
 	
-	public DataEntity(String id) {
+	public DataEntity(Long id) {
 		super(id);
 	}
 	

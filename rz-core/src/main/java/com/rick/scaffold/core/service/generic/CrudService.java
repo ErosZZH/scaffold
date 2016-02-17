@@ -28,7 +28,7 @@ public abstract class CrudService<D extends CrudDao<T>, T extends DataEntity<T>>
 	public int saveAndCache(T entity) {
 		entity.preInsert();
 		int res = dao.insert(entity);
-		JedisUtils.setObject(entity.getId(), entity, 0);
+		JedisUtils.setObject(entity.getId().toString(), entity, 0);
 		return res;
 	}
 	
@@ -37,7 +37,7 @@ public abstract class CrudService<D extends CrudDao<T>, T extends DataEntity<T>>
 	public int saveAndCache(T entity, int cacheExpireTime) {
 		entity.preInsert();
 		int res = dao.insert(entity);
-		JedisUtils.setObject(entity.getId(), entity, cacheExpireTime);
+		JedisUtils.setObject(entity.getId().toString(), entity, cacheExpireTime);
 		return res;
 	}
 	
@@ -57,7 +57,7 @@ public abstract class CrudService<D extends CrudDao<T>, T extends DataEntity<T>>
 	public int updateAndCache(T entity, int cacheExpireTime) {
 		entity.preUpdate();
 		int res = dao.update(entity);
-		JedisUtils.setObject(entity.getId(), entity, cacheExpireTime);
+		JedisUtils.setObject(entity.getId().toString(), entity, cacheExpireTime);
 		return res;
 	}
 	
@@ -66,7 +66,7 @@ public abstract class CrudService<D extends CrudDao<T>, T extends DataEntity<T>>
 	public int updateAndCache(T entity) {
 		entity.preUpdate();
 		int res = dao.update(entity);
-		JedisUtils.setObject(entity.getId(), entity, 0);
+		JedisUtils.setObject(entity.getId().toString(), entity, 0);
 		return res;
 	}
 }

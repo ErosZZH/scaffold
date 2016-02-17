@@ -15,9 +15,9 @@ public class TestPhoto extends BaseTest{
 	@Test
 	public void testAddPhoto() {
 		Photo p = new Photo();
-		p.setSize(101);
-		p.setUrl("baidu.com");
-		p.setUserId("56077e0d6a8ad31d5fe33a63");
+		p.setSize(102);
+		p.setUrl("sina.com");
+		p.setUserId(56886380597248L);
 		ps.save(p);
 	}
 }

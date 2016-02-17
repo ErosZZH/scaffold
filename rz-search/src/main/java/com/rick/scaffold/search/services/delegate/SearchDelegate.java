@@ -16,9 +16,9 @@ public interface SearchDelegate {
 
 	void createIndice(String mappingJson, String settingsJson, String indice, String type) throws Exception;
 
-	void index(String json, String index, String type, String id);
+	void index(String json, String index, String type, Long id);
 
-	void delete(String index, String type, String id) throws Exception;
+	void delete(String index, String type, Long id) throws Exception;
 
 	void bulkDeleteIndex(Collection<String> ids, String type, String index) throws Exception;
 

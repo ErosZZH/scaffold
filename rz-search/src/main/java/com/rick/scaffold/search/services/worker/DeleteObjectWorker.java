@@ -10,6 +10,6 @@ import com.rick.scaffold.search.utils.SearchClient;
  */
 public interface DeleteObjectWorker {
 	
-	public void deleteObject(SearchClient client, String index, String type, String id) throws Exception;
+	public void deleteObject(SearchClient client, String index, String type, Long id) throws Exception;
 
 }

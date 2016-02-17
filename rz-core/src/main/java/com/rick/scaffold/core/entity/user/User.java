@@ -29,15 +29,15 @@ public class User extends DataEntity<User> {
 
     private Date loginDate;
     
-    private String companyId;
+    private Long companyId;
     
     
 
-	public String getCompanyId() {
+	public Long getCompanyId() {
 		return companyId;
 	}
 
-	public void setCompanyId(String companyId) {
+	public void setCompanyId(Long companyId) {
 		this.companyId = companyId;
 	}
 

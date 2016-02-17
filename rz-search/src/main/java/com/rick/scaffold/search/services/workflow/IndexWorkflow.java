@@ -25,8 +25,8 @@ public class IndexWorkflow extends Workflow {
 	}
 	
 	public void index(IndexObject jsonObj, String index, String type) throws Exception {
-		String id = jsonObj.getId();
-		if(StringUtils.isBlank(id)) {
+		Long id = jsonObj.getId();
+		if(id == null || id.longValue() <= 0) {
 			log.warn("No id exist for object.");
 			throw new Exception("Invalid index object.");
 		}

@@ -9,7 +9,7 @@ DROP TABLE IF EXISTS sys_user;
 
 CREATE TABLE sys_user
 (
-	id varchar(24) unique,
+	id bigint(20) unique,
 	login_name varchar(100) NOT NULL unique,
 	password varchar(100) NOT NULL,
 	name varchar(100) NOT NULL,
@@ -32,7 +32,7 @@ CREATE INDEX idx_sys_user_del_flag ON sys_user (del_flag ASC);
 drop table if exists sys_company;
 create table sys_company
 (
-	id varchar(24) unique,
+	id bigint(20) unique,
 	name varchar(100) NOT NULL,
 	phone varchar(100) NOT NULL,
 	primary key (id)
@@ -41,10 +41,10 @@ create table sys_company
 drop table if exists sys_photo;
 create table sys_photo
 (
-	id varchar(24) unique,
+	id bigint(20) unique,
 	url varchar(100) NOT NULL,
 	size int(11) NOT NULL,
-	user_id varchar(24),
+	user_id bigint(20),
 	primary key (id),
 	FOREIGN KEY (user_id) REFERENCES sys_user(id)
 );

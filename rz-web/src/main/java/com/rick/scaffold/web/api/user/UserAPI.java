@@ -27,7 +27,7 @@ public class UserAPI extends BaseAPI{
 	@ResponseBody
 	public ResponseEntity<Object> getUser(@PathVariable("id") String id) throws APIException {
 //		Map<String, Object> users = userService.findAll1();
-		List<FullUser> users = userService.findLazy("56077e0d6a8ad31d5fe33a63");
+		List<FullUser> users = userService.findLazy(56886380597248L);
 		return responseSuccess(users);
 	}
 }

@@ -10,7 +10,7 @@ public interface UserSearch {
 
 	void createIndex(IndexUser user);
 
-	void deleteIndex(String id);
+	void deleteIndex(Long id);
 
 	SearchKeywords searchForKeywords(String index, String type, String jsonString, int entriesCount);
 

@@ -11,14 +11,14 @@ public class Photo extends BaseEntity<Photo> {
 	
 	private String url;
 	private int size;
-	private String userId;
+	private Long userId;
 	
 	
 	
-	public String getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
-	public void setUserId(String userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 	public String getUrl() {

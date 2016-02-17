@@ -39,7 +39,7 @@ public class UserService extends CrudService<UserDao, User> {
 	}
 	
 	@Override
-	public User findOne(String id) {
+	public User findOne(Long id) {
 		return userDao.findOne(id);
 	}
 	
@@ -51,14 +51,14 @@ public class UserService extends CrudService<UserDao, User> {
 	}
 
 	public User findOne1() {
-		return userDao.findOne1("56077e0d6a8ad31d5fe33a63", "zzh1");
+		return userDao.findOne1(56886380597248L, "zzh");
 	}
 	
-	public List<FullUser> findCascade(String id) {
+	public List<FullUser> findCascade(Long id) {
 		return userDao.findCascade(id);
 	}
 	
-	public List<FullUser> findLazy(String id) {
+	public List<FullUser> findLazy(Long id) {
 		return userDao.findLazy(id);
 	}
 	

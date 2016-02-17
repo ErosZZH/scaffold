@@ -28,7 +28,7 @@ public class DeleteKeywordsImpl implements DeleteObjectWorker {
 	private SearchDelegate searchDelegate;
 
 	@Override
-	public void deleteObject(SearchClient client, String index, String type, String id) throws Exception {
+	public void deleteObject(SearchClient client, String index, String type, Long id) throws Exception {
 		String keywordType = "keyword_" + type;
 		if (searchDelegate.indexExist(index)) {
 			String query = new StringBuilder()

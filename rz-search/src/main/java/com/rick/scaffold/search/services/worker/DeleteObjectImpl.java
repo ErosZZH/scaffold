@@ -12,7 +12,7 @@ public class DeleteObjectImpl implements DeleteObjectWorker {
 
 	@Override
 	public void deleteObject(SearchClient client, String index,
-			String type, String id) throws Exception {
+			String type, Long id) throws Exception {
 		searchDelegate.delete(index, type, id);
 	}
 

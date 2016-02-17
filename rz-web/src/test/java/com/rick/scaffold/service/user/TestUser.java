@@ -12,6 +12,7 @@ import com.rick.scaffold.common.jsontool.JsonMapper;
 import com.rick.scaffold.common.security.SecurityComponent;
 import com.rick.scaffold.common.utils.JedisUtils;
 import com.rick.scaffold.core.entity.user.FullUser;
+import com.rick.scaffold.core.entity.user.Photo;
 import com.rick.scaffold.core.entity.user.User;
 import com.rick.scaffold.core.service.user.PhotoService;
 import com.rick.scaffold.core.service.user.UserService;
@@ -30,10 +31,10 @@ public class TestUser extends BaseTest{
 	@Test
 	public void testAddUser() {
 		User user = new User();
-		user.setLoginName("Eros4");
+		user.setLoginName("Eros");
 		user.setPassword("password");
-		user.setName("zzh4");
-		user.setCompanyId("56077d096a8ad31ca69b9f3b");
+		user.setName("zzh");
+		user.setCompanyId(54977938722816L);
 		int res = us.saveAndCache(user);
 		System.out.println(res);
 	}
@@ -44,17 +45,17 @@ public class TestUser extends BaseTest{
 		user.setLoginName("zzh");
 		user.setPassword(sc.sha1Hash("password"));
 		user.setName("zzh");
-		user.setCompanyId("56077d096a8ad31ca69b9f3b");
+		user.setCompanyId(54977938722816L);
 		int res = us.save(user);
 		System.out.println(res);
 	}
 	
 	@Test
 	public void testFindOne() {
-		String id = "5607cf1f6a8ad35221f687d5";  //cached
+		Long id = 56886380597248L;  //cached
 //		String id = "56077e0d6a8ad31d5fe33a63"; //uncached
 //		String id = "56077e0d6a8ad31d5fe33a64"; //not exist
-		User user = (User)Optional.fromNullable(JedisUtils.getObject(id)).or(us.findOne(id));
+		User user = (User)Optional.fromNullable(JedisUtils.getObject(id.toString())).or(us.findOne(id));
 		System.out.println(JsonMapper.toJsonString(user));
 	}
 	
@@ -72,19 +73,19 @@ public class TestUser extends BaseTest{
 	
 	@Test
 	public void testFindCascade() {
-		List<FullUser> user = us.findCascade("56077e0d6a8ad31d5fe33a63");
+		List<FullUser> user = us.findCascade(56886380597248L);
 		System.out.println(JsonMapper.toJsonString(user));
 	}
 	
 	@Test
 	public void testLazy() {
-		List<FullUser> user = us.findLazy("56077e0d6a8ad31d5fe33a63");
-//		FullUser u = user.get(0);
-//		Photo p = u.getPhotos().get(0);
-//		p.setSize(1);
-//		ps.update(p);
-//		u.setEmail("testEmail");
-//		us.update(u);
+		List<FullUser> user = us.findLazy(56886380597248L);
+		FullUser u = user.get(0);
+		Photo p = u.getPhotos().get(0);
+		p.setSize(1);
+		ps.update(p);
+		u.setEmail("testEmail");
+		us.update(u);
 		System.out.println(JsonMapper.toJsonString(user));
 	}
 }

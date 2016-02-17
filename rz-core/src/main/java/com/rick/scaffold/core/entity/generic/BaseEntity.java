@@ -5,7 +5,7 @@ import java.io.Serializable;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.rick.scaffold.common.persistence.tool.ObjectId;
+import com.rick.scaffold.common.persistence.tool.IncrSequenceTimeHandler;
 
 /**
  * Entity支持类
@@ -18,14 +18,14 @@ public abstract class BaseEntity<T> implements Serializable {
 	 * 实体编号（唯一标识）
 	 */
 	@JsonProperty("_id")
-	protected String id;
+	protected Long id;
 	
 
 	public BaseEntity() {
 		
 	}
 	
-	public BaseEntity(String id) {
+	public BaseEntity(Long id) {
 		this();
 		this.id = id;
 	}
@@ -34,14 +34,14 @@ public abstract class BaseEntity<T> implements Serializable {
 	 * 插入之前执行方法，需要手动调用
 	 */
 	public void preInsert(){
-		this.id = ObjectId.get().toString();
+		this.id = IncrSequenceTimeHandler.getInstance().nextId();
 	}
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	

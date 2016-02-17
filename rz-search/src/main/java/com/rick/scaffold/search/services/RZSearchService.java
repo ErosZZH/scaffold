@@ -59,7 +59,7 @@ public class RZSearchService {
 		}
 	}
 
-	public void deleteObject(String index, String type, String id)
+	public void deleteObject(String index, String type, Long id)
 			throws Exception {
 		deleteWorkflow.deleteObject(index, type, id);
 	}

@@ -32,7 +32,7 @@ public class TestRedis extends BaseTest {
 	
 	@Test
 	public void testUS() {
-		User user = us.findOne("56077e0d6a8ad31d5fe33a63");
+		User user = us.findOne(111L);
 		System.out.println(JsonMapper.toJsonString(user));
 	}
 }

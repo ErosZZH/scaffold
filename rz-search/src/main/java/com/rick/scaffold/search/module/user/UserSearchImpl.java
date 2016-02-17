@@ -57,7 +57,7 @@ public class UserSearchImpl implements UserSearch {
 	}
 
 	@Override
-	public void deleteIndex(String id) {
+	public void deleteIndex(Long id) {
 		String collectionName = SearchConstants.indice;
 		try {
 			searchService.deleteObject(collectionName, TYPE, id);
@@ -105,7 +105,7 @@ public class UserSearchImpl implements UserSearch {
 				IndexUser indexUser = new IndexUser();
 				Map sourceEntries = (Map) metaEntries.get("source");
 				indexUser.setEmail((String) sourceEntries.get("email"));
-				indexUser.setId((String) sourceEntries.get("id"));
+				indexUser.setId((Long) sourceEntries.get("id"));
 				indexUser.setLoginName((String) sourceEntries.get("loginName"));
 				indexUser.setName((String) sourceEntries.get("name"));
 				indexUser.setPhone((String) sourceEntries.get("phone"));
