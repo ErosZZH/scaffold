@@ -1,11 +1,13 @@
 package com.rick.scaffold.common.config;
 
 import java.util.Map;
+import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.google.common.base.Optional;
 import com.google.common.collect.Maps;
-import com.rick.scaffold.common.utils.PropertiesLoader;
+import com.rick.scaffold.common.utils.FileUtils;
 
 /**
  * 全局配置类
@@ -27,7 +29,7 @@ public class Global {
 	/**
 	 * 属性文件加载对象
 	 */
-	private static PropertiesLoader loader = new PropertiesLoader("config/props/scaffold.properties");
+	private static Properties loader = FileUtils.loadProps("config/props/scaffold.properties");
 	
 	/**
 	 * 获取当前对象实例
@@ -38,13 +40,12 @@ public class Global {
 	
 	/**
 	 * 获取配置
-	 * @see ${fns:getConfig('adminPath')}
 	 */
 	public static String getConfig(String key) {
 		String value = map.get(key);
 		if (value == null){
 			value = loader.getProperty(key);
-			map.put(key, value != null ? value : StringUtils.EMPTY);
+			map.put(key, Optional.fromNullable(value).or(StringUtils.EMPTY));
 		}
 		return value;
 	}

@@ -59,7 +59,8 @@ public class BaseAPI {
 		String trackId = ExceptionUtils.getTrackID();
 		if (e instanceof APIException) {
 			APIException e1 = (APIException)e;	
-			logger.error("APIException. Error code: {}. TrackId : {}. Error message: {}. ", e1.getErrorCode(), trackId, e1.getMessage(), Optional.fromNullable(e1.getCause()).or(e1));
+			logger.error("APIException. Error code: {}. TrackId : {}. Error message: {}. ", e1.getErrorCode(), trackId, 
+					e1.getMessage(), Optional.fromNullable(e1.getCause()).or(e1));
 			fb = new FailBean(e1.getErrorCode(), Constants.HTTP_STATUS_ERROR, e1.getMessage(), trackId);
 			status = e1.getErrorCode();
 		} else {

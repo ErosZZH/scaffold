@@ -2,6 +2,7 @@ package com.rick.scaffold.common.http;
 
 import java.io.IOException;
 
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
@@ -19,6 +20,10 @@ public class HttpServiceImpl implements HttpService {
 	public String put(String url, String params) {
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		HttpPut httpput = new HttpPut(url);
+		//timeout
+		RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(5000).setConnectTimeout(2000).build();
+		httpput.setConfig(requestConfig);
+		
 		httpput.setHeader("Content-type", "application/json");
 		StringEntity requestParam = new StringEntity(params,"utf-8");
         httpput.setEntity(requestParam); 
