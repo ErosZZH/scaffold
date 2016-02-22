@@ -802,8 +802,7 @@ public class JedisUtils {
 		try {
 			jedis = jedisPool.getResource();
 		} catch (JedisException e) {
-			e.printStackTrace();
-			logger.warn("getResource.", e);
+			logger.error("Jedis getResource fail.", e);
 			returnBrokenResource(jedis);
 			throw e;
 		}
@@ -864,7 +863,7 @@ public class JedisUtils {
 	 * @return
 	 */
 	public static Object toObject(byte[] bytes){
-		return unserialize(bytes);
+		return deserialize(bytes);
 	}
 	
 	/**
@@ -883,7 +882,7 @@ public class JedisUtils {
 				return baos.toByteArray();
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("jedis serialize error.", e);
 		}
 		return null;
 	}
@@ -893,7 +892,7 @@ public class JedisUtils {
 	 * @param bytes
 	 * @return
 	 */
-	public static Object unserialize(byte[] bytes) {
+	public static Object deserialize(byte[] bytes) {
 		ByteArrayInputStream bais = null;
 		try {
 			if (bytes != null && bytes.length > 0){
@@ -902,7 +901,7 @@ public class JedisUtils {
 				return ois.readObject();
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("jedis deserialize error.", e);
 		}
 		return null;
 	}

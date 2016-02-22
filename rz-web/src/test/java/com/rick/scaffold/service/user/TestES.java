@@ -20,11 +20,6 @@ public class TestES extends BaseTest {
 	@Autowired
 	private ProductSearch ps;
 	
-//	@Autowired
-//	private SearchDelegate sd;
-	
-//	@Autowired
-//	private RZSearchService searchService;
 	
 	@Test
 	public void testCreateIndex() {
@@ -48,7 +43,12 @@ public class TestES extends BaseTest {
 	
 	@Test
 	public void testDeleteIndex() {
-		ss.deleteIndex("123L");
+		try {
+			ss.deleteIndex(123L);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@Test
@@ -87,27 +87,5 @@ public class TestES extends BaseTest {
 			System.out.println(user.getLoginName());
 		}
 	}
-	
-//	@Test
-//	public void testImport() throws Exception {
-//		searchService.importFromMysql("select * from sys_user", "scaffold", "import_user");
-//	}
-	
-//	@Test
-//	public void testCreateIndexAgain() {
-//		User user = new User();
-//		user.setId("abc");
-//		user.setEmail("a@b.com");
-//		user.setName("Rick");
-//		user.setLoginName("eroszzh");
-//		user.setPhone("13140998809");
-//		sd.index(JsonMapper.toJsonString(user), "scaffold", "user", "abc");
-//	}
-//	
-//	@Test
-//	public void testTypeExist() throws Exception {
-//		boolean res = sd.typeExist("scaffold", "user");
-//		System.out.println(res);
-//	}
 
 }

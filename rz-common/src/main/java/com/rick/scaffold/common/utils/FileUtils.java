@@ -2,6 +2,8 @@ package com.rick.scaffold.common.utils;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
 import org.apache.log4j.Logger;
 
@@ -22,6 +24,21 @@ public class FileUtils {
 			log.warn("read file "+ fileName + "error.");
 			return null;
 		}
+	}
+	
+	public static Properties loadProps(String propsFile){
+		Properties props = new Properties();
+		InputStream inp = Thread.currentThread().getContextClassLoader().getResourceAsStream(propsFile);
+
+		if (inp == null) {
+			throw new java.lang.RuntimeException("time sequnce properties not found " + propsFile);
+		}
+		try {
+			props.load(inp);
+		} catch (IOException e) {
+			throw new java.lang.RuntimeException(e);
+		}
+		return props;
 	}
 
 }

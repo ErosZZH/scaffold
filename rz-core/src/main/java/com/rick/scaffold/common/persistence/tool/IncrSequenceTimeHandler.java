@@ -1,14 +1,10 @@
 package com.rick.scaffold.common.persistence.tool;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Properties;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-
 import org.apache.log4j.Logger;
+
+import com.rick.scaffold.common.utils.FileUtils;
 
 public class IncrSequenceTimeHandler {
     protected static final Logger LOGGER = Logger.getLogger(IncrSequenceTimeHandler.class);
@@ -22,34 +18,20 @@ public class IncrSequenceTimeHandler {
 		return IncrSequenceTimeHandler.instance;
 	}
 
-	public IncrSequenceTimeHandler() {
+	private IncrSequenceTimeHandler() {
 		load();
 	}
 
 
 	public void load(){
-		// load sequnce properties
-		Properties props = loadProps(SEQUENCE_DB_PROPS);
+		Properties props = FileUtils.loadProps(SEQUENCE_DB_PROPS);
 
 		long workid = Long.valueOf(props.getProperty("SEQ.WORKID"));
 		long dataCenterId = Long.valueOf(props.getProperty("SEQ.DATAACENTERID"));
 
 		workey = new IdWorker(workid,dataCenterId);
 	}
-	private Properties loadProps(String propsFile){
-		Properties props = new Properties();
-		InputStream inp = Thread.currentThread().getContextClassLoader().getResourceAsStream(propsFile);
-
-		if (inp == null) {
-			throw new java.lang.RuntimeException("time sequnce properties not found " + propsFile);
-		}
-		try {
-			props.load(inp);
-		} catch (IOException e) {
-			throw new java.lang.RuntimeException(e);
-		}
-		return props;
-	}
+	
 	
 	public long nextId() {
 		return workey.nextId();

@@ -95,7 +95,7 @@ public class JsonMapper extends ObjectMapper {
 	}
 	
 	/**
-	 * 最常用的Mapper，null转“”， boolean转“”
+	 * 最常用的Mapper，null转“”， boolean转 string
 	 * @return
 	 */
 	public static JsonMapper getInstance() {

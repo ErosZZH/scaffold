@@ -1,5 +1,7 @@
 package com.rick.scaffold.search.services;
 
+import javax.annotation.PostConstruct;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -48,7 +50,7 @@ public class RZSearchService {
 	private SearchClient searchClient;
 	
 	
-
+	@PostConstruct
 	public void initService() {
 		log.debug("Initializing search service");
 		try {

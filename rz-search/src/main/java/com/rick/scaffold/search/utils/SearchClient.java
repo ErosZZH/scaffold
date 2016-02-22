@@ -77,7 +77,7 @@ public class SearchClient {
 				}
 				log.debug("****** ES client ready ********");
 			} catch (Exception e) {
-				log.warn("Can't start ES client.", e);
+				log.error("Can't start ES client.", e);
 			}
 		}
 	}

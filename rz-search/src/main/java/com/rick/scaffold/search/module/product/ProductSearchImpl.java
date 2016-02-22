@@ -16,7 +16,7 @@ import com.rick.scaffold.soa.search.service.ProductSearch;
 @Service("productSearchService")
 public class ProductSearchImpl implements ProductSearch {
 	
-	private static final Logger LOGGER = LoggerFactory
+	private static final Logger logger = LoggerFactory
 			.getLogger(ProductSearchImpl.class);
 
 	private final static String TYPE = "product";
@@ -39,15 +39,9 @@ public class ProductSearchImpl implements ProductSearch {
 			keywords.setKeywords(Arrays.asList(response.getInlineSearchList()));
 			return keywords;
 		} catch (Exception e) {
-			LOGGER.error("Error while searching keywords " + jsonString, e);
-			e.printStackTrace();
+			logger.error("Error while searching keywords " + jsonString, e);
 			return null;
 		}
-	}
-
-	@Override
-	public void initService() {
-		searchService.initService();
 	}
 
 }

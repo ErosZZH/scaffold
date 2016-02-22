@@ -10,7 +10,7 @@ public class RZIndexKeywordRequest implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private String id;
+	private Long id;
 	private String key;
 	
 	private Collection<RZField> filters = new ArrayList<RZField>();
@@ -23,11 +23,11 @@ public class RZIndexKeywordRequest implements Serializable {
 		this.filters = filters;
 	}
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

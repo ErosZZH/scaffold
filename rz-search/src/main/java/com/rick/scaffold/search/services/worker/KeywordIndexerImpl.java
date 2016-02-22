@@ -122,7 +122,7 @@ public class KeywordIndexerImpl implements IndexWorker {
 					}// end for
 					if (attrs != null && attrs.size() > 0) {
 						Collection<RZIndexKeywordRequest> bulks = new ArrayList<RZIndexKeywordRequest>();
-						String _id = (String) indexData.get("id");
+						Long _id = Long.valueOf(indexData.get("id").toString());
 						for (String attr : attrs) {
 							RZIndexKeywordRequest kr = new RZIndexKeywordRequest();
 							if (StringUtils.isBlank(attr)) {
