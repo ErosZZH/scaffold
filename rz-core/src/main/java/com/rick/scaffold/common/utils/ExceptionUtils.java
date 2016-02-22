@@ -1,8 +1,10 @@
 package com.rick.scaffold.common.utils;
 
+import java.util.UUID;
+
 public class ExceptionUtils {
 
 	public static String getTrackID() {
-		return String.valueOf(System.currentTimeMillis());
+		return UUID.randomUUID().toString();
 	}
 }

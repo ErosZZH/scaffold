@@ -31,7 +31,7 @@ import com.rick.scaffold.soa.search.service.UserSearch;
 @Service("userSearchService")
 public class UserSearchImpl implements UserSearch {
 
-	private static final Logger LOGGER = LoggerFactory
+	private static final Logger logger = LoggerFactory
 			.getLogger(UserSearchImpl.class);
 
 	private final static String TYPE = "user";
@@ -40,19 +40,12 @@ public class UserSearchImpl implements UserSearch {
 	private RZSearchService searchService;
 
 	@Override
-	public void initService() {
-		searchService.initService();
-	}
-
-	@Override
 	public void createIndex(IndexUser user) {
-
 		String indice = SearchConstants.indice;
-
 		try {
 			searchService.index(user, indice, TYPE);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Create index for user fail.", e);
 		}
 	}
 
@@ -62,7 +55,7 @@ public class UserSearchImpl implements UserSearch {
 		try {
 			searchService.deleteObject(collectionName, TYPE, id);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Delete index for user fail.", e);
 		}
 	}
 
@@ -76,8 +69,7 @@ public class UserSearchImpl implements UserSearch {
 			keywords.setKeywords(Arrays.asList(response.getInlineSearchList()));
 			return keywords;
 		} catch (Exception e) {
-			LOGGER.error("Error while searching keywords " + jsonString, e);
-			e.printStackTrace();
+			logger.error("Error while searching keywords " + jsonString, e);
 			return null;
 		}
 	}
@@ -105,7 +97,7 @@ public class UserSearchImpl implements UserSearch {
 				IndexUser indexUser = new IndexUser();
 				Map sourceEntries = (Map) metaEntries.get("source");
 				indexUser.setEmail((String) sourceEntries.get("email"));
-				indexUser.setId((Long) sourceEntries.get("id"));
+				indexUser.setId(Long.valueOf(sourceEntries.get("id").toString()));
 				indexUser.setLoginName((String) sourceEntries.get("loginName"));
 				indexUser.setName((String) sourceEntries.get("name"));
 				indexUser.setPhone((String) sourceEntries.get("phone"));
@@ -149,8 +141,7 @@ public class UserSearchImpl implements UserSearch {
 			}
 			return resp;
 		} catch (Exception e) {
-			LOGGER.error("Error while searching keywords " + jsonString, e);
-			e.printStackTrace();
+			logger.error("Error while searching keywords " + jsonString, e);
 			return null;
 		}
 	}

@@ -180,7 +180,7 @@ public class SearchDelegateImpl implements SearchDelegate {
 			}
 		} catch (Exception e) {
 			log.error("ES bulkIndexKeywords failed.", e);
-			throw new Exception(e);
+			throw e;
 		}
 
 	}
