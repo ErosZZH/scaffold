@@ -37,7 +37,7 @@
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 
-		<table tableName="cs_address" domainObjectName="Address"
+		<!-- <table tableName="cs_address" domainObjectName="Address"
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false">
@@ -101,7 +101,7 @@
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
-        </table>
+        </table> -->
 
         <table tableName="cs_users" domainObjectName="Users"
                enableCountByExample="false" enableUpdateByExample="false"

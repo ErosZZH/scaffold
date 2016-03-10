@@ -22,7 +22,7 @@ public class Users extends DataEntity<Users> {
     }
 
     public void setEmail(String email) {
-        this.email = email == null ? null : email.trim();
+        this.email = email;
     }
 
     public String getUsername() {
@@ -30,7 +30,7 @@ public class Users extends DataEntity<Users> {
     }
 
     public void setUsername(String username) {
-        this.username = username == null ? null : username.trim();
+        this.username = username;
     }
 
     public String getPassword() {
@@ -38,7 +38,7 @@ public class Users extends DataEntity<Users> {
     }
 
     public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
+        this.password = password;
     }
 
     public Byte getSex() {
@@ -62,6 +62,6 @@ public class Users extends DataEntity<Users> {
     }
 
     public void setNickName(String nickName) {
-        this.nickName = nickName == null ? null : nickName.trim();
+        this.nickName = nickName;
     }
 }

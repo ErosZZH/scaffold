@@ -7,4 +7,5 @@ import com.rick.scaffold.core.entity.user.Users;
 @MyBatisDao
 public interface UsersDao extends CrudDao<Users> {
 
+    Users findByName(String name);
 }

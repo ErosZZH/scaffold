@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!DOCTYPE mycat:schema SYSTEM "schema.dtd">
+<mycat:schema xmlns:mycat="http://org.opencloudb/">
+	<!-- my own schema -->
+	<schema name="scaffold" checkSQLschema="false" sqlMaxLimit="100" dataNode="userNode">
+    <table name="cs_address" type="global" dataNode="userNode, orderNode1, orderNode2" />
+
+    <table name="cs_cart" primaryKey="id" dataNode="orderNode1, orderNode2" rule="order-sharding-mod-long">
+      <childTable name="cs_cart_item" joinKey="cart_id"
+          parentKey="id" primaryKey="id" />
+    </table>
+    <table name="cs_order" primaryKey="id" dataNode="orderNode1, orderNode2" rule="order-sharding-mod-long">
+      <childTable name="cs_order_item" joinKey="order_id"
+          parentKey="id" primaryKey="id" />
+    </table>
+
+    <table name="cs_category" primaryKey="id" dataNode="goodsNode" rule="shop-sharding-mod-long" />
+    <table name="cs_goods" primaryKey="id" dataNode="goodsNode" rule="shop-sharding-mod-long" >
+      <childTable name="cs_goods_gallery" joinKey="goods_id"
+          parentKey="id" primaryKey="id" />
+    </table>
+  </schema>
+
+  <dataNode name="userNode" dataHost="userHost" database="scaffold_user" />
+  <dataNode name="orderNode1" dataHost="orderHost" database="scaffold_order1" />
+  <dataNode name="orderNode2" dataHost="orderHost" database="scaffold_order2" />
+  <dataNode name="goodsNode" dataHost="goodsHost" database="scaffold_goods" />
+
+  <dataHost name="userHost" maxCon="1000" minCon="10" balance="0"
+       writeType="0" dbType="mysql" dbDriver="native">
+    <heartbeat>select user()</heartbeat>
+    <writeHost host="hostM1" url="192.168.6.41:3306" user="root" password="eros" />
+  </dataHost>  
+  <dataHost name="orderHost" maxCon="1000" minCon="10" balance="0"
+       writeType="0" dbType="mysql" dbDriver="native">
+    <heartbeat>select user()</heartbeat>
+    <writeHost host="hostM1" url="192.168.6.42:3306" user="root" password="eros" />
+  </dataHost>
+  <dataHost name="goodsHost" maxCon="1000" minCon="10" balance="1"
+    writeType="0" dbType="mysql" dbDriver="native" switchType="1"  slaveThreshold="100">
+    <heartbeat>select user()</heartbeat>
+    <writeHost host="hostM1" url="192.168.6.45:3306" user="root" password="eros">
+      <readHost host="hostS1" url="192.168.6.43:3306" user="root" password="eros" />
+    </writeHost>
+  </dataHost>
+</mycat:schema>

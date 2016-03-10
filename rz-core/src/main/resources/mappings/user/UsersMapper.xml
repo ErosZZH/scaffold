@@ -21,20 +21,66 @@
     from cs_users
     where id = #{id,jdbcType=BIGINT}
   </select>
+
+    <select id="findByName" parameterType="String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from cs_users
+        where username = #{name}
+    </select>
+
   <delete id="delete" parameterType="java.lang.Long" >
     delete from cs_users
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="Users" >
-    insert into cs_users (id, create_date, modify_date, 
-      email, username, password, 
-      sex, point, nick_name
-      )
-    values (#{id,jdbcType=BIGINT}, #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, 
-      #{email,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{sex,jdbcType=TINYINT}, #{point,jdbcType=INTEGER}, #{nickName,jdbcType=VARCHAR}
-      )
-  </insert>
+
+    <insert id="insert" parameterType="Users" >
+        insert into cs_users
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            id,
+            create_date,
+            modify_date,
+            <if test="email != null">
+                email,
+            </if>
+            <if test="username != null">
+                username,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="point != null">
+                point,
+            </if>
+            <if test="nickName != null">
+                nick_name,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{id}, #{createDate}, #{modifyDate},
+            <if test="email != null">
+                #{email},
+            </if>
+            <if test="username != null">
+                #{username},
+            </if>
+            <if test="password != null">
+                #{password},
+            </if>
+            <if test="sex != null">
+                #{sex},
+            </if>
+            <if test="point != null">
+                #{point},
+            </if>
+            <if test="nickName != null">
+                #{nickName},
+            </if>
+        </trim>
+    </insert>
 
   <update id="update" parameterType="Users" >
     update cs_users
