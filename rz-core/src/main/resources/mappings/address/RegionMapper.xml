@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rick.scaffold.core.dao.address.RegionDao" >
+  <resultMap id="BaseResultMap" type="Region" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+    <result column="region_name" property="regionName" jdbcType="VARCHAR" />
+    <result column="region_type" property="regionType" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, parent_id, region_name, region_type
+  </sql>
+  <select id="findOne" resultMap="BaseResultMap" parameterType="Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from cs_region
+    where id = #{id}
+  </select>
+  <delete id="delete" parameterType="Long" >
+    delete from cs_region
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="Region" >
+    insert into cs_region (id, parent_id, region_name, 
+      region_type)
+    values (#{id}, #{parentId}, #{regionName,jdbcType=VARCHAR},
+      #{regionType,jdbcType=TINYINT})
+  </insert>
+
+  <update id="update" parameterType="Region" >
+    update cs_region
+    <set >
+      <if test="parentId != null" >
+        parent_id = #{parentId},
+      </if>
+      <if test="regionName != null" >
+        region_name = #{regionName,jdbcType=VARCHAR},
+      </if>
+      <if test="regionType != null" >
+        region_type = #{regionType,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+</mapper>

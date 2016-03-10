@@ -9,7 +9,7 @@ import com.rick.scaffold.common.utils.FileUtils;
 public class IncrSequenceTimeHandler {
     protected static final Logger LOGGER = Logger.getLogger(IncrSequenceTimeHandler.class);
 
-	private static final String SEQUENCE_DB_PROPS = "config/props/sequence_time_conf.properties";
+	private static final String SEQUENCE_DB_PROPS = "config/props/cluster.properties";
 	private static final IncrSequenceTimeHandler instance = new IncrSequenceTimeHandler();
 	private static IdWorker workey = new IdWorker(1,1);
 

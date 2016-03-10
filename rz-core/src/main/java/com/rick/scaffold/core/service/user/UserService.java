@@ -20,7 +20,6 @@ import com.rick.scaffold.core.service.generic.CrudService;
 import com.rick.scaffold.core.vo.Paginator;
 
 @Service
-@Transactional(readOnly = true)
 public class UserService extends CrudService<UserDao, User> {
 	
 	@Autowired

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rick.scaffold.core.dao.order.OrderDao" >
+  <resultMap id="BaseResultMap" type="Order" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+    <result column="order_sn" property="orderSn" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="order_status" property="orderStatus" jdbcType="TINYINT" />
+    <result column="shipping_status" property="shippingStatus" jdbcType="TINYINT" />
+    <result column="pay_status" property="payStatus" jdbcType="TINYINT" />
+    <result column="consignee" property="consignee" jdbcType="VARCHAR" />
+    <result column="address_id" property="addressId" jdbcType="BIGINT" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="pay_name" property="payName" jdbcType="VARCHAR" />
+    <result column="goods_price" property="goodsPrice" jdbcType="DECIMAL" />
+    <result column="shipping_price" property="shippingPrice" jdbcType="DECIMAL" />
+    <result column="total_price" property="totalPrice" jdbcType="DECIMAL" />
+    <result column="discount_price" property="discountPrice" jdbcType="DECIMAL" />
+    <result column="confirm_time" property="confirmTime" jdbcType="TIMESTAMP" />
+    <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+    <result column="shipping_time" property="shippingTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, create_date, modify_date, order_sn, user_id, order_status, shipping_status, pay_status, 
+    consignee, address_id, mobile, pay_name, goods_price, shipping_price, total_price, 
+    discount_price, confirm_time, pay_time, shipping_time
+  </sql>
+  <select id="findOne" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from cs_order
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="delete" parameterType="java.lang.Long" >
+    delete from cs_order
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="Order" >
+    insert into cs_order (id, create_date, modify_date, 
+      order_sn, user_id, order_status, 
+      shipping_status, pay_status, consignee, 
+      address_id, mobile, pay_name, 
+      goods_price, shipping_price, total_price, 
+      discount_price, confirm_time, pay_time, 
+      shipping_time)
+    values (#{id,jdbcType=BIGINT}, #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, 
+      #{orderSn,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, #{orderStatus,jdbcType=TINYINT}, 
+      #{shippingStatus,jdbcType=TINYINT}, #{payStatus,jdbcType=TINYINT}, #{consignee,jdbcType=VARCHAR}, 
+      #{addressId,jdbcType=BIGINT}, #{mobile,jdbcType=VARCHAR}, #{payName,jdbcType=VARCHAR}, 
+      #{goodsPrice,jdbcType=DECIMAL}, #{shippingPrice,jdbcType=DECIMAL}, #{totalPrice,jdbcType=DECIMAL}, 
+      #{discountPrice,jdbcType=DECIMAL}, #{confirmTime,jdbcType=TIMESTAMP}, #{payTime,jdbcType=TIMESTAMP}, 
+      #{shippingTime,jdbcType=TIMESTAMP})
+  </insert>
+
+  <update id="update" parameterType="Order" >
+    update cs_order
+    <set >
+      <if test="modifyDate != null" >
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderSn != null" >
+        order_sn = #{orderSn,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="orderStatus != null" >
+        order_status = #{orderStatus,jdbcType=TINYINT},
+      </if>
+      <if test="shippingStatus != null" >
+        shipping_status = #{shippingStatus,jdbcType=TINYINT},
+      </if>
+      <if test="payStatus != null" >
+        pay_status = #{payStatus,jdbcType=TINYINT},
+      </if>
+      <if test="consignee != null" >
+        consignee = #{consignee,jdbcType=VARCHAR},
+      </if>
+      <if test="addressId != null" >
+        address_id = #{addressId,jdbcType=BIGINT},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="payName != null" >
+        pay_name = #{payName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPrice != null" >
+        goods_price = #{goodsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="shippingPrice != null" >
+        shipping_price = #{shippingPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="totalPrice != null" >
+        total_price = #{totalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="discountPrice != null" >
+        discount_price = #{discountPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="confirmTime != null" >
+        confirm_time = #{confirmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payTime != null" >
+        pay_time = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shippingTime != null" >
+        shipping_time = #{shippingTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+</mapper>

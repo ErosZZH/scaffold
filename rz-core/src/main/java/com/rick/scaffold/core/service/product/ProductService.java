@@ -8,7 +8,6 @@ import com.rick.scaffold.core.entity.product.Product;
 import com.rick.scaffold.core.service.generic.CrudService;
 
 @Service
-@Transactional(readOnly = true)
 public class ProductService extends CrudService<ProductDao, Product> {
 
 }

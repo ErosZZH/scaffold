@@ -9,7 +9,6 @@ import com.rick.scaffold.core.entity.generic.DataEntity;
 /**
  * Service基类
  */
-@Transactional(readOnly = true)
 public abstract class CrudService<D extends CrudDao<T>, T extends DataEntity<T>> extends BaseService<D, T> {
 
 	/**
