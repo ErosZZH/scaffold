@@ -21,12 +21,43 @@
     delete from cs_goods_gallery
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="GoodsGallery" >
-    insert into cs_goods_gallery (id, goods_id, img_url, 
-      img_desc, img_type)
-    values (#{id,jdbcType=BIGINT}, #{goodsId,jdbcType=BIGINT}, #{imgUrl,jdbcType=VARCHAR}, 
-      #{imgDesc,jdbcType=VARCHAR}, #{imgType,jdbcType=TINYINT})
-  </insert>
+    <insert id="insert" parameterType="GoodsGallery" >
+        insert into cs_goods_gallery
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="goodsId != null" >
+                goods_id,
+            </if>
+            <if test="imgUrl != null" >
+                img_url,
+            </if>
+            <if test="imgDesc != null" >
+                img_desc,
+            </if>
+            <if test="imgType != null" >
+                img_type,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="goodsId != null" >
+                #{goodsId,jdbcType=BIGINT},
+            </if>
+            <if test="imgUrl != null" >
+                #{imgUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="imgDesc != null" >
+                #{imgDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="imgType != null" >
+                #{imgType,jdbcType=TINYINT},
+            </if>
+        </trim>
+    </insert>
 
   <update id="update" parameterType="GoodsGallery" >
     update cs_goods_gallery

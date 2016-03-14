@@ -33,20 +33,109 @@
     delete from cs_goods
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="Goods" >
-    insert into cs_goods (id, create_date, modify_date, 
-      cate_id, sn, name, brand, 
-      amount, goods_thumb, market_price, 
-      shop_price, brief, is_on_sale, 
-      saled_amount, tag, shop_id
-      )
-    values (#{id,jdbcType=BIGINT}, #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, 
-      #{cateId,jdbcType=BIGINT}, #{sn,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{brand,jdbcType=VARCHAR}, 
-      #{amount,jdbcType=INTEGER}, #{goodsThumb,jdbcType=VARCHAR}, #{marketPrice,jdbcType=DECIMAL}, 
-      #{shopPrice,jdbcType=DECIMAL}, #{brief,jdbcType=VARCHAR}, #{isOnSale,jdbcType=BIT}, 
-      #{saledAmount,jdbcType=BIGINT}, #{tag,jdbcType=INTEGER}, #{shopId,jdbcType=BIGINT}
-      )
-  </insert>
+    <insert id="insert" parameterType="Goods" >
+        insert into cs_goods
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="createDate != null" >
+                create_date,
+            </if>
+            <if test="modifyDate != null" >
+                modify_date,
+            </if>
+            <if test="cateId != null" >
+                cate_id,
+            </if>
+            <if test="sn != null" >
+                sn,
+            </if>
+            <if test="name != null" >
+                name,
+            </if>
+            <if test="brand != null" >
+                brand,
+            </if>
+            <if test="amount != null" >
+                amount,
+            </if>
+            <if test="goodsThumb != null" >
+                goods_thumb,
+            </if>
+            <if test="marketPrice != null" >
+                market_price,
+            </if>
+            <if test="shopPrice != null" >
+                shop_price,
+            </if>
+            <if test="brief != null" >
+                brief,
+            </if>
+            <if test="isOnSale != null" >
+                is_on_sale,
+            </if>
+            <if test="saledAmount != null" >
+                saled_amount,
+            </if>
+            <if test="tag != null" >
+                tag,
+            </if>
+            <if test="shopId != null" >
+                shop_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="createDate != null" >
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyDate != null" >
+                #{modifyDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="cateId != null" >
+                #{cateId,jdbcType=BIGINT},
+            </if>
+            <if test="sn != null" >
+                #{sn,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null" >
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="brand != null" >
+                #{brand,jdbcType=VARCHAR},
+            </if>
+            <if test="amount != null" >
+                #{amount,jdbcType=INTEGER},
+            </if>
+            <if test="goodsThumb != null" >
+                #{goodsThumb,jdbcType=VARCHAR},
+            </if>
+            <if test="marketPrice != null" >
+                #{marketPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="shopPrice != null" >
+                #{shopPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="brief != null" >
+                #{brief,jdbcType=VARCHAR},
+            </if>
+            <if test="isOnSale != null" >
+                #{isOnSale,jdbcType=BIT},
+            </if>
+            <if test="saledAmount != null" >
+                #{saledAmount,jdbcType=BIGINT},
+            </if>
+            <if test="tag != null" >
+                #{tag,jdbcType=INTEGER},
+            </if>
+            <if test="shopId != null" >
+                #{shopId,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
 
   <update id="update" parameterType="Goods" >
     update cs_goods

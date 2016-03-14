@@ -16,14 +16,6 @@
     <url>http://www.rick.com</url>
     <inceptionYear>2015-2020</inceptionYear>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.rick</groupId>
-            <artifactId>rz-common</artifactId>
-            <version>1.1.0</version>
-        </dependency>
-    </dependencies>
-
     <build>
         <plugins>
             <!-- mvn -f pom-gen.xml mybatis-generator:generate -->

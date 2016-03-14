@@ -23,14 +23,55 @@
     delete from cs_shop
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="Shop" >
-    insert into cs_shop (id, create_date, modify_date, 
-      shop_name, shop_image, phone, 
-      address)
-    values (#{id,jdbcType=BIGINT}, #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, 
-      #{shopName,jdbcType=VARCHAR}, #{shopImage,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
-      #{address,jdbcType=VARCHAR})
-  </insert>
+    <insert id="insert" parameterType="Shop" >
+        insert into cs_shop
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="createDate != null" >
+                create_date,
+            </if>
+            <if test="modifyDate != null" >
+                modify_date,
+            </if>
+            <if test="shopName != null" >
+                shop_name,
+            </if>
+            <if test="shopImage != null" >
+                shop_image,
+            </if>
+            <if test="phone != null" >
+                phone,
+            </if>
+            <if test="address != null" >
+                address,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="createDate != null" >
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyDate != null" >
+                #{modifyDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="shopName != null" >
+                #{shopName,jdbcType=VARCHAR},
+            </if>
+            <if test="shopImage != null" >
+                #{shopImage,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null" >
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null" >
+                #{address,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
 
   <update id="update" parameterType="Shop" >
     update cs_shop

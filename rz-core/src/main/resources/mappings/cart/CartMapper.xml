@@ -22,14 +22,49 @@
     delete from cs_cart
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="Cart" >
-    insert into cs_cart (id, create_date, modify_date, 
-      user_id, shop_id, product_price
-      )
-    values (#{id,jdbcType=BIGINT}, #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, 
-      #{userId,jdbcType=BIGINT}, #{shopId,jdbcType=BIGINT}, #{productPrice,jdbcType=DECIMAL}
-      )
-  </insert>
+    <insert id="insert" parameterType="Cart" >
+        insert into cs_cart
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="createDate != null" >
+                create_date,
+            </if>
+            <if test="modifyDate != null" >
+                modify_date,
+            </if>
+            <if test="userId != null" >
+                user_id,
+            </if>
+            <if test="shopId != null" >
+                shop_id,
+            </if>
+            <if test="productPrice != null" >
+                product_price,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="createDate != null" >
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyDate != null" >
+                #{modifyDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userId != null" >
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="shopId != null" >
+                #{shopId,jdbcType=BIGINT},
+            </if>
+            <if test="productPrice != null" >
+                #{productPrice,jdbcType=DECIMAL},
+            </if>
+        </trim>
+    </insert>
 
   <update id="update" parameterType="Cart" >
     update cs_cart

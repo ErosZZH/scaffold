@@ -4,7 +4,7 @@
          "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 
 <generatorConfiguration>
-	<properties resource="config/props/db.properties"/>
+	<properties resource="mybatis-generator/mybatis-generator.properties"/>
 	
 	<classPathEntry
 		location="${mybatis.driver.path}" />
@@ -37,7 +37,7 @@
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 
-		<!-- <table tableName="cs_address" domainObjectName="Address"
+		<table tableName="cs_address" domainObjectName="Address"
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false">
@@ -101,7 +101,7 @@
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
-        </table> -->
+        </table>
 
         <table tableName="cs_users" domainObjectName="Users"
                enableCountByExample="false" enableUpdateByExample="false"

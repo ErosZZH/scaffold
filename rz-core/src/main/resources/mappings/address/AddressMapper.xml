@@ -30,18 +30,91 @@
     delete from cs_address
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="Address" >
-    insert into cs_address (id, create_date, modify_date, 
-      address_name, user_id, consignee, 
-      email, province, city, 
-      district, full_address, zipcode, 
-      mobile)
-    values (#{id,jdbcType=BIGINT}, #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, 
-      #{addressName,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, #{consignee,jdbcType=VARCHAR}, 
-      #{email,jdbcType=VARCHAR}, #{province,jdbcType=INTEGER}, #{city,jdbcType=INTEGER}, 
-      #{district,jdbcType=INTEGER}, #{fullAddress,jdbcType=VARCHAR}, #{zipcode,jdbcType=VARCHAR}, 
-      #{mobile,jdbcType=VARCHAR})
-  </insert>
+    <insert id="insert" parameterType="Address" >
+        insert into cs_address
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="createDate != null" >
+                create_date,
+            </if>
+            <if test="modifyDate != null" >
+                modify_date,
+            </if>
+            <if test="addressName != null" >
+                address_name,
+            </if>
+            <if test="userId != null" >
+                user_id,
+            </if>
+            <if test="consignee != null" >
+                consignee,
+            </if>
+            <if test="email != null" >
+                email,
+            </if>
+            <if test="province != null" >
+                province,
+            </if>
+            <if test="city != null" >
+                city,
+            </if>
+            <if test="district != null" >
+                district,
+            </if>
+            <if test="fullAddress != null" >
+                full_address,
+            </if>
+            <if test="zipcode != null" >
+                zipcode,
+            </if>
+            <if test="mobile != null" >
+                mobile,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="createDate != null" >
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyDate != null" >
+                #{modifyDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="addressName != null" >
+                #{addressName,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null" >
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="consignee != null" >
+                #{consignee,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null" >
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="province != null" >
+                #{province,jdbcType=INTEGER},
+            </if>
+            <if test="city != null" >
+                #{city,jdbcType=INTEGER},
+            </if>
+            <if test="district != null" >
+                #{district,jdbcType=INTEGER},
+            </if>
+            <if test="fullAddress != null" >
+                #{fullAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="zipcode != null" >
+                #{zipcode,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null" >
+                #{mobile,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
 
   <update id="update" parameterType="Address" >
     update cs_address

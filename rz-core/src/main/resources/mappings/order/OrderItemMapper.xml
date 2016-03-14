@@ -27,16 +27,73 @@
     delete from cs_order_item
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="OrderItem" >
-    insert into cs_order_item (id, order_id, goods_id, 
-      goods_name, goods_sn, goods_amount, 
-      unit, market_price, goods_price, 
-      shop_id)
-    values (#{id,jdbcType=BIGINT}, #{orderId,jdbcType=BIGINT}, #{goodsId,jdbcType=BIGINT}, 
-      #{goodsName,jdbcType=VARCHAR}, #{goodsSn,jdbcType=VARCHAR}, #{goodsAmount,jdbcType=INTEGER}, 
-      #{unit,jdbcType=VARCHAR}, #{marketPrice,jdbcType=DECIMAL}, #{goodsPrice,jdbcType=DECIMAL}, 
-      #{shopId,jdbcType=BIGINT})
-  </insert>
+    <insert id="insert" parameterType="OrderItem" >
+        insert into cs_order_item
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="orderId != null" >
+                order_id,
+            </if>
+            <if test="goodsId != null" >
+                goods_id,
+            </if>
+            <if test="goodsName != null" >
+                goods_name,
+            </if>
+            <if test="goodsSn != null" >
+                goods_sn,
+            </if>
+            <if test="goodsAmount != null" >
+                goods_amount,
+            </if>
+            <if test="unit != null" >
+                unit,
+            </if>
+            <if test="marketPrice != null" >
+                market_price,
+            </if>
+            <if test="goodsPrice != null" >
+                goods_price,
+            </if>
+            <if test="shopId != null" >
+                shop_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="orderId != null" >
+                #{orderId,jdbcType=BIGINT},
+            </if>
+            <if test="goodsId != null" >
+                #{goodsId,jdbcType=BIGINT},
+            </if>
+            <if test="goodsName != null" >
+                #{goodsName,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsSn != null" >
+                #{goodsSn,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsAmount != null" >
+                #{goodsAmount,jdbcType=INTEGER},
+            </if>
+            <if test="unit != null" >
+                #{unit,jdbcType=VARCHAR},
+            </if>
+            <if test="marketPrice != null" >
+                #{marketPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="goodsPrice != null" >
+                #{goodsPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="shopId != null" >
+                #{shopId,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
 
   <update id="update" parameterType="OrderItem" >
     update cs_order_item

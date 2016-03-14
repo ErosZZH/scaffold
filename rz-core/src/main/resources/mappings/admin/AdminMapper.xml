@@ -28,16 +28,79 @@
     delete from cs_admin
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="Admin" >
-    insert into cs_admin (id, create_date, modify_date, 
-      username, password, nick_name, 
-      mobile, avatar, email, 
-      role, shop_id)
-    values (#{id,jdbcType=BIGINT}, #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, 
-      #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, 
-      #{mobile,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
-      #{role,jdbcType=TINYINT}, #{shopId,jdbcType=BIGINT})
-  </insert>
+    <insert id="insert" parameterType="Admin" >
+        insert into cs_admin
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="createDate != null" >
+                create_date,
+            </if>
+            <if test="modifyDate != null" >
+                modify_date,
+            </if>
+            <if test="username != null" >
+                username,
+            </if>
+            <if test="password != null" >
+                password,
+            </if>
+            <if test="nickName != null" >
+                nick_name,
+            </if>
+            <if test="mobile != null" >
+                mobile,
+            </if>
+            <if test="avatar != null" >
+                avatar,
+            </if>
+            <if test="email != null" >
+                email,
+            </if>
+            <if test="role != null" >
+                role,
+            </if>
+            <if test="shopId != null" >
+                shop_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="createDate != null" >
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyDate != null" >
+                #{modifyDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="username != null" >
+                #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null" >
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="nickName != null" >
+                #{nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null" >
+                #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="avatar != null" >
+                #{avatar,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null" >
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="role != null" >
+                #{role,jdbcType=TINYINT},
+            </if>
+            <if test="shopId != null" >
+                #{shopId,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
 
   <update id="update" parameterType="Admin" >
     update cs_admin

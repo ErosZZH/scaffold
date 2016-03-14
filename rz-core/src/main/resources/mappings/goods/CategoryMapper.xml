@@ -28,16 +28,79 @@
     delete from cs_category
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="Category" >
-    insert into cs_category (id, create_date, modify_date, 
-      name, desc, cate_image, 
-      parent_id, show_in_nav, is_show, 
-      shop_id, level)
-    values (#{id,jdbcType=BIGINT}, #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, 
-      #{name,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR}, #{cateImage,jdbcType=VARCHAR}, 
-      #{parentId,jdbcType=BIGINT}, #{showInNav,jdbcType=BIT}, #{isShow,jdbcType=BIT}, 
-      #{shopId,jdbcType=BIGINT}, #{level,jdbcType=TINYINT})
-  </insert>
+    <insert id="insert" parameterType="Category" >
+        insert into cs_category
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="createDate != null" >
+                create_date,
+            </if>
+            <if test="modifyDate != null" >
+                modify_date,
+            </if>
+            <if test="name != null" >
+                name,
+            </if>
+            <if test="desc != null" >
+                desc,
+            </if>
+            <if test="cateImage != null" >
+                cate_image,
+            </if>
+            <if test="parentId != null" >
+                parent_id,
+            </if>
+            <if test="showInNav != null" >
+                show_in_nav,
+            </if>
+            <if test="isShow != null" >
+                is_show,
+            </if>
+            <if test="shopId != null" >
+                shop_id,
+            </if>
+            <if test="level != null" >
+                level,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="createDate != null" >
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyDate != null" >
+                #{modifyDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="name != null" >
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="desc != null" >
+                #{desc,jdbcType=VARCHAR},
+            </if>
+            <if test="cateImage != null" >
+                #{cateImage,jdbcType=VARCHAR},
+            </if>
+            <if test="parentId != null" >
+                #{parentId,jdbcType=BIGINT},
+            </if>
+            <if test="showInNav != null" >
+                #{showInNav,jdbcType=BIT},
+            </if>
+            <if test="isShow != null" >
+                #{isShow,jdbcType=BIT},
+            </if>
+            <if test="shopId != null" >
+                #{shopId,jdbcType=BIGINT},
+            </if>
+            <if test="level != null" >
+                #{level,jdbcType=TINYINT},
+            </if>
+        </trim>
+    </insert>
 
   <update id="update" parameterType="Category" >
     update cs_category
