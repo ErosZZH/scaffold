@@ -41,6 +41,8 @@
 		<module>rz-common</module>
 		<module>rz-core</module>
 		<module>rz-web</module>
+
+        <module>rz-search</module>
 	</modules>
 
 

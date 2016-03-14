@@ -1,5 +1,6 @@
 package com.rick.scaffold.product;
 
+import com.rick.scaffold.soa.search.service.GoodsSearch;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -11,6 +12,9 @@ public class TestProduct extends BaseTest{
 
 	@Autowired
 	private ProductSearch ps;
+
+    @Autowired
+    private GoodsSearch gs;
 	
 	@Autowired
 	private RZSearchService searchService;
@@ -19,6 +23,11 @@ public class TestProduct extends BaseTest{
 	public void testImportProduct () throws Exception {
 		ps.importFromDB("select id, name as keyword, sn, introduction from yzl_product"); 
 	}
+
+    @Test
+    public void testImportGoods () throws Exception {
+        gs.importFromDB("select id, name as keyword, sn, shop_price, shop_id, cate_id from cs_goods");
+    }
 	
 	@Test
 	public void testImport() throws Exception {

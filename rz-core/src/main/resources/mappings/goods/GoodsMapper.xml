@@ -1,189 +1,209 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.rick.scaffold.core.dao.goods.GoodsDao" >
-  <resultMap id="BaseResultMap" type="Goods" >
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
-    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
-    <result column="cate_id" property="cateId" jdbcType="BIGINT" />
-    <result column="sn" property="sn" jdbcType="VARCHAR" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="brand" property="brand" jdbcType="VARCHAR" />
-    <result column="amount" property="amount" jdbcType="INTEGER" />
-    <result column="goods_thumb" property="goodsThumb" jdbcType="VARCHAR" />
-    <result column="market_price" property="marketPrice" jdbcType="DECIMAL" />
-    <result column="shop_price" property="shopPrice" jdbcType="DECIMAL" />
-    <result column="brief" property="brief" jdbcType="VARCHAR" />
-    <result column="is_on_sale" property="isOnSale" jdbcType="BIT" />
-    <result column="saled_amount" property="saledAmount" jdbcType="BIGINT" />
-    <result column="tag" property="tag" jdbcType="INTEGER" />
-    <result column="shop_id" property="shopId" jdbcType="BIGINT" />
-  </resultMap>
-  <sql id="Base_Column_List" >
+<mapper namespace="com.rick.scaffold.core.dao.goods.GoodsDao">
+    <resultMap id="BaseResultMap" type="Goods">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="create_date" property="createDate" jdbcType="TIMESTAMP"/>
+        <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP"/>
+        <result column="cate_id" property="cateId" jdbcType="BIGINT"/>
+        <result column="sn" property="sn" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="brand" property="brand" jdbcType="VARCHAR"/>
+        <result column="amount" property="amount" jdbcType="INTEGER"/>
+        <result column="goods_thumb" property="goodsThumb" jdbcType="VARCHAR"/>
+        <result column="market_price" property="marketPrice" jdbcType="DECIMAL"/>
+        <result column="shop_price" property="shopPrice" jdbcType="DECIMAL"/>
+        <result column="brief" property="brief" jdbcType="VARCHAR"/>
+        <result column="is_on_sale" property="isOnSale" jdbcType="BIT"/>
+        <result column="saled_amount" property="saledAmount" jdbcType="BIGINT"/>
+        <result column="tag" property="tag" jdbcType="INTEGER"/>
+        <result column="shop_id" property="shopId" jdbcType="BIGINT"/>
+        <result column="unit" property="unit" jdbcType="VARCHAR"/>
+        <result column="specification" property="specification" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     id, create_date, modify_date, cate_id, sn, name, brand, amount, goods_thumb, market_price, 
-    shop_price, brief, is_on_sale, saled_amount, tag, shop_id
+    shop_price, brief, is_on_sale, saled_amount, tag, shop_id, unit
   </sql>
-  <select id="findOne" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
-    <include refid="Base_Column_List" />
-    from cs_goods
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <delete id="delete" parameterType="java.lang.Long" >
+    <select id="findOne" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from cs_goods
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="delete" parameterType="java.lang.Long">
     delete from cs_goods
     where id = #{id,jdbcType=BIGINT}
   </delete>
-    <insert id="insert" parameterType="Goods" >
+    <insert id="insert" parameterType="Goods">
         insert into cs_goods
-        <trim prefix="(" suffix=")" suffixOverrides="," >
-            <if test="id != null" >
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
                 id,
             </if>
-            <if test="createDate != null" >
+            <if test="createDate != null">
                 create_date,
             </if>
-            <if test="modifyDate != null" >
+            <if test="modifyDate != null">
                 modify_date,
             </if>
-            <if test="cateId != null" >
+            <if test="cateId != null">
                 cate_id,
             </if>
-            <if test="sn != null" >
+            <if test="sn != null">
                 sn,
             </if>
-            <if test="name != null" >
+            <if test="name != null">
                 name,
             </if>
-            <if test="brand != null" >
+            <if test="brand != null">
                 brand,
             </if>
-            <if test="amount != null" >
+            <if test="amount != null">
                 amount,
             </if>
-            <if test="goodsThumb != null" >
+            <if test="goodsThumb != null">
                 goods_thumb,
             </if>
-            <if test="marketPrice != null" >
+            <if test="marketPrice != null">
                 market_price,
             </if>
-            <if test="shopPrice != null" >
+            <if test="shopPrice != null">
                 shop_price,
             </if>
-            <if test="brief != null" >
+            <if test="brief != null">
                 brief,
             </if>
-            <if test="isOnSale != null" >
+            <if test="isOnSale != null">
                 is_on_sale,
             </if>
-            <if test="saledAmount != null" >
+            <if test="saledAmount != null">
                 saled_amount,
             </if>
-            <if test="tag != null" >
+            <if test="tag != null">
                 tag,
             </if>
-            <if test="shopId != null" >
+            <if test="shopId != null">
                 shop_id,
             </if>
+            <if test="unit != null">
+                unit,
+            </if>
+            <if test="specification != null">
+                specification,
+            </if>
         </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides="," >
-            <if test="id != null" >
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
                 #{id,jdbcType=BIGINT},
             </if>
-            <if test="createDate != null" >
+            <if test="createDate != null">
                 #{createDate,jdbcType=TIMESTAMP},
             </if>
-            <if test="modifyDate != null" >
+            <if test="modifyDate != null">
                 #{modifyDate,jdbcType=TIMESTAMP},
             </if>
-            <if test="cateId != null" >
+            <if test="cateId != null">
                 #{cateId,jdbcType=BIGINT},
             </if>
-            <if test="sn != null" >
+            <if test="sn != null">
                 #{sn,jdbcType=VARCHAR},
             </if>
-            <if test="name != null" >
+            <if test="name != null">
                 #{name,jdbcType=VARCHAR},
             </if>
-            <if test="brand != null" >
+            <if test="brand != null">
                 #{brand,jdbcType=VARCHAR},
             </if>
-            <if test="amount != null" >
+            <if test="amount != null">
                 #{amount,jdbcType=INTEGER},
             </if>
-            <if test="goodsThumb != null" >
+            <if test="goodsThumb != null">
                 #{goodsThumb,jdbcType=VARCHAR},
             </if>
-            <if test="marketPrice != null" >
+            <if test="marketPrice != null">
                 #{marketPrice,jdbcType=DECIMAL},
             </if>
-            <if test="shopPrice != null" >
+            <if test="shopPrice != null">
                 #{shopPrice,jdbcType=DECIMAL},
             </if>
-            <if test="brief != null" >
+            <if test="brief != null">
                 #{brief,jdbcType=VARCHAR},
             </if>
-            <if test="isOnSale != null" >
+            <if test="isOnSale != null">
                 #{isOnSale,jdbcType=BIT},
             </if>
-            <if test="saledAmount != null" >
+            <if test="saledAmount != null">
                 #{saledAmount,jdbcType=BIGINT},
             </if>
-            <if test="tag != null" >
+            <if test="tag != null">
                 #{tag,jdbcType=INTEGER},
             </if>
-            <if test="shopId != null" >
+            <if test="shopId != null">
                 #{shopId,jdbcType=BIGINT},
+            </if>
+            <if test="unit != null">
+                #{unit},
+            </if>
+            <if test="specification != null">
+                #{specification},
             </if>
         </trim>
     </insert>
 
-  <update id="update" parameterType="Goods" >
-    update cs_goods
-    <set >
-      <if test="modifyDate != null" >
-        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="cateId != null" >
-        cate_id = #{cateId,jdbcType=BIGINT},
-      </if>
-      <if test="sn != null" >
-        sn = #{sn,jdbcType=VARCHAR},
-      </if>
-      <if test="name != null" >
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="brand != null" >
-        brand = #{brand,jdbcType=VARCHAR},
-      </if>
-      <if test="amount != null" >
-        amount = #{amount,jdbcType=INTEGER},
-      </if>
-      <if test="goodsThumb != null" >
-        goods_thumb = #{goodsThumb,jdbcType=VARCHAR},
-      </if>
-      <if test="marketPrice != null" >
-        market_price = #{marketPrice,jdbcType=DECIMAL},
-      </if>
-      <if test="shopPrice != null" >
-        shop_price = #{shopPrice,jdbcType=DECIMAL},
-      </if>
-      <if test="brief != null" >
-        brief = #{brief,jdbcType=VARCHAR},
-      </if>
-      <if test="isOnSale != null" >
-        is_on_sale = #{isOnSale,jdbcType=BIT},
-      </if>
-      <if test="saledAmount != null" >
-        saled_amount = #{saledAmount,jdbcType=BIGINT},
-      </if>
-      <if test="tag != null" >
-        tag = #{tag,jdbcType=INTEGER},
-      </if>
-      <if test="shopId != null" >
-        shop_id = #{shopId,jdbcType=BIGINT},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+    <update id="update" parameterType="Goods">
+        update cs_goods
+        <set>
+            <if test="modifyDate != null">
+                modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="cateId != null">
+                cate_id = #{cateId,jdbcType=BIGINT},
+            </if>
+            <if test="sn != null">
+                sn = #{sn,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="brand != null">
+                brand = #{brand,jdbcType=VARCHAR},
+            </if>
+            <if test="amount != null">
+                amount = #{amount,jdbcType=INTEGER},
+            </if>
+            <if test="goodsThumb != null">
+                goods_thumb = #{goodsThumb,jdbcType=VARCHAR},
+            </if>
+            <if test="marketPrice != null">
+                market_price = #{marketPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="shopPrice != null">
+                shop_price = #{shopPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="brief != null">
+                brief = #{brief,jdbcType=VARCHAR},
+            </if>
+            <if test="isOnSale != null">
+                is_on_sale = #{isOnSale,jdbcType=BIT},
+            </if>
+            <if test="saledAmount != null">
+                saled_amount = #{saledAmount,jdbcType=BIGINT},
+            </if>
+            <if test="tag != null">
+                tag = #{tag,jdbcType=INTEGER},
+            </if>
+            <if test="shopId != null">
+                shop_id = #{shopId,jdbcType=BIGINT},
+            </if>
+            <if test="unit != null">
+                unit = #{unit},
+            </if>
+            <if test="specification != null">
+                specification = #{specification},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
 
 </mapper>

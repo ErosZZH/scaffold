@@ -88,4 +88,17 @@ public class TestES extends BaseTest {
 		}
 	}
 
+    @Test
+    public void testSearchGoods() {
+        String index = "scaffold";
+        String type = "goods";
+        String query = "{\"match\" : {\"keyword\" : {\"query\" :\"妙洁\",\"type\" : \"boolean\"}}}";
+        System.out.println(query);
+        SearchKeywords sk = ps.searchForKeywords(index, type, query, 20);
+        System.out.println(sk.getKeywords().size());
+        for(String s: sk.getKeywords()) {
+            System.out.print(s + ",");
+        }
+    }
+
 }

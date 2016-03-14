@@ -14,6 +14,8 @@
     
     <!-- 生成远程服务代理，可以和本地bean一样使用demoService -->  
     <dubbo:reference id="userSearch" interface="com.rick.scaffold.soa.search.service.UserSearch" />  
-    <dubbo:reference id="productSearch" interface="com.rick.scaffold.soa.search.service.ProductSearch" />  
+    <dubbo:reference id="productSearch" interface="com.rick.scaffold.soa.search.service.ProductSearch" />
+
+    <dubbo:reference id="goodsSearch" interface="com.rick.scaffold.soa.search.service.GoodsSearch" />
 	
 </beans>

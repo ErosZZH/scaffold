@@ -76,3 +76,9 @@ CREATE TABLE `cs_goods_gallery` (
   PRIMARY KEY  (`id`),
   KEY `idx_goods_id` (`goods_id`, `img_type`)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE `scaffold_goods`.`cs_goods`
+ADD COLUMN `unit` VARCHAR(5) NOT NULL;
+
+ALTER TABLE `scaffold_goods`.`cs_goods`
+ADD COLUMN `specification` VARCHAR(45) NOT NULL DEFAULT '';

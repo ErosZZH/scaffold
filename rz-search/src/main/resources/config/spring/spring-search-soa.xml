@@ -22,4 +22,6 @@
     <dubbo:service interface="com.rick.scaffold.soa.search.service.UserSearch" ref="userSearchService" />  
     <dubbo:service interface="com.rick.scaffold.soa.search.service.ProductSearch" ref="productSearchService" />
 
+    <dubbo:service interface="com.rick.scaffold.soa.search.service.GoodsSearch" ref="goodsSearchService" />
+
 </beans>

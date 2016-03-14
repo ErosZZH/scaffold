@@ -32,6 +32,25 @@ public class Goods extends DataEntity<Goods> {
 
     private Long shopId;
 
+    private String unit;
+
+    private String specification;
+
+    public String getSpecification() {
+        return specification;
+    }
+
+    public void setSpecification(String specification) {
+        this.specification = specification;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
 
     public Long getCateId() {
         return cateId;
