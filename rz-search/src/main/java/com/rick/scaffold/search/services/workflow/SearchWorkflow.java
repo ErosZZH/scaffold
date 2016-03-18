@@ -2,6 +2,7 @@ package com.rick.scaffold.search.services.workflow;
 
 import java.util.List;
 
+import com.rick.scaffold.search.SearchConstants;
 import com.rick.scaffold.search.services.RZSearchRequest;
 import com.rick.scaffold.search.services.RZSearchResponse;
 import com.rick.scaffold.search.services.worker.KeywordSearchWorker;
@@ -32,8 +33,10 @@ public class SearchWorkflow extends Workflow {
 			int size) throws Exception {
 		RZSearchResponse response = null;
 		if (searchKeywordWorkflow != null) {
+            String keywordType = SearchConstants.KEYWORD + "_" + type;
 			for (KeywordSearchWorker sw : searchKeywordWorkflow) {
-				response = sw.execute(super.getSearchClient(), index, json, type, size);
+				response = sw.execute(super.getSearchClient(), index, json,
+                        keywordType, size);
 			}
 		}
 		return response;

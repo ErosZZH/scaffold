@@ -1,50 +1,37 @@
 package com.rick.scaffold.service.user;
 
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.rick.scaffold.base.BaseTest;
-import com.rick.scaffold.core.entity.user.User;
+import com.rick.scaffold.common.utils.FileUtils;
 import com.rick.scaffold.soa.search.SearchEntry;
 import com.rick.scaffold.soa.search.SearchKeywords;
 import com.rick.scaffold.soa.search.SearchResult;
-import com.rick.scaffold.soa.search.model.IndexUser;
-import com.rick.scaffold.soa.search.service.ProductSearch;
-import com.rick.scaffold.soa.search.service.UserSearch;
+import com.rick.scaffold.soa.search.model.IndexGoods;
+import com.rick.scaffold.soa.search.service.GoodsSearch;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class TestES extends BaseTest {
 
 	@Autowired
-	private UserSearch ss;
-	
-	@Autowired
-	private ProductSearch ps;
+	private GoodsSearch gs;
 	
 	
 	@Test
 	public void testCreateIndex() {
-		User user = new User();
-		user.setId(123L);
-		user.setEmail("a@b.com");
-		user.setName("中华人民共和国国歌");
-		user.setLoginName("eroszzh");
-		user.setPhone("13140998809");
-		
-		IndexUser indexObj = new IndexUser();
-
-		indexObj.setId(user.getId());
-		indexObj.setEmail(user.getEmail());
-		indexObj.setLoginName(user.getLoginName());
-		indexObj.setName(user.getName());
-		indexObj.setPhone(user.getPhone());
-		
-		ss.createIndex(indexObj);
+        IndexGoods ig = new IndexGoods();
+        ig.setCate_id(1L);
+        ig.setName("指南针6");
+        ig.setShop_id(1L);
+        ig.setShop_price(20f);
+        ig.setSn("123456");
+		ig.setId(200001L);
+		gs.createIndex(ig);
 	}
 	
 	@Test
 	public void testDeleteIndex() {
 		try {
-			ss.deleteIndex(123L);
+			gs.deleteIndex(200001L);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -54,24 +41,8 @@ public class TestES extends BaseTest {
 	@Test
 	public void testSearchKeyWords() {
 		String index = "scaffold";
-		String type = "keyword_user";
-//		String query = QueryBuilders.matchQuery("keyword", "国歌").toString();
-		String query = "{\"match\" : {\"keyword\" : {\"query\" :\"国歌\",\"type\" : \"boolean\"}}}";
-		System.out.println(query);
-		SearchKeywords sk = ss.searchForKeywords(index, type, query, -1);
-		System.out.println(sk.getKeywords().size());
-		for(String s: sk.getKeywords()) {
-			System.out.print(s + ",");
-		}
-	}
-	
-	@Test
-	public void testSearchProduct() {
-		String index = "scaffold";
-		String type = "product";
-		String query = "{\"match\" : {\"keyword\" : {\"query\" :\"妙洁\",\"type\" : \"boolean\"}}}";
-		System.out.println(query);
-		SearchKeywords sk = ps.searchForKeywords(index, type, query, 20);
+		String type = "goods";
+		SearchKeywords sk = gs.searchAutoComplete(index, type, "康师傅", 10);
 		System.out.println(sk.getKeywords().size());
 		for(String s: sk.getKeywords()) {
 			System.out.print(s + ",");
@@ -80,25 +51,13 @@ public class TestES extends BaseTest {
 	
 	@Test
 	public void testSearch() {
-		String query = "{\"query\":{\"field\":{\"name\":\"中华\"}}}";
-		SearchResult sr = ss.search(query, -1, 0);
-		for(SearchEntry se: sr.getEntries()) {
-			IndexUser user = (IndexUser)se.getIndexObject();
-			System.out.println(user.getLoginName());
-		}
-	}
-
-    @Test
-    public void testSearchGoods() {
-        String index = "scaffold";
-        String type = "goods";
-        String query = "{\"match\" : {\"keyword\" : {\"query\" :\"妙洁\",\"type\" : \"boolean\"}}}";
-        System.out.println(query);
-        SearchKeywords sk = ps.searchForKeywords(index, type, query, 20);
-        System.out.println(sk.getKeywords().size());
-        for(String s: sk.getKeywords()) {
-            System.out.print(s + ",");
+        String json = FileUtils.readFileAsString("complex_search.json");
+        SearchResult sr = gs.search(json, 0, -1);
+        for(SearchEntry se: sr.getEntries()) {
+            IndexGoods goods = (IndexGoods)se.getIndexObject();
+            System.out.println(goods.getName());
         }
-    }
+	}
+	
 
 }

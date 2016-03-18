@@ -1,0 +1,31 @@
+{
+  "query": {
+    "term": {
+      "name": "红牛"
+    }
+  },
+  "filter": {
+    "bool": {
+      "must": {
+        "range": {
+          "shop_price": {"lt": 100, "gte":6}
+        }
+      }
+    }
+  },
+  "sort": {
+    "shop_price": {"order": "desc"}
+  },
+  "facets": {
+    "range1": {
+      "range": {
+        "field": "shop_price",
+        "ranges": [
+          {"from": 1, "to": 3},
+          {"from": 3, "to": 10}
+        ]
+      }
+    }
+
+  }
+}

@@ -42,7 +42,7 @@
 		<module>rz-core</module>
 		<module>rz-web</module>
 
-        <module>rz-search</module>
+        <!--<module>rz-search</module>-->
 	</modules>
 
 

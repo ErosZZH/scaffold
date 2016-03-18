@@ -3,6 +3,7 @@ package com.rick.scaffold.search.services.worker;
 import java.util.Collection;
 import java.util.List;
 
+import com.rick.scaffold.search.SearchConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.rick.scaffold.search.services.RZSearchRequest;
@@ -29,10 +30,10 @@ public class DeleteKeywordsImpl implements DeleteObjectWorker {
 
 	@Override
 	public void deleteObject(SearchClient client, String index, String type, Long id) throws Exception {
-		String keywordType = "keyword_" + type;
+		String keywordType = SearchConstants.KEYWORD + "_" + type;
 		if (searchDelegate.indexExist(index)) {
 			String query = new StringBuilder()
-					.append("{\"query\":{\"term\" : {\"_id_\" : \"").append(id)
+					.append("{\"query\":{\"term\" : {\"dbid\" : \"").append(id)
 					.append("\" }}}").toString();
 			RZSearchRequest sr = new RZSearchRequest();
 			sr.setIndex(index);
@@ -41,7 +42,7 @@ public class DeleteKeywordsImpl implements DeleteObjectWorker {
 			RZSearchResponse r = searchDelegate.search(sr);
 			if (r != null) {
 				Collection<String> ids = r.getIds();
-				searchDelegate.bulkDeleteIndex(ids, keywordType, index);
+				searchDelegate.bulkDeleteIndex(index, keywordType, ids);
 			}
 		}
 	}

@@ -32,7 +32,6 @@ import org.elasticsearch.search.facet.geodistance.GeoDistanceFacet;
 import org.elasticsearch.search.facet.histogram.HistogramFacet;
 import org.elasticsearch.search.facet.range.RangeFacet;
 import org.elasticsearch.search.facet.terms.TermsFacet;
-import org.elasticsearch.search.facet.terms.TermsFacet.Entry;
 
 import com.rick.scaffold.search.services.RZEntry;
 import com.rick.scaffold.search.services.RZFacet;
@@ -98,25 +97,39 @@ public class SearchDelegateImpl implements SearchDelegate {
 		client.admin().indices().create(indexRequest).actionGet();
 	}
 
-	@Override
-	public void index(String json, String index, String type, Long id) {
+    @Override
+    public void createType(String mapping, String settings,
+                             String indice, String type) throws Exception {
+        Client client = searchClient.getClient();
+        if (indexExist(indice)) {
+            client.admin().indices().prepareClose(indice).execute().actionGet();
+            client.admin().indices().prepareUpdateSettings(indice).setSettings(settings).execute().actionGet();
+            client.admin().indices().prepareOpen(indice).execute().actionGet();
+            client.admin().indices().preparePutMapping(indice).setType(type).setSource(mapping).execute().actionGet();
+        } else {
+            createIndice(mapping, settings, indice, type);
+        }
+    }
+
+    @Override
+	public void index(String json, String index, String type, String id) {
 		Client client = searchClient.getClient();
-		client.prepareIndex(index, type, id.toString()).setSource(json).execute().actionGet();
+		client.prepareIndex(index, type, id).setSource(json).execute().actionGet();
 	}
 
 	@Override
-	public void delete(String index, String type, Long id)
+	public void delete(String index, String type, String id)
 			throws Exception {
-		if (this.indexExist(index)) {
+		if (this.typeExist(index, type)) {
 			Client client = searchClient.getClient();
-			client.prepareDelete(index, type, id.toString()).execute().actionGet();
+			client.prepareDelete(index, type, id).execute().actionGet();
 		}
 	}
 
 	@Override
-	public void bulkDeleteIndex(Collection<String> ids, String type, String index)
+	public void bulkDeleteIndex(String index, String type, Collection<String> ids)
 			throws Exception {
-		if (this.indexExist(index)) {
+		if (this.typeExist(index, type)) {
 			Client client = searchClient.getClient();
 			if (ids != null && ids.size() > 0) {
 				BulkRequestBuilder bulkRequest = client.prepareBulk();
@@ -127,62 +140,10 @@ public class SearchDelegateImpl implements SearchDelegate {
 				}
 				BulkResponse bulkResponse = bulkRequest.execute().actionGet();
 				if (bulkResponse.hasFailures()) {
-					log.error("ES bulkDeleteIndex response has failures");
+					log.error("ES bulkDeleteIndex response has failures" + bulkResponse.buildFailureMessage());
 				}
 			}
 		}
-	}
-
-	@Override
-	public void bulkIndexKeywords(Collection<RZIndexKeywordRequest> bulks,
-			String index, String type) throws Exception {
-		try {
-			Client client = searchClient.getClient();
-			BulkRequestBuilder bulkRequest = client.prepareBulk();
-			for (RZIndexKeywordRequest bulk : bulks) {
-				XContentBuilder b = jsonBuilder().startObject()
-						.field("keyword", bulk.getKey())
-						.field("_id_", bulk.getId());
-				Collection<RZField> fields = bulk.getFilters();
-				if (fields.size() > 0) {
-					for (RZField field : fields) {
-						if (field instanceof RZBooleanField) {
-							Boolean val = ((RZBooleanField)field).getValue();
-							b.field(field.getName(), val.booleanValue());
-						} else if (field instanceof RZIntegerField) {
-							Integer val = ((RZIntegerField) field).getValue();
-							b.field(field.getName(), val.intValue());
-						} else if (field instanceof RZLongField) {
-							Long val = ((RZLongField) field).getValue();
-							b.field(field.getName(), val.longValue());
-						} else if (field instanceof RZListField) {
-							List<Object> val = ((RZListField) field).getValue();
-							b.field(field.getName(), val);
-						} else if (field instanceof RZDoubleField) {
-							Double val = ((RZDoubleField) field).getValue();
-							b.field(field.getName(), val.doubleValue());
-						} else if (field instanceof RZDateField) {
-							Date val = ((RZDateField) field).getValue();
-							b.field(field.getName(), val);
-						} else {
-							String val = ((RZStringField) field).getValue();
-							b.field(field.getName(), val);
-						}
-					}
-				}
-				b.endObject();
-				bulkRequest.add(client.prepareIndex(index, type)
-						.setSource(b));
-			}
-			BulkResponse bulkResponse = bulkRequest.execute().actionGet();
-			if (bulkResponse.hasFailures()) {
-				log.error("ES bulkIndexKeywords response has failures");
-			}
-		} catch (Exception e) {
-			log.error("ES bulkIndexKeywords failed.", e);
-			throw e;
-		}
-
 	}
 
 	@Override
@@ -204,9 +165,9 @@ public class SearchDelegateImpl implements SearchDelegate {
 		try {
 			SearchRequestBuilder builder = searchClient.getClient()
 					.prepareSearch(request.getIndex())
-					.setSource(request.getJson())
-					.setTypes(request.getType())
-					.setExplain(false);
+                    .setTypes(request.getType())
+                    .setExtraSource(request.getJson())
+                    .setExplain(false);
 			builder.setFrom(request.getStart());
 			
 			if (request.getSize() > -1) {
@@ -225,7 +186,8 @@ public class SearchDelegateImpl implements SearchDelegate {
 				ids.add(sd.getId());
 			}
 			response.setIds(ids);
-			
+
+            //TODO need different kind of Entry and aggregation
 			Facets facets = rsp.getFacets();
 			if (facets != null) {
 				Map<String, RZFacet> facetsMap = new HashMap<String, RZFacet>();
@@ -235,9 +197,8 @@ public class SearchDelegateImpl implements SearchDelegate {
 						RZFacet f = new RZFacet();
 						f.setName(ff.getName());
 						List<RZEntry> entries = new ArrayList<RZEntry>();
-						for (Object o : ff) {
+						for (org.elasticsearch.search.facet.terms.TermsFacet.Entry e : ff) {
 							RZEntry entry = new RZEntry();
-							Entry e = (Entry) o;
 							entry.setName(e.getTerm().string());
 							entry.setCount(e.getCount());
 							entries.add(entry);
@@ -249,25 +210,24 @@ public class SearchDelegateImpl implements SearchDelegate {
 						RZFacet f = new RZFacet();
 						f.setName(ff.getName());
 						List<RZEntry> entries = new ArrayList<RZEntry>();
-						for (Object o : ff) {
+						for (org.elasticsearch.search.facet.range.RangeFacet.Entry
+                        e : ff) {
 							RZEntry entry = new RZEntry();
-							Entry e = (Entry) o;
-							entry.setName(e.getTerm().string());
-							entry.setCount(e.getCount());
-							entries.add(entry);
-						}
-						f.setEntries(entries);
+                            entry.setName(String.valueOf(e.getTotal()));
+							entry.setCount((int)e.getCount());
+                            entries.add(entry);
+                        }
+                        f.setEntries(entries);
 						facetsMap.put(ff.getName(), f);
 					} else if (facet instanceof HistogramFacet) {
 						HistogramFacet ff = (HistogramFacet) facet;
 						RZFacet f = new RZFacet();
 						f.setName(ff.getName());
 						List<RZEntry> entries = new ArrayList<RZEntry>();
-						for (Object o : ff) {
+						for (org.elasticsearch.search.facet.histogram.HistogramFacet.Entry e : ff) {
 							RZEntry entry = new RZEntry();
-							Entry e = (Entry) o;
-							entry.setName(e.getTerm().string());
-							entry.setCount(e.getCount());
+							entry.setName(String.valueOf(e.getTotal()));
+							entry.setCount((int)e.getCount());
 							entries.add(entry);
 						}
 						f.setEntries(entries);
@@ -277,11 +237,10 @@ public class SearchDelegateImpl implements SearchDelegate {
 						RZFacet f = new RZFacet();
 						f.setName(ff.getName());
 						List<RZEntry> entries = new ArrayList<RZEntry>();
-						for (Object o : ff) {
+						for (org.elasticsearch.search.facet.datehistogram.DateHistogramFacet.Entry e : ff) {
 							RZEntry entry = new RZEntry();
-							Entry e = (Entry) o;
-							entry.setName(e.getTerm().string());
-							entry.setCount(e.getCount());
+                            entry.setName(String.valueOf(e.getTotal()));
+                            entry.setCount((int)e.getCount());
 							entries.add(entry);
 						}
 						f.setEntries(entries);
@@ -291,11 +250,10 @@ public class SearchDelegateImpl implements SearchDelegate {
 						RZFacet f = new RZFacet();
 						f.setName(ff.getName());
 						List<RZEntry> entries = new ArrayList<RZEntry>();
-						for (Object o : ff) {
+						for (org.elasticsearch.search.facet.geodistance.GeoDistanceFacet.Entry e : ff) {
 							RZEntry entry = new RZEntry();
-							Entry e = (Entry) o;
-							entry.setName(e.getTerm().string());
-							entry.setCount(e.getCount());
+                            entry.setName(String.valueOf(e.getTotal()));
+                            entry.setCount((int)e.getCount());
 							entries.add(entry);
 						}
 						f.setEntries(entries);
@@ -337,4 +295,29 @@ public class SearchDelegateImpl implements SearchDelegate {
 		}
 		return returnList;
 	}
+
+    @Override
+    public void bulkIndexKeywords(Collection<RZIndexKeywordRequest> bulks,
+                                  String index, String type) throws Exception {
+        try {
+            Client client = searchClient.getClient();
+            BulkRequestBuilder bulkRequest = client.prepareBulk();
+            for (RZIndexKeywordRequest bulk : bulks) {
+                XContentBuilder b = jsonBuilder().startObject()
+                        .field("keyword", bulk.getKey())
+                        .field("dbid", bulk.getId());
+                b.endObject();
+                bulkRequest.add(client.prepareIndex(index, type)
+                        .setSource(b));
+            }
+            BulkResponse bulkResponse = bulkRequest.execute().actionGet();
+            if (bulkResponse.hasFailures()) {
+                log.error("ES bulkIndexKeywords response has failures");
+            }
+        } catch (Exception e) {
+            log.error("ES bulkIndexKeywords failed.", e);
+            throw e;
+        }
+
+    }
 }
