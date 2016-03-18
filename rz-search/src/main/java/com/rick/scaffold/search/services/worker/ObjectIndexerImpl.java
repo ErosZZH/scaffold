@@ -57,9 +57,12 @@ public class ObjectIndexerImpl implements IndexWorker {
 							settingsdata = FileUtils.readFileAsString(settingsFile);
 						}
 						if (!StringUtils.isBlank(config.getTypeName())) {
-							if (!searchDelegate.indexExist(config.getIndiceName())) {
-								searchDelegate.createIndice(metadata, settingsdata, config.getIndiceName(), config.getTypeName());
-							}
+                            if(!searchDelegate.indexExist(config.getIndiceName())) {
+                                searchDelegate.createIndice(metadata, settingsdata, config.getIndiceName(), config.getTypeName());
+                            }
+                            if(!searchDelegate.typeExist(config.getIndiceName(), config.getTypeName())) {
+                                searchDelegate.createType(metadata, settingsdata, config.getIndiceName(), config.getTypeName());
+                            }
 						}
 					} catch (Exception e) {
 						log.error("******************Create index fail*******************", e);
@@ -78,7 +81,7 @@ public class ObjectIndexerImpl implements IndexWorker {
 			if (!init) {
 				init(client);
 			}
-			searchDelegate.index(json, index, type, id);
+			searchDelegate.index(json, index, type, id.toString());
 		} catch (Exception e) {
 			log.error("Exception while indexing a product, maybe a timing ussue for no shards available", e);
 		}

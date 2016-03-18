@@ -18,6 +18,8 @@
 /target/
 /data/
 /bin/
-*.sh~
+*/logs
+deploy.sh
+*~
 zookeeper.out
 dump.rdb

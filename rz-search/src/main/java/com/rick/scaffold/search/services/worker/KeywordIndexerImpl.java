@@ -1,12 +1,9 @@
 package com.rick.scaffold.search.services.worker;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,8 +60,8 @@ public class KeywordIndexerImpl implements IndexWorker {
 				for (CustomIndexConfiguration ic : indexConfigurations) {
 					String key = ic.getOnType();
 					if (indexConfigurationsMap == null) {
-						indexConfigurationsMap = new HashMap<String, CustomIndexConfiguration>();
-					}
+						indexConfigurationsMap = Maps.newHashMap();
+                    }
 					if (StringUtils.isBlank(key)) {
 						log.debug("Require property createOnIndexName in keyword indexer");
 						continue;
@@ -121,66 +118,14 @@ public class KeywordIndexerImpl implements IndexWorker {
 						}// end field type
 					}// end for
 					if (attrs != null && attrs.size() > 0) {
-						Collection<RZIndexKeywordRequest> bulks = new ArrayList<RZIndexKeywordRequest>();
-						Long _id = Long.valueOf(indexData.get("id").toString());
+						Collection<RZIndexKeywordRequest> bulks = Lists.newArrayList();
 						for (String attr : attrs) {
 							RZIndexKeywordRequest kr = new RZIndexKeywordRequest();
 							if (StringUtils.isBlank(attr)) {
 								continue;
 							}
-							kr.setId(_id);
+							kr.setId(id);
 							kr.setKey(attr);
-							if (conf.getFilters() != null && conf.getFilters().size() > 0) {
-								for (CustomIndexFieldConfiguration filter : conf.getFilters()) {
-									String fieldName = filter.getFieldName();
-									String fieldType = filter.getFieldType();
-									RZField f = null;
-									if (fieldType.equals("List")) {
-										List<Object> ooo = (List<Object>) indexData.get(fieldName);
-										f = new RZListField();
-										f.setValue(ooo);
-										f.setName(fieldName);
-										kr.getFilters().add(f);
-									} else if (fieldType.equals("Boolean")) {
-										String s = (String) indexData.get(fieldName);
-										Boolean ooo = new Boolean(s);
-										f = new RZBooleanField();
-										f.setValue(ooo);
-										f.setName(fieldName);
-										kr.getFilters().add(f);
-									} else if (fieldType.equals("Integer")) {
-										Integer ooo = (Integer) indexData.get(fieldName);
-										f = new RZIntegerField();
-										f.setValue(ooo);
-										f.setName(fieldName);
-										kr.getFilters().add(f);
-									} else if (fieldType.equals("Long")) {
-										Long ooo = (Long) indexData.get(fieldName);
-										f = new RZLongField();
-										f.setValue(ooo);
-										f.setName(fieldName);
-										kr.getFilters().add(f);
-									} else if (fieldType.equals("Double")) {
-										Double ooo = (Double) indexData.get(fieldName);
-										f = new RZDoubleField();
-										f.setValue(ooo);
-										f.setName(fieldName);
-										kr.getFilters().add(f);
-									} else if (fieldType.equals("Date")) {
-										Date dt = (Date) indexData.get(fieldName);
-										f = new RZDoubleField();
-										f.setValue(dt);
-										f.setName(fieldName);
-										kr.getFilters().add(f);
-									} else {
-										String ooo = (String) indexData.get(fieldName);
-										f = new RZStringField();
-										f.setValue(ooo.toLowerCase());
-										f.setName(fieldName);
-										kr.getFilters().add(f);
-									}
-								}
-							}
 							bulks.add(kr);
 						}
 						// delete previous keywords for the same id

@@ -46,6 +46,20 @@
 		<typeAlias alias="FullUser" type="com.rick.scaffold.core.entity.user.FullUser" />
 		
 		<typeAlias alias="Product" type="com.rick.scaffold.core.entity.product.Product" />
+
+
+        <typeAlias alias="Region" type="com.rick.scaffold.core.entity.address.Region" />
+        <typeAlias alias="Address" type="com.rick.scaffold.core.entity.address.Address" />
+        <typeAlias alias="Admin" type="com.rick.scaffold.core.entity.admin.Admin" />
+        <typeAlias alias="Shop" type="com.rick.scaffold.core.entity.shop.Shop" />
+        <typeAlias alias="Users" type="com.rick.scaffold.core.entity.user.Users" />
+        <typeAlias alias="Cart" type="com.rick.scaffold.core.entity.cart.Cart" />
+        <typeAlias alias="CartItem" type="com.rick.scaffold.core.entity.cart.CartItem" />
+        <typeAlias alias="Goods" type="com.rick.scaffold.core.entity.goods.Goods" />
+        <typeAlias alias="GoodsGallery" type="com.rick.scaffold.core.entity.goods.GoodsGallery" />
+        <typeAlias alias="Category" type="com.rick.scaffold.core.entity.goods.Category" />
+        <typeAlias alias="Order" type="com.rick.scaffold.core.entity.order.Order" />
+        <typeAlias alias="OrderItem" type="com.rick.scaffold.core.entity.order.OrderItem" />
 	</typeAliases>
 	
 	<plugins>

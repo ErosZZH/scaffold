@@ -2,7 +2,9 @@ package com.rick.scaffold.search.services;
 
 import javax.annotation.PostConstruct;
 
+import com.rick.scaffold.search.SearchConstants;
 import org.apache.log4j.Logger;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.rick.scaffold.search.services.worker.KeywordIndexerImpl;
@@ -76,8 +78,9 @@ public class RZSearchService {
 		indexWorkflow.index(jsonObj, index, type);
 	}
 
-	public RZSearchResponse searchAutoComplete(String index, String json, String type,
+	public RZSearchResponse searchAutoComplete(String index, String type, String keyword,
 			int size) throws Exception {
+        String json = QueryBuilders.termQuery(SearchConstants.KEYWORD, keyword).toString();
 		return searchWorkflow.searchAutoComplete(index, json, type, size);
 	}
 

@@ -17,7 +17,7 @@ public abstract class DataEntity<T> extends BaseEntity<T> {
 	protected Date createDate;	// 创建日期
 	
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	protected Date updateDate;	// 更新日期
+	protected Date modifyDate;	// 更新日期
 	
 	@JsonIgnore
 	protected Boolean delFlag = false; 	// 删除标记（false：正常；true：删除；）
@@ -36,15 +36,15 @@ public abstract class DataEntity<T> extends BaseEntity<T> {
 	@Override
 	public void preInsert(){
 		super.preInsert();
-		this.updateDate = new Date();
-		this.createDate = this.updateDate;
+		this.modifyDate = new Date();
+		this.createDate = this.modifyDate;
 	}
 	
 	/**
 	 * 更新之前执行方法，需要手动调用
 	 */
 	public void preUpdate(){
-		this.updateDate = new Date();
+		this.modifyDate = new Date();
 	}
 
 	public Date getCreateDate() {
@@ -55,22 +55,12 @@ public abstract class DataEntity<T> extends BaseEntity<T> {
 		this.createDate = createDate;
 	}
 
-	public Date getUpdateDate() {
-		return updateDate;
+	public Date getModifyDate() {
+		return modifyDate;
 	}
 
-	public void setUpdateDate(Date updateDate) {
-		this.updateDate = updateDate;
+	public void setModifyDate(Date modifyDate) {
+		this.modifyDate = modifyDate;
 	}
-
-	public Boolean getDelFlag() {
-		return delFlag;
-	}
-
-	public void setDelFlag(Boolean delFlag) {
-		this.delFlag = delFlag;
-	}
-
-	
 
 }

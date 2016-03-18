@@ -12,6 +12,7 @@ public class SearchWorkerImpl implements SearchWorker {
 	@Autowired
 	private SearchDelegate searchDelegate;
 
+    @Override
 	public RZSearchResponse execute(SearchClient client, RZSearchRequest request) throws Exception {
 		RZSearchResponse response = searchDelegate.search(request);
 		response.setInputSearchJson(request.getJson());

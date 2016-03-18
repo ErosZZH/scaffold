@@ -16,11 +16,13 @@ public interface SearchDelegate {
 
 	void createIndice(String mappingJson, String settingsJson, String indice, String type) throws Exception;
 
-	void index(String json, String index, String type, Long id);
+    void createType(String mappingJson, String settingsJson, String indice, String type) throws Exception;
 
-	void delete(String index, String type, Long id) throws Exception;
+	void index(String json, String index, String type, String id);
 
-	void bulkDeleteIndex(Collection<String> ids, String type, String index) throws Exception;
+	void delete(String index, String type, String id) throws Exception;
+
+	void bulkDeleteIndex(String index, String type, Collection<String> ids) throws Exception;
 
 	void bulkIndexKeywords(Collection<RZIndexKeywordRequest> bulks, String index, String type) throws Exception;
 

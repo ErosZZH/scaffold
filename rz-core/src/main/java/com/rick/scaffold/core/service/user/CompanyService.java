@@ -9,7 +9,6 @@ import com.rick.scaffold.core.entity.user.Company;
 import com.rick.scaffold.core.service.generic.BaseService;
 
 @Service
-@Transactional(readOnly = true)
 public class CompanyService extends BaseService<CompanyDao, Company> {
 	
 	@Autowired

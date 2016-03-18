@@ -3,6 +3,7 @@ package com.rick.scaffold.search.services;
 import java.util.List;
 import java.util.Map;
 
+import com.rick.scaffold.common.jsontool.JsonMapper;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.index.get.GetField;
 
@@ -15,7 +16,7 @@ public class RZGetResponse {
 	}
 
 	public String getResponseAsString() {
-		return response.toString();
+		return JsonMapper.toJsonString(this.getFields());
 	}
 
 	public Map<String, Object> getFields() {

@@ -174,7 +174,7 @@
 						<configuration>
 							<type>jar</type>
 							<includeTypes>jar</includeTypes>
-							<useUniqueVersions>false</useUniqueVersions>
+							<!--<useUniqueVersions>false</useUniqueVersions>-->
 							<outputDirectory>
 								${project.build.directory}/lib
 							</outputDirectory>

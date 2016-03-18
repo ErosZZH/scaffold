@@ -9,7 +9,6 @@ import com.rick.scaffold.core.entity.user.Photo;
 import com.rick.scaffold.core.service.generic.BaseService;
 
 @Service
-@Transactional(readOnly = true)
 public class PhotoService extends BaseService<PhotoDao, Photo> {
 	
 	@Autowired

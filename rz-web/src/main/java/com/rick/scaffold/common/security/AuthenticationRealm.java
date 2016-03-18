@@ -1,11 +1,7 @@
 package com.rick.scaffold.common.security;
 
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.List;
-
-import javax.annotation.PostConstruct;
-
+import com.rick.scaffold.core.entity.user.Users;
+import com.rick.scaffold.core.service.user.UsersService;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
@@ -20,15 +16,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.rick.scaffold.core.entity.user.User;
-import com.rick.scaffold.core.service.user.UserService;
+import javax.annotation.PostConstruct;
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
 
 public class AuthenticationRealm extends AuthorizingRealm {
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Autowired
-	private UserService userService;
+	private UsersService usersService;
 
 	/**
 	 * 认证回调函数, 登录时调用
@@ -38,7 +36,7 @@ public class AuthenticationRealm extends AuthorizingRealm {
 		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
 		String loginname = token.getUsername();
 		logger.debug("login name is: " + loginname);
-		User user = userService.findByName(loginname);
+		Users user = usersService.findByName(loginname);
 		return new SimpleAuthenticationInfo(new Principal(user), user.getPassword(), getName());
 	}
 	
@@ -107,9 +105,9 @@ public class AuthenticationRealm extends AuthorizingRealm {
 		private Long id; // 编号
 		private String name; // 姓名
 		
-		public Principal(User user) {
+		public Principal(Users user) {
 			this.id = user.getId();
-			this.name = user.getName();
+			this.name = user.getUsername();
 		}
 
 		public Long getId() {
