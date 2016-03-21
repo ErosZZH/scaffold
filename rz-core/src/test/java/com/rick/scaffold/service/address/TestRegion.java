@@ -2,6 +2,7 @@ package com.rick.scaffold.service.address;
 
 import com.rick.scaffold.base.BaseTest;
 import com.rick.scaffold.common.jsontool.JsonMapper;
+import com.rick.scaffold.common.utils.ImageUtils;
 import com.rick.scaffold.core.entity.address.Region;
 import com.rick.scaffold.core.service.address.RegionService;
 import net.mikesu.fastdfs.FastdfsClient;
@@ -40,5 +41,10 @@ public class TestRegion extends BaseTest {
         String fileId = fastdfsClient.upload(file);
         System.out.println("fileId:"+fileId);
         assertNotNull(fileId);
+    }
+
+    @Test
+    public void testImageResize() throws Exception {
+        ImageUtils.resetSize("/Users/user/Desktop/IMG_0322.JPG", "/Users/user/Desktop/1.JPG");
     }
 }
