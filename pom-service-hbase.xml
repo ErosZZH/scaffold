@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.rick</groupId>
+	<artifactId>scaffold</artifactId>
+	<version>1.1.0</version>
+	<packaging>pom</packaging>
+
+	<name>scaffold</name>
+	<url>http://www.rick.com</url>
+	<inceptionYear>2015-2020</inceptionYear>
+
+	<properties>
+		<spring.version>4.1.7.RELEASE</spring.version>
+		<jackson.version>2.4.0</jackson.version>
+
+		<jdk.version>1.7</jdk.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+
+	<modules>
+		<module>rz-common</module>
+		<module>rz-hbase</module>
+	</modules>
+
+
+	<!-- 开发者信息 -->
+	<developers>
+		<developer>
+			<id>com.yzlpie</id>
+			<name>Rick</name>
+			<email>rickatyzlpie.com</email>
+			<roles>
+				<role>Code Farmer</role>
+			</roles>
+			<timezone>+8</timezone>
+		</developer>
+	</developers>
+
+</project>

@@ -118,6 +118,6 @@
 	</bean>
 	
 	<!-- ES -->
-	<import resource="classpath:test-spring-search-soa.xml" /> 
+	<import resource="classpath:test-spring-soa.xml" />
 	
 </beans>

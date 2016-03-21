@@ -8,11 +8,13 @@
 	default-lazy-init="true">
 	
 	<!-- 消费方应用名，用于计算依赖关系，不是匹配条件，不要与提供方一样 -->  
-    <dubbo:application name="consumer-of-rz-search"/>  
+    <dubbo:application name="consumer"/>
     
     <dubbo:registry protocol="zookeeper" address="${zoo.address}" client="zkclient"/>  
     
-    <!-- 生成远程服务代理，可以和本地bean一样使用demoService -->  
+    <!-- 生成远程服务代理，可以和本地bean一样使用demoService -->
     <dubbo:reference id="goodsSearch" interface="com.rick.scaffold.soa.search.service.GoodsSearch" />
+
+    <dubbo:reference id="goodsHbase" interface="com.rick.scaffold.soa.hbase.service.GoodsHbase" />
 	
 </beans>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<!-- Appenders -->
+	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{HH:mm:ss.SSS} %-5p [%t][%c] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="SCAFFOLD-HBASE" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="./logs/scaffold-hbase/scaffold-hbase.log" />
+		<param name="DatePattern" value="'daily.'yyyy-MM-dd'.log'" />     
+        <layout class="org.apache.log4j.PatternLayout">     
+			<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss\} %-5p] [%t] (%c:%L) - %m%n" />     
+        </layout>     
+    </appender>   
+    
+    <appender name="dubboAppender" class="org.apache.log4j.DailyRollingFileAppender">   
+        <param name="File" value="./logs/scaffold-hbase/dubbo.log" />
+        <param name="DatePattern" value="'daily.'yyyy-MM-dd'.log'" />     
+        <layout class="org.apache.log4j.PatternLayout">     
+			<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss\} %-5p] [%t] (%c:%L) - %m%n" />     
+        </layout> 
+	</appender> 
+
+	<appender name="springAppender" class="org.apache.log4j.DailyRollingFileAppender">   
+        <param name="File" value="./logs/scaffold-hbase/spring.log" />
+        <param name="DatePattern" value="'daily.'yyyy-MM-dd'.log'" />     
+        <layout class="org.apache.log4j.PatternLayout">     
+			<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss\} %-5p] [%t] (%c:%L) - %m%n" />     
+        </layout> 
+	</appender> 
+
+	<!-- Loggers -->
+	<logger name="org.springframework">
+		<level value="error" />
+		<appender-ref ref="springAppender" />
+	</logger>
+	
+	<logger name="com.alibaba.dubbo" additivity="false">   
+        <level value ="error"/>    
+        <appender-ref ref="dubboAppender" />    
+	</logger>
+
+	<!-- Root Logger -->
+	<root>
+		<priority value="error" />
+		<appender-ref ref="SCAFFOLD-HBASE" />
+		<appender-ref ref="CONSOLE" />
+	</root>
+
+</log4j:configuration>

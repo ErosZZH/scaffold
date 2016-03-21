@@ -8,7 +8,7 @@
 	<description>Spring Web</description>
 	
 	<!-- spring-soa -->
-	<import resource="classpath:config/spring/spring-search-soa.xml" />
+	<import resource="classpath:config/spring/spring-soa.xml" />
 	
 	<!-- spring-core -->
 	<import resource="classpath:config/spring/spring-core.xml" />

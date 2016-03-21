@@ -36,6 +36,17 @@ public class Goods extends DataEntity<Goods> {
 
     private String specification;
 
+    //stored in hbase
+    private String description;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public String getSpecification() {
         return specification;
     }
