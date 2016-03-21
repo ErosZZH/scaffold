@@ -116,6 +116,10 @@
 		<constructor-arg index="1" value="${redis.host}"  type="String"/>
 		<constructor-arg index="2" value="${redis.port}" type="int" />
 	</bean>
+
+    <bean id="fastdfsFactory" class="net.mikesu.fastdfs.FastdfsClientFactory">
+        <constructor-arg name="configFile" value="config/props/fastdfs.properties" />
+    </bean>
 	
 	<!-- ES -->
 	<import resource="classpath:test-spring-soa.xml" />

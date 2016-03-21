@@ -64,8 +64,14 @@
 		<mvc:interceptor>
         	<mvc:mapping path="/api/**"/>
         	<mvc:exclude-mapping path="/api/v1/product/*"/>
+            <mvc:exclude-mapping path="/api/v1/image/*"/>
         	<bean class="com.rick.scaffold.common.security.AuthenticationInterceptor" />
     	</mvc:interceptor>
-	</mvc:interceptors>  
+	</mvc:interceptors>
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="10000000"/>
+        <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
 
 </beans>

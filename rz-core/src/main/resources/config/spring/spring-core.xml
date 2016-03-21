@@ -20,6 +20,10 @@
     <context:component-scan base-package="com.rick.scaffold">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
+
+    <bean id="fastdfsFactory" class="net.mikesu.fastdfs.FastdfsClientFactory">
+        <constructor-arg name="configFile" value="config/props/fastdfs.properties" />
+    </bean>
 	
 	<!-- DB 连接 -->
 	<import resource="classpath:config/spring/spring-jdbc.xml" />
