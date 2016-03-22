@@ -1,4 +1,4 @@
-package com.rick.scaffold.common.utils;
+package com.rick.scaffold.utils;
 
 import org.im4java.core.ConvertCmd;
 import org.im4java.core.IMOperation;

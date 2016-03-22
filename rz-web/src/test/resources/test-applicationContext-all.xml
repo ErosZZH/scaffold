@@ -120,6 +120,11 @@
     <bean id="fastdfsFactory" class="net.mikesu.fastdfs.FastdfsClientFactory">
         <constructor-arg name="configFile" value="config/props/fastdfs.properties" />
     </bean>
+    
+    <bean id="topicSender" class="com.rick.scaffold.common.message.TopicSender">
+        <constructor-arg name="broker_url" value="${msg.brokerUrl}" />
+        <constructor-arg name="destination" value="${msg.destination}" />
+    </bean>
 	
 	<!-- ES -->
 	<import resource="classpath:test-spring-soa.xml" />
